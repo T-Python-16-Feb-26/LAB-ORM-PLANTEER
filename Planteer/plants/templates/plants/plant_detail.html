@@ -1,0 +1,106 @@
+{% extends 'main/base.html' %}
+{% load static %}
+
+{% block title %} {{ plant.name_plant }} Details {% endblock %}
+
+{% block content %}
+
+<h2><b>Details of {{ plant.name_plant }}</b></h2>
+
+
+<div class="row g-3">
+
+    <div class="col-md-6">
+        {% if plant.image %}
+            <img src="{{ plant.image.url }}" class="w-100 rounded">
+        {% endif %}
+    </div>
+
+    <div class="col-md-6">
+        <h3 class="mb-2">{{ plant.name_plant }}</h3>
+        <h6 class="text-muted mb-3">{{ plant.get_category_display }}</h6>
+
+        <p> {{ plant.about }}</p>
+        <p><strong>Edible:</strong> {{ plant.is_edible|yesno:"Yes, No" }}</p>
+        <p><strong>Used for:</strong> {{ plant.used_for }}</p>
+
+        <small class="text-muted">{{ plant.created_at }}</small>
+
+        <div class="d-flex gap-2 mt-4">
+                <a href="{% url 'plants:plant_update_view' plant.id %}" class="btn btn-success ">
+                    Update
+                </a>
+
+                <button class="btn btn-danger "
+                        data-bs-toggle="modal"
+                        data-bs-target="#deleteModal{{ plant.id }}">
+                    Delete
+                </button>
+            </div>
+    </div>
+
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="deleteModal{{ plant.id }}" tabindex="-1">
+  <div class="modal-dialog">
+    <div class="modal-content">
+
+      <div class="modal-header">
+        <h5 class="modal-title">Delete Plant</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+
+      <div class="modal-body">
+        <p>Are you sure you want to delete <strong>{{ plant.name_plant }}</strong>?</p>
+      </div>
+
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+
+        <a href="{% url 'plants:plant_delete_view' plant.id %}" class="btn btn-danger">
+            Delete
+        </a>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<h3 class="mt-5">Related Plants</h3>
+
+{% if related_plants %}
+<div class="related-scroll d-flex gap-3">
+
+  {% for related in related_plants %}
+
+      <div class="card h-100">
+        <div class="row g-0">
+          <div class="col-md-4">
+              <img src="{{ related.image.url }}" class="plant-img">
+          </div>
+          <div class="col-md-8">
+            <div class="card-body">
+              <h5 class="card-title">{{ related.name_plant }}</h5>
+              <p class="card-text">{{ related.category }}</p>
+              <p class="card-text">
+                <small class="text-body-secondary">{{ related.created_at }}</small>
+              </p>
+              <a href="{% url 'plants:plant_detail_view' related.id %}" class="btn btn-main">
+                Read More
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+  
+
+  {% endfor %}
+
+</div>  
+
+{% else %}
+<p>No related plants found</p>
+{% endif %}
+
+{% endblock %}
