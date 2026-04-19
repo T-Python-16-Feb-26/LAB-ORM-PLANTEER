@@ -1,0 +1,57 @@
+{%extends 'main/base.html'%}
+{% load static %}
+
+{% block title %}Flora Home Page{%endblock%}
+
+{% block header-content %}
+<div class="header-main">
+    <video autoplay muted loop playsinline class="bg-video">
+    <source src="{% static 'video/header-video.mp4'%}" type="video/mp4">
+</video>
+
+
+<div class="hero-content">
+    <h2>Planteer</h2>
+    <h3>Plant Database For Plants Lovers</h3>
+
+    <form class="d-flex" role="search">
+        <input class="form-control me-2" type="search" placeholder="Search"/>
+        <button class="btn btn-outline-success" type="submit">Search</button>
+    </form>
+</div>
+</div>
+{% endblock %}
+
+{% block content %}
+
+<div class="main-content">
+    <div class="more-main">
+    <h3>Plants</h3>
+    <h6>More <span class="material-symbols-outlined">arrow_right_alt</span></h6>
+    </div>
+    <p>Learn more about plants</p>
+
+    <!--card-->
+    {%for plant in plants%}
+    <div class="card mb-3" style="max-width: 540px;">
+  <div class="row g-0">
+    <div class="col-md-4">
+        <img src="{{ plant.image.url }}" class="w-100" 
+            style="aspect-ratio: 1/1; object-fit: cover;">
+    </div>
+    <div class="col-md-8">
+      <div class="card-body">
+        <h5 class="card-title"> {{plant.name_plant}}</h5>
+        <p class="card-text">{{plant.used_for}}</p>
+        <p class="card-text"><small class="text-body-secondary">{{plant.created_at}}</small></p>
+      </div>
+    </div>
+  </div>
+</div>
+{%endfor%}
+
+</div>
+
+
+
+{% endblock %}
