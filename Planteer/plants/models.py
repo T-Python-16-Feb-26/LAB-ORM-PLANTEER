@@ -25,3 +25,6 @@ class Comment(models.Model):
     name=models.CharField(max_length=100)
     comment=models.TextField()
     created_at_comment=models.DateTimeField(auto_now_add=True)
+
+    def __str__(self) -> str:
+        return f"{self.name} on {self.plant.name_plant}"
