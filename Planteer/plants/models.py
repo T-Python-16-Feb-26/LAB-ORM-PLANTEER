@@ -11,7 +11,6 @@ class Plant(models.Model):
         FRUIT = 'Fruit', 'Fruit'
         HERB = 'Herb', 'Herb'
 
-
     name_plant= models.CharField(max_length=1000)
     used_for=models.TextField()
     about= models.TextField()
@@ -19,3 +18,10 @@ class Plant(models.Model):
     is_edible= models.BooleanField()
     created_at=models.DateTimeField(auto_now_add=True)
     image = models.ImageField(upload_to='image/' , default="media/image/default.jpg")
+
+class Comment(models.Model):
+
+    plant=models.ForeignKey(Plant, on_delete=models.CASCADE)
+    name=models.CharField(max_length=100)
+    comment=models.TextField()
+    created_at_comment=models.DateTimeField(auto_now_add=True)
