@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% block title %}Delete {{ plant.name }}{% endblock %}
+
+{% block content %}
+<section class="section">
+    <div class="container">
+        <div class="confirm-box">
+            <h1>Delete Plant</h1>
+            <p>Are you sure you want to delete <strong>"{{ plant.name }}"</strong>?</p>
+            <p class="confirm-warning">This action cannot be undone.</p>
+
+            <div class="confirm-plant">
+                <img src="{{ plant.get_image }}" alt="{{ plant.name }}" class="confirm-img">
+                <div>
+                    <h3>{{ plant.name }}</h3>
+                    <p>{{ plant.category.name }}</p>
+                </div>
+            </div>
+
+            <form method="POST" class="confirm-actions">
+                {% csrf_token %}
+                <button type="submit" class="btn btn-danger">Yes, Delete</button>
+                <a href="{% url 'plants:plant_detail' plant.pk %}" class="btn btn-outline">Cancel</a>
+            </form>
+        </div>
+    </div>
+</section>
+{% endblock %}

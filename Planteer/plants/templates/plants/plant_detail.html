@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ plant.name }}{% endblock %}
+
+{% block content %}
+<section class="section">
+    <div class="container">
+        <div class="detail-layout">
+            <div class="detail-image">
+                <img src="{{ plant.get_image }}" alt="{{ plant.name }}">
+            </div>
+            <div class="detail-info">
+                <h1 class="detail-title">{{ plant.name }}</h1>
+                <p class="detail-category">{{ plant.category.name }}</p>
+                <p class="detail-desc">{{ plant.description }}</p>
+
+                <div class="detail-specs">
+                    <p><strong>Is Edible:</strong> {% if plant.is_edible %}Yes{% else %}No{% endif %}</p>
+                    {% if plant.scientific_name %}
+                    <p><strong>Scientific:</strong> {{ plant.scientific_name }}</p>
+                    {% endif %}
+                </div>
+
+                <div class="detail-actions">
+                    <a href="{% url 'plants:update_plant' plant.pk %}" class="btn btn-dark">Edit</a>
+                    <a href="{% url 'plants:delete_plant' plant.pk %}" class="btn btn-danger">Delete</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Related Plants -->
+{% if related_plants %}
+<section class="section section-gray">
+    <div class="container">
+        <h2 class="section-title">Related Plants</h2>
+        <div class="plants-grid">
+            {% for rp in related_plants %}
+            <a href="{% url 'plants:plant_detail' rp.pk %}" class="plant-card">
+                <div class="plant-card-img">
+                    <img src="{{ rp.get_image }}" alt="{{ rp.name }}">
+                </div>
+                <div class="plant-card-body">
+                    <h3 class="plant-card-title">{{ rp.name }}</h3>
+                    <p class="plant-card-desc">{{ rp.description|truncatewords:8 }}</p>
+                    <p class="plant-card-category">{{ rp.category.name }}</p>
+                </div>
+            </a>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+{% endif %}
+{% endblock %}
