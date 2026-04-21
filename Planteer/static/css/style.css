@@ -325,7 +325,107 @@ button { cursor: pointer; font-family: inherit; }
     gap: 12px;
 }
 
-/* ===== FORMS ===== */
+/* ===== REVIEWS ===== */
+.reviews-title {
+    font-size: 1.2rem;
+    font-weight: 600;
+    margin: 28px 0 14px;
+    color: #1a1a1a;
+    border-bottom: 2px solid #e8e8e8;
+    padding-bottom: 8px;
+}
+
+.review-form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 24px;
+}
+
+.review-textarea {
+    width: 100%;
+    padding: 10px 14px;
+    border: 1px solid #d0d0d0;
+    border-radius: 8px;
+    font-size: 0.9rem;
+    font-family: inherit;
+    color: #1a1a1a;
+    resize: vertical;
+    transition: border-color 0.2s;
+}
+
+.review-textarea:focus {
+    outline: none;
+    border-color: #1a1a1a;
+}
+
+.review-select {
+    width: 100%;
+    padding: 10px 14px;
+    border: 1px solid #d0d0d0;
+    border-radius: 8px;
+    font-size: 0.9rem;
+    font-family: inherit;
+    color: #1a1a1a;
+    background: #fff;
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='%23333' viewBox='0 0 16 16'%3E%3Cpath d='M8 11L3 6h10z'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 12px center;
+    padding-right: 36px;
+    cursor: pointer;
+    transition: border-color 0.2s;
+}
+
+.review-select:focus {
+    outline: none;
+    border-color: #1a1a1a;
+}
+
+.reviews-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-top: 8px;
+}
+
+.review-item {
+    background: #f9f9f9;
+    border: 1px solid #ebebeb;
+    border-radius: 10px;
+    padding: 14px 16px;
+}
+
+.review-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 8px;
+}
+
+.review-stars {
+    font-size: 1.1rem;
+    color: #f5a623;
+    letter-spacing: 2px;
+}
+
+.review-date {
+    font-size: 0.78rem;
+    color: #888;
+}
+
+.review-text {
+    font-size: 0.9rem;
+    color: #444;
+    margin: 0;
+    line-height: 1.5;
+}
+
+.no-reviews {
+    color: #999;
+    font-size: 0.9rem;
+    font-style: italic;
+}
 .form-container {
     max-width: 680px;
 }

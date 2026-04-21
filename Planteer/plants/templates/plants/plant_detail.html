@@ -25,6 +25,37 @@
                     <a href="{% url 'plants:update_plant' plant.pk %}" class="btn btn-dark">Edit</a>
                     <a href="{% url 'plants:delete_plant' plant.pk %}" class="btn btn-danger">Delete</a>
                 </div>
+
+                <h2 class="reviews-title">Reviews</h2>
+                <form method="POST" action="{% url 'plants:add_review' plant.pk %}" class="review-form">
+                    {% csrf_token %}
+                    <textarea name="review_text" placeholder="Write your review..." class="review-textarea" rows="3" required></textarea>
+                    <select name="rating" class="review-select" required>
+                        <option value="">Select Rating</option>
+                        <option value="1">1 - Poor</option>
+                        <option value="2">2 - Fair</option>
+                        <option value="3">3 - Good</option>
+                        <option value="4">4 - Very Good</option>
+                        <option value="5">5 - Excellent</option>
+                    </select>
+                    <button type="submit" class="btn btn-primary">Submit Review</button>
+                </form>
+
+                <div class="reviews-list">
+                    {% for review in reviews %}
+                    <div class="review-item">
+                        <div class="review-header">
+                            <span class="review-stars">{% for i in "12345" %}{% if forloop.counter <= review.rating %}★{% else %}☆{% endif %}{% endfor %}</span>
+                            <span class="review-date">{{ review.created|date:"N j, Y" }}</span>
+                        </div>
+                        {% if review.comment %}
+                        <p class="review-text">{{ review.comment }}</p>
+                        {% endif %}
+                    </div>
+                    {% empty %}
+                    <p class="no-reviews">No reviews yet. Be the first to review this plant!</p>
+                    {% endfor %}
+                </div>
             </div>
         </div>
     </div>

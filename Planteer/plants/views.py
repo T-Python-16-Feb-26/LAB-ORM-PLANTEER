@@ -1,7 +1,7 @@
 from django.shortcuts import render, get_object_or_404, redirect
-from django.http import HttpRequest, HttpResponse
+from django.http import HttpRequest
 from django.contrib import messages
-from .models import Plant, Category
+from .models import Plant, Category, Review
 from .forms import PlantForm, PlantFilterForm
 
 
@@ -26,11 +26,13 @@ def all_plants(request: HttpRequest):
 
 def plant_detail(request: HttpRequest, plant_id):
     plant = get_object_or_404(Plant, pk=plant_id)
+    reviews = Review.objects.filter(plant=plant).order_by('-created')
     related_plants = plant.get_related_plants()
 
     return render(request, 'plants/plant_detail.html', {
         'plant': plant,
         'related_plants': related_plants,
+        'reviews': reviews,
     })
 
 
@@ -40,7 +42,7 @@ def add_plant(request: HttpRequest):
         if form.is_valid():
             form.save()
             messages.success(request, 'Plant added successfully!')
-            return redirect('main:home')
+            return redirect('plants:all_plants')
     else:
         form = PlantForm()
 
@@ -56,7 +58,8 @@ def update_plant(request: HttpRequest, plant_id):
     if request.method == 'POST':
         form = PlantForm(request.POST, request.FILES, instance=plant)
         if form.is_valid():
-            plant = form.save()
+            form.save()
+            messages.success(request, 'Plant updated successfully!')
             return redirect('plants:plant_detail', plant_id=plant.pk)
     else:
         form = PlantForm(instance=plant)
@@ -84,10 +87,7 @@ def search_plants(request: HttpRequest):
     searched = bool(request.GET)
 
     if query:
-        plants = Plant.objects.filter(name__icontains=query) | \
-                 Plant.objects.filter(scientific_name__icontains=query) | \
-                 Plant.objects.filter(description__icontains=query)
-        plants = plants.distinct()
+        plants = Plant.objects.filter(name__icontains=query) | Plant.objects.filter(description__icontains=query)
 
     return render(request, 'plants/search.html', {
         'plants': plants,
@@ -95,3 +95,17 @@ def search_plants(request: HttpRequest):
         'searched': searched,
         'result_count': plants.count(),
     })
+
+
+def add_review(request: HttpRequest, plant_id):
+    plant = get_object_or_404(Plant, pk=plant_id)
+
+    if request.method == 'POST':
+        rating = request.POST.get('rating')
+        comment = request.POST.get('review_text', '')
+
+        if rating:
+            Review.objects.create(plant=plant, rating=rating, comment=comment)
+            messages.success(request, 'Review added successfully!')
+
+    return redirect('plants:plant_detail', plant_id=plant.pk)

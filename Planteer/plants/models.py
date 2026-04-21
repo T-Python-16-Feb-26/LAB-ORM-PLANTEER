@@ -36,3 +36,17 @@ class Plant(models.Model):
 
     def get_related_plants(self):
         return Plant.objects.filter(category=self.category).exclude(pk=self.pk)[:4]
+    
+
+
+class Review(models.Model):
+    plant = models.ForeignKey(Plant, on_delete=models.CASCADE, related_name='reviews')
+    rating = models.PositiveIntegerField()
+    comment = models.TextField(blank=True)
+    created = models.DateTimeField(auto_now_add=True)
+
+
+    class Meta:
+        ordering = ['-created']
+    def __str__(self):
+        return f"Review for {self.plant.name} - {self.rating} Stars"
