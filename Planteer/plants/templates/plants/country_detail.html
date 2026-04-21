@@ -1,0 +1,23 @@
+{% extends 'main/base.html' %}
+
+{% block content %}
+
+<div class="mb-4 d-flex align-items-center gap-2">
+    {% if country.flag %}
+        <img src="{{ country.flag.url }}" width="35">
+    {% endif %}
+
+    <h2 class="m-0">
+        Plants in {{ country.name }} ({{ plants.count }})
+    </h2>
+</div>
+
+<div class="row g-4">
+    {% for plant in plants %}
+        {% include 'components/plant_list.html' %}
+    {% empty %}
+        <h6 class="text-muted">No plants found </h6>
+    {% endfor %}
+</div>
+
+{% endblock %}

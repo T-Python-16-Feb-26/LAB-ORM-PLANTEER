@@ -7,12 +7,14 @@ from .models import Plant, Comment
 from django.shortcuts import render, redirect
 from django.http import HttpRequest
 from .forms import PlantForm
-from .models import Plant
+from .models import Plant,Country
 
 
 def add_plant_view(request: HttpRequest):
 
     plant_form = PlantForm()
+
+    countries=Country.objects.all()
 
     if request.method == "POST":
         plant_form = PlantForm(request.POST, request.FILES)
@@ -25,7 +27,8 @@ def add_plant_view(request: HttpRequest):
 
     return render(request, "plants/add_plant.html", {
         "plant_form": plant_form,
-        "CategoryChoices": Plant.CategoryChoices.choices
+        "CategoryChoices": Plant.CategoryChoices.choices,
+        "countries":countries,
     })
 
 
@@ -46,13 +49,14 @@ def plant_detail_view(request: HttpRequest, plant_id):
 def plant_update_view(request: HttpRequest, plant_id):
 
     plant = Plant.objects.get(pk=plant_id)
+    countries=Country.objects.all()
 
     if request.method == "POST":
         plant_form = PlantForm(request.POST, request.FILES, instance=plant)
 
         if plant_form.is_valid():
             plant_form.save()
-            return redirect('plants:plant_detail_view', plant_id=plant.id)
+            return redirect('plants:plant_detail_view', plant_id=plant.id,)
         else:
             print("not valid form")
 
@@ -62,7 +66,8 @@ def plant_update_view(request: HttpRequest, plant_id):
     return render(request, "plants/plant_update.html", {
         "plant_form": plant_form,
         "CategoryChoices": Plant.CategoryChoices.choices,
-        "plant": plant
+        "plant": plant,
+        "countries":countries,
     })
 
 def plant_delete_view(request:HttpRequest, plant_id):
@@ -78,6 +83,7 @@ def all_plants_view(request: HttpRequest):
 
     category = request.GET.get('category')
     is_edible = request.GET.get('is_edible')
+    country= request.GET.get('country')
 
 
     if category:
@@ -88,9 +94,12 @@ def all_plants_view(request: HttpRequest):
             plants = plants.filter(is_edible=True)
         elif is_edible == 'false':
             plants = plants.filter(is_edible=False)
+    if country:
+        plants = plants.filter(countries__id=country)
+    countries = Country.objects.all()
 
 
-    return render(request, "plants/all_plants.html", {"plants": plants,"categories": Plant.CategoryChoices.choices })
+    return render(request, "plants/all_plants.html", {"plants": plants,"categories": Plant.CategoryChoices.choices ,"countries": countries})
     
 def search_plants_view(request: HttpRequest):
 
@@ -121,3 +130,12 @@ def add_comment_view(request:HttpRequest, plant_id):
         new_comment.save()
 
     return redirect("plants:plant_detail_view", plant_id=plant_id)
+
+def country_detail_view(request, country_id):
+    country = Country.objects.get(id=country_id)
+    plants = Plant.objects.filter(countries=country)
+
+    return render(request, 'plants/country_detail.html', {
+        'country': country,
+        'plants': plants
+    })

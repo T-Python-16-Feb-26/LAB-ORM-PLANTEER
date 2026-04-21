@@ -2,6 +2,14 @@ from django.db import models
 
 # Create your models here.
 
+class Country(models.Model):
+    name=models.CharField(max_length=280, unique=True)
+    flag= models.ImageField(upload_to='flags/')
+
+    def __str__(self) -> str:
+        return self.name
+
+
 class Plant(models.Model):
 
     class CategoryChoices(models.TextChoices):
@@ -18,6 +26,7 @@ class Plant(models.Model):
     is_edible= models.BooleanField()
     created_at=models.DateTimeField(auto_now_add=True)
     image = models.ImageField(upload_to='image/' , default="media/image/default.jpg")
+    countries=models.ManyToManyField(Country)
 
 class Comment(models.Model):
 
@@ -28,3 +37,5 @@ class Comment(models.Model):
 
     def __str__(self) -> str:
         return f"{self.name} on {self.plant.name_plant}"
+    
+

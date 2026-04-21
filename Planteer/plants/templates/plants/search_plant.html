@@ -17,34 +17,18 @@
     
 
 
-{% if plants %}
+
 <div class="row g-4">
 {% for plant in plants %}
-  <div class="col-md-6">
-    <div class="card h-100">
-      <div class="row g-0">
-        <div class="col-md-4">
-            <img src="{{ plant.image.url }}" class="plant-img">
-        </div>
-        <div class="col-md-8">
-          <div class="card-body">
-            <h5 class="card-title">{{ plant.name_plant }}</h5>
-            <p class="card-text">{{ plant.category }}</p>
-            <p class="card-text">
-              <small class="text-body-secondary">{{ plant.created_at }}</small>
-            </p>
-            <a href="{% url 'plants:plant_detail_view' plant.id %}" class="btn btn-main">Read More</a>
-          </div>
-        </div>
-      </div>
+ {% include 'components/plant_list.html' %}
+   {% empty %}
+
+    <div class="text-center mt-5">
+        <h6 class="text-muted">No results found </h6>
     </div>
-  </div>
 {% endfor %}
 </div>
 
-{% else %}
-    <p class="text-center my-5">No results found </p>
-{% endif %}
 
 
 

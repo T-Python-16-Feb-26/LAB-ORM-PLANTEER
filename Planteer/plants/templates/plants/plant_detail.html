@@ -21,6 +21,13 @@
         <h6 class="text-muted mb-3">{{ plant.get_category_display }}</h6>
 
         <p> {{ plant.about }}</p>
+        
+        <p><strong> Native to:</strong>
+          {% for country in plant.countries.all %}
+         {{ country.name }}{% if not forloop.last %}, {% endif %}
+         {% endfor %}
+        </p>
+
         <p><strong>Edible:</strong> {{ plant.is_edible|yesno:"Yes, No" }}</p>
         <p><strong>Used for:</strong> {{ plant.used_for }}</p>
 

@@ -1,5 +1,5 @@
 from django.contrib import admin
-from plants.models import Plant, Comment
+from plants.models import Plant, Comment,Country
 
 # Register your models here.
 
@@ -13,4 +13,5 @@ class CommentAdmin(admin.ModelAdmin):
 
 admin.site.register(Plant,PlantAdmin)
 admin.site.register(Comment, CommentAdmin)
+admin.site.register(Country)
 

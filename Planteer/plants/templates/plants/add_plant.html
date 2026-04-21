@@ -43,6 +43,21 @@
                 {% endfor %}
             </select>
         </div>
+        <label class="form-label">Countries</label>
+
+        <div class="d-flex flex-wrap gap-3">
+            {% for country in countries %}
+        <label for="check-{{ country.id }}" class="d-flex align-items-center gap-2">
+
+            <input type="checkbox" class="form-check-input" name="countries" id="check-{{ country.id }}" value="{{ country.id }}">
+
+            <img src="{{ country.flag.url }}" width="25" style="border-radius:4px;">
+
+            <span>{{ country.name }}</span>
+
+        </label>
+    {% endfor %}
+</div>
 
         <div class="col-12 ">
             <label class="form-label">Is it edible?</label>

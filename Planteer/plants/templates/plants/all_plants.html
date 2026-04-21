@@ -33,6 +33,18 @@
             <option value="false" {% if request.GET.is_edible == 'false' %}selected{% endif %}>No</option>
         </select>
     </div>
+    <div class="col-md-4">
+        <label class="form-label">Country</label>
+        <select name="country" class="form-select">
+            <option value="">All</option>
+            {% for country in countries %}
+                <option value="{{ country.id }}"
+                    {% if request.GET.country == country.id|stringformat:"s" %}selected{% endif %}>
+                    {{ country.name }}
+                </option>
+            {% endfor %}
+        </select>
+    </div>
 
     <div class="col-md-4 d-flex align-items-end">
         <button type="submit" class="btn btn-filter">Filter</button>
@@ -43,25 +55,12 @@
     <!--card-->
         <div class="row g-4">
 {% for plant in plants %}
-  <div class="col-md-6">
-    <div class="card h-100">
-      <div class="row g-0">
-        <div class="col-md-4">
-            <img src="{{ plant.image.url }}" class="plant-img">
-        </div>
-        <div class="col-md-8">
-          <div class="card-body">
-            <h5 class="card-title">{{ plant.name_plant }}</h5>
-            <p class="card-text">{{ plant.category }}</p>
-            <p class="card-text">
-              <small class="text-body-secondary">{{ plant.created_at }}</small>
-            </p>
-            <a href="{% url 'plants:plant_detail_view' plant.id %}" class="btn btn-main">Read More</a>
-          </div>
-        </div>
-      </div>
+  {% include 'components/plant_list.html' %}
+  {% empty %}
+
+    <div class="text-center mt-5">
+        <h6 class="text-muted">No results found </h6>
     </div>
-  </div>
 {% endfor %}
 </div>
 

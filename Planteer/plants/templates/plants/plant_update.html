@@ -34,16 +34,42 @@
             <label class="form-label">About the Plant</label>
             <textarea name="about" class="form-control" rows="6" placeholder="Write a short description about the plant" required >{{plant.about}}</textarea>
         </div>
-
-        <div class="col-12 ">
+        <div class="col-12">
             <label class="form-label">Category</label>
+
             <select class="form-select" name="category" required>
                 {% for val, label in CategoryChoices %}
-                    <option value="{{ val }}" {% if plant.category == val %}selected{% endif %}>
+                    <option value="{{ val }}"
+                        {% if plant.category == val %}selected{% endif %}>
                         {{ label }}
                     </option>
                 {% endfor %}
             </select>
+        </div>
+
+        <label class="form-label">Countries</label>
+
+        <div class="d-flex flex-wrap gap-3">
+            {% for country in countries %}
+                <label for="check-{{ country.id }}" class="d-flex align-items-center gap-2">
+
+                    <input type="checkbox"
+                        name="countries"
+                        id="check-{{ country.id }}"
+                        value="{{ country.id }}"
+                        class="form-check-input"
+
+                        {% if country in plant.countries.all %}
+                            checked
+                        {% endif %}
+                    >
+
+                    <img src="{{ country.flag.url }}" width="25" style="border-radius:4px;">
+
+                    <span>{{ country.name }}</span>
+
+                </label>
+            {% endfor %}
         </div>
 
         <div class="col-12 ">
