@@ -1,19 +1,21 @@
 from django import forms
-from .models import Plant, Category
- 
- 
+from .models import Plant, Category, Country
+
+
 class PlantForm(forms.ModelForm):
- 
+
     class Meta:
         model = Plant
-        fields = ['name', 'description', 'image', 'is_edible']
+        fields = ['name', 'category', 'description', 'image', 'is_edible', 'countries']
         widgets = {
             'name': forms.TextInput(attrs={'placeholder': 'Plant name'}),
+            'category': forms.Select(),
             'description': forms.Textarea(attrs={'placeholder': 'Description', 'rows': 4}),
             'image': forms.ClearableFileInput(attrs={'accept': 'image/*'}),
             'is_edible': forms.CheckboxInput(),
-            }
- 
+            'countries': forms.CheckboxSelectMultiple(),
+        }
+
     def clean_name(self):
         name = self.cleaned_data.get('name', '').strip()
         if len(name) < 2:
@@ -25,8 +27,8 @@ class PlantForm(forms.ModelForm):
         if not desc:
             raise forms.ValidationError("Description is required.")
         return desc
- 
- 
+
+
 class PlantFilterForm(forms.Form):
     name = forms.CharField(
         required=False,
@@ -37,4 +39,10 @@ class PlantFilterForm(forms.Form):
         widget=forms.Select(
             choices=[('', 'All Plants'), ('true', 'Edible'), ('false', 'Non-Edible')],
         )
+    )
+    country = forms.ModelChoiceField(
+        queryset=Country.objects.all(),
+        required=False,
+        empty_label='All Countries',
+        widget=forms.Select(),
     )

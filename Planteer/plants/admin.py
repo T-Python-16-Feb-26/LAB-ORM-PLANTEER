@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Category, Plant
+from .models import Category, Plant, Country
 
 
 @admin.register(Category)
@@ -13,3 +13,10 @@ class PlantAdmin(admin.ModelAdmin):
     list_display = ['name', 'category', 'is_edible', 'created_at']
     list_filter = ['category', 'is_edible']
     search_fields = ['name', 'scientific_name']
+    filter_horizontal = ['countries']
+
+
+@admin.register(Country)
+class CountryAdmin(admin.ModelAdmin):
+    list_display = ['name']
+    search_fields = ['name']

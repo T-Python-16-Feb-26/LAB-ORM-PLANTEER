@@ -38,6 +38,15 @@
                     {% endfor %}
                 </div>
 
+                <!-- Category -->
+                <div class="form-group">
+                    <label for="{{ form.category.id_for_label }}">Category</label>
+                    {{ form.category }}
+                    {% for error in form.category.errors %}
+                    <span class="error-text">{{ error }}</span>
+                    {% endfor %}
+                </div>
+
                 <!-- Description -->
                 <div class="form-group">
                     <label for="{{ form.description.id_for_label }}">Description *</label>
@@ -51,6 +60,23 @@
                 <div class="form-group form-checkbox-group">
                     {{ form.is_edible }}
                     <label for="{{ form.is_edible.id_for_label }}">This plant is edible</label>
+                </div>
+
+                <!-- Countries -->
+                <div class="form-group">
+                    <label>Native Countries</label>
+                    <div class="countries-checkbox-list">
+                        {% for checkbox in form.countries %}
+                        <label class="country-checkbox-label">
+                            {{ checkbox.tag }} {{ checkbox.choice_label }}
+                        </label>
+                        {% empty %}
+                        <span class="empty-text">No countries found. Add countries from admin first.</span>
+                        {% endfor %}
+                    </div>
+                    {% for error in form.countries.errors %}
+                    <span class="error-text">{{ error }}</span>
+                    {% endfor %}
                 </div>
 
                 <!-- Plant Image -->

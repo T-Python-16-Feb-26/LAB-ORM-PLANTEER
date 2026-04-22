@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load static %}
 
 {% block title %}{{ plant.name }}{% endblock %}
 
@@ -19,6 +20,20 @@
                     {% if plant.scientific_name %}
                     <p><strong>Scientific:</strong> {{ plant.scientific_name }}</p>
                     {% endif %}
+                </div>
+
+                <div class="detail-countries">
+                    <p class="detail-countries-label">Native to:</p>
+                    <div class="country-tags">
+                        {% for country in plant.countries.all %}
+                        <a href="{% url 'plants:plants_by_country' country.pk %}" class="country-tag country-tag-link">
+                            <img src="{% if country.flag %}{{ country.flag.url }}{% else %}{% static 'images/default-flag.svg' %}{% endif %}" alt="{{ country.name }}" class="country-flag">
+                            {{ country.name }}
+                        </a>
+                        {% empty %}
+                        <span class="empty-text">No countries added for this plant yet.</span>
+                        {% endfor %}
+                    </div>
                 </div>
 
                 <div class="detail-actions">
@@ -68,16 +83,7 @@
         <h2 class="section-title">Related Plants</h2>
         <div class="plants-grid">
             {% for rp in related_plants %}
-            <a href="{% url 'plants:plant_detail' rp.pk %}" class="plant-card">
-                <div class="plant-card-img">
-                    <img src="{{ rp.get_image }}" alt="{{ rp.name }}">
-                </div>
-                <div class="plant-card-body">
-                    <h3 class="plant-card-title">{{ rp.name }}</h3>
-                    <p class="plant-card-desc">{{ rp.description|truncatewords:8 }}</p>
-                    <p class="plant-card-category">{{ rp.category.name }}</p>
-                </div>
-            </a>
+            {% include 'plants/includes/plant_card.html' with plant=rp %}
             {% endfor %}
         </div>
     </div>

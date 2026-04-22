@@ -11,4 +11,5 @@ urlpatterns = [
     path('<int:plant_id>/update/', views.update_plant, name='update_plant'),
     path('<int:plant_id>/delete/', views.delete_plant, name='delete_plant'),
     path('<int:plant_id>/add_review/', views.add_review, name='add_review'),
+    path('country/<int:country_id>/', views.plants_by_country, name='plants_by_country'),
 ]

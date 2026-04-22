@@ -1,7 +1,7 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.http import HttpRequest
 from django.contrib import messages
-from .models import Plant, Category, Review
+from .models import Plant, Category, Review, Country
 from .forms import PlantForm, PlantFilterForm
 
 
@@ -12,10 +12,13 @@ def all_plants(request: HttpRequest):
     if filter_form.is_valid():
         name = filter_form.cleaned_data.get('name')
         is_edible = filter_form.cleaned_data.get('is_edible')
+        country = filter_form.cleaned_data.get('country')
         if name:
             plants = plants.filter(name__icontains=name)
         if is_edible is not None:
             plants = plants.filter(is_edible=is_edible)
+        if country:
+            plants = plants.filter(countries=country)
 
     return render(request, 'plants/all_plants.html', {
         'plants': plants,
@@ -109,3 +112,14 @@ def add_review(request: HttpRequest, plant_id):
             messages.success(request, 'Review added successfully!')
 
     return redirect('plants:plant_detail', plant_id=plant.pk)
+
+
+def plants_by_country(request: HttpRequest, country_id):
+    country = get_object_or_404(Country, pk=country_id)
+    plants = country.plants.all()
+
+    return render(request, 'plants/plants_by_country.html', {
+        'country': country,
+        'plants': plants,
+        'total': plants.count(),
+    })

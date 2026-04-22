@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+{% block title %}Plants from {{ country.name }}{% endblock %}
+
+{% block content %}
+<section class="section">
+    <div class="container">
+        <div class="country-header">
+            {% if country.get_flag %}
+            <img src="{{ country.get_flag }}" alt="{{ country.name }}" class="country-header-flag">
+            {% endif %}
+            <div>
+                <h1 class="page-title">{{ country.name }}</h1>
+                <p class="page-subtitle">{{ total }} plant{{ total|pluralize }} native to this country</p>
+            </div>
+        </div>
+
+        {% if plants %}
+        <div class="plants-grid">
+            {% for plant in plants %}
+            {% include 'plants/includes/plant_card.html' %}
+            {% endfor %}
+        </div>
+        {% else %}
+        <div class="empty-state">
+            <h2>No plants found</h2>
+            <p>No plants have been tagged with this country yet.</p>
+        </div>
+        {% endif %}
+    </div>
+</section>
+{% endblock %}
