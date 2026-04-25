@@ -1,0 +1,120 @@
+{% extends 'main/base.html' %}
+
+{% block title %}{{ plant.name }} — Planteer{% endblock %}
+
+{% block content %}
+
+  <!-- ── Plant Detail ───────────────────────────────────── -->
+  <div class="detail-section">
+    <!-- Left: image -->
+    <div>
+      {% if plant.image %}
+        <img class="detail-img" src="{{ plant.image.url }}" alt="{{ plant.name }}" />
+      {% else %}
+        <div class="detail-img-placeholder">No image available</div>
+      {% endif %}
+    </div>
+
+    <!-- Right: info -->
+    <div class="detail-info">
+      <p class="detail-category">{{ plant.get_category_display }}</p>
+      <h1>{{ plant.name }}</h1>
+
+      <h3>About</h3>
+      <p>{{ plant.about }}</p>
+
+      <h3>Is Edible</h3>
+      <p>
+        {% if plant.is_edible %}
+          <span class="edible-badge edible-yes">Yes — Edible</span>
+        {% else %}
+          <span class="edible-badge edible-no">No — Not Edible</span>
+        {% endif %}
+      </p>
+
+      <h3>Used For</h3>
+      <p>{{ plant.used_for }}</p>
+
+      <div class="detail-actions">
+        <a href="{% url 'update_plant' plant.id %}" class="btn btn-sm btn-outline">Edit</a>
+        <a
+          href="{% url 'delete_plant' plant.id %}"
+          class="btn btn-sm btn-danger"
+          onclick="return confirm('Delete {{ plant.name }}? This cannot be undone.');"
+        >Delete</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── Related Plants ────────────────────────────────── -->
+  {% if related_plants %}
+    <hr class="divider" />
+    <div class="related-section">
+      <h2>Related Plants</h2>
+      <div class="card-grid">
+        {% for rplant in related_plants %}
+          <div class="plant-card">
+            <a href="{% url 'plant_detail' rplant.id %}">
+              {% if rplant.image %}
+                <img class="card-img" src="{{ rplant.image.url }}" alt="{{ rplant.name }}" />
+              {% else %}
+                <div class="card-img-placeholder">No image</div>
+              {% endif %}
+              <div class="card-body">
+                <p class="card-name">{{ rplant.name }}</p>
+                <p class="card-about">{{ rplant.about }}</p>
+                <p class="card-category">{{ rplant.get_category_display }}</p>
+              </div>
+            </a>
+          </div>
+        {% endfor %}
+      </div>
+    </div>
+  {% endif %}
+
+  <!-- ── Comments ──────────────────────────────────────── -->
+  <hr class="divider" />
+  <div class="comments-section">
+
+    <h2>Comments ({{ comments.count }})</h2>
+
+    {% if comments %}
+      {% for comment in comments %}
+        <div class="comment-card">
+          <div class="comment-header">
+            <span class="comment-author">{{ comment.name }}</span>
+            <span class="comment-date">{{ comment.created_at|date:"N j, Y" }}</span>
+          </div>
+          <p class="comment-content">{{ comment.content }}</p>
+        </div>
+      {% endfor %}
+    {% else %}
+      <p class="no-comments">No comments yet. Be the first to leave feedback!</p>
+    {% endif %}
+
+    <!-- Add a comment form -->
+    <div class="comment-form-wrapper">
+      <h3>Leave a Comment</h3>
+      <form method="post">
+        {% csrf_token %}
+        <div class="form-group">
+          <label for="{{ comment_form.name.id_for_label }}">Your Name</label>
+          {{ comment_form.name }}
+          {% if comment_form.name.errors %}
+            <p class="field-error">{{ comment_form.name.errors.0 }}</p>
+          {% endif %}
+        </div>
+        <div class="form-group">
+          <label for="{{ comment_form.content.id_for_label }}">Feedback</label>
+          {{ comment_form.content }}
+          {% if comment_form.content.errors %}
+            <p class="field-error">{{ comment_form.content.errors.0 }}</p>
+          {% endif %}
+        </div>
+        <button type="submit" class="btn">Submit Comment</button>
+      </form>
+    </div>
+
+  </div>
+
+{% endblock %}
