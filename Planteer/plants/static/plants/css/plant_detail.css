@@ -1,0 +1,311 @@
+.detail-page {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 56px 40px;
+}
+
+.detail-image {
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    border-radius: 14px;
+    overflow: hidden;
+    background: var(--offwhite);
+}
+
+.detail-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.detail-info {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    padding-top: 8px;
+}
+
+.detail-name {
+    font-family: var(--font-display);
+    font-size: 2.4rem;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+    line-height: 1.1;
+    color: var(--black);
+}
+
+.detail-category {
+    font-size: 0.95rem;
+    color: var(--muted);
+    margin-top: -12px;
+}
+
+.detail-about {
+    font-size: 0.9rem;
+    color: var(--muted);
+    line-height: 1.65;
+}
+
+.detail-field {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+}
+
+.detail-field-label {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--black);
+}
+
+.detail-field-value {
+    font-size: 0.9rem;
+    color: var(--black);
+    line-height: 1.55;
+}
+
+.detail-actions {
+    display: flex;
+    gap: 12px;
+    padding-top: 8px;
+    flex-wrap: wrap;
+}
+
+.btn-edit, .btn-delete {
+    padding: 10px 24px;
+    border-radius: 7px;
+    font-family: var(--font-body);
+    font-size: 0.875rem;
+    font-weight: 500;
+    cursor: pointer;
+    text-decoration: none;
+    transition: background 0.2s, color 0.2s;
+}
+
+.btn-edit {
+    background: var(--black);
+    color: var(--white);
+    border: 1.5px solid var(--black);
+}
+
+.btn-edit:hover { background: #333; border-color: #333; color: var(--white); }
+
+.btn-delete {
+    background: transparent;
+    color: #c0392b;
+    border: 1.5px solid #c0392b;
+}
+
+.btn-delete:hover { background: #c0392b; color: var(--white); }
+
+.related-section h2 {
+    font-family: var(--font-display);
+    font-size: 1.6rem;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+    margin-bottom: 28px;
+}
+
+.comment-form-section {
+    padding: 40px 0 32px;
+}
+
+.comment-form-section .form-page-title {
+    font-family: var(--font-display);
+    font-size: 1.6rem;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+    color: var(--black);
+    margin-bottom: 28px;
+}
+
+.comment-form-section .form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    margin-bottom: 20px;
+    max-width: 640px;
+}
+
+.comment-form-section .form-group label {
+    font-size: 0.82rem;
+    font-weight: 600;
+    color: var(--black);
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+}
+
+.comment-form-section .form-group input,
+.comment-form-section .form-group textarea {
+    width: 100%;
+    padding: 12px 16px;
+    border: 1.5px solid var(--border);
+    border-radius: 8px;
+    font-family: var(--font-body);
+    font-size: 0.9rem;
+    color: var(--black);
+    background: var(--white);
+    outline: none;
+    transition: border-color 0.2s;
+    box-sizing: border-box;
+}
+
+.comment-form-section .form-group input::placeholder,
+.comment-form-section .form-group textarea::placeholder {
+    color: #aaa;
+}
+
+.comment-form-section .form-group input:focus,
+.comment-form-section .form-group textarea:focus {
+    border-color: var(--black);
+}
+
+.comment-form-section .form-group textarea {
+    resize: vertical;
+    min-height: 110px;
+    line-height: 1.6;
+}
+
+.comments-section {
+    padding: 32px 0 40px;
+}
+
+.comments-section h2 {
+    font-family: var(--font-display);
+    font-size: 1.6rem;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+    color: var(--black);
+    margin-bottom: 28px;
+}
+
+.comment-card {
+    border: 1.5px solid var(--border);
+    border-radius: 12px;
+    padding: 20px 24px;
+    margin-bottom: 16px;
+    background: var(--white);
+    max-width: 740px;
+}
+
+.comment-card h4 {
+    font-family: var(--font-body);
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--black);
+    margin-bottom: 6px;
+}
+
+.comment-card p {
+    font-size: 0.9rem;
+    color: var(--black);
+    line-height: 1.6;
+    margin-bottom: 10px;
+}
+
+.comment-card h6 {
+    font-size: 0.78rem;
+    font-weight: 400;
+    color: var(--muted);
+    margin: 0;
+}
+
+@media (max-width: 767px) {
+    .detail-page { padding: 32px 16px; }
+    .detail-name { font-size: 1.8rem; }
+    .comment-form-section .form-page-title,
+    .comments-section h2 { font-size: 1.3rem; }
+    .comment-card { padding: 16px; }
+}
+
+.country-icon {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    margin-right: 10px;
+}
+
+.country-icon img {
+    width: 20px;       
+    height: 14px;      
+    object-fit: cover;
+    border-radius: 2px; 
+    border: 1px solid #ddd; 
+}
+
+.country-icon label {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    margin: 0;
+}
+
+.field-error {
+    color: #c0392b;
+    font-size: 0.8rem;
+    margin-top: 4px;
+}
+
+.detail-field-value {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.country-icon a {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 4px 8px;
+    border: 1px solid #ccc;          /* outline */
+    border-radius: 20px;             /* rounded pill shape */
+    text-decoration: none;
+    color: inherit;
+    transition: all 0.2s ease;
+}
+
+.country-icon a:hover {
+    border-color: #4CAF50;           /* highlight on hover */
+    background-color: #f5fff5;
+}
+
+.country-icon img {
+    width: 20px;
+    height: 14px;
+    object-fit: cover;
+    border-radius: 2px;
+}
+
+.country-icon span {
+    font-size: 0.9rem;
+}
+
+.comment-sign-in {
+    padding: 32px 0;
+    max-width: 640px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.comment-sign-in-text {
+    font-size: 0.95rem;
+    color: var(--muted);
+    margin: 0;
+}
+
+.comment-sign-in-actions {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.comment-sign-up-link {
+    font-size: 0.875rem;
+    color: var(--muted);
+    text-decoration: none;
+    transition: color 0.2s;
+}
+
+.comment-sign-up-link:hover { color: var(--black); }

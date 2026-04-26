@@ -1,0 +1,43 @@
+{% extends "main/base.html" %}
+{% load static %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'main/css/home.css' %}">
+{% endblock %}
+
+{% block content %}
+
+<section class="hero">
+    <div class="hero-content">
+        <h1>Planteer</h1>
+        <p class="hero-sub">Plant Database For Plants Lovers</p>
+        <form class="hero-search" method="GET" action="{% url 'plants:plant_search_view' %}">
+            <input type="text" name="q" placeholder="Search For Plant...">
+            <button type="submit">Search</button>
+        </form>
+    </div>
+</section>
+
+<div class="section">
+    <div class="section-header">
+        <h2>Plants</h2>
+        <a class="section-more" href="{% url 'plants:plants_view' %}">More →</a>
+    </div>
+    <p class="section-desc">Learn more about plants</p>
+
+    <div class="row row-cols-1 row-cols-sm-2 row-cols-lg-3 g-4">
+        {% for plant in latest_plants %}
+        <div class="col">
+            {% include "plants/includes/plant_card.html" with plant=plant %}
+        </div>
+        {% empty %}
+        <div class="col-12">
+            <div class="empty-state">
+                <p>No plants yet. <a href="{% url 'plants:add_plants_view' %}">Add the first one →</a></p>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+{% endblock %}
