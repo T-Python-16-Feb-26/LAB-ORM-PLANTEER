@@ -410,6 +410,7 @@ textarea.form-control {
 
 
 
+/*responsive*/
 
 @media (max-width: 768px) {
 
@@ -418,6 +419,22 @@ textarea.form-control {
         flex-direction: column;
         gap: 10px;
         font-size: 16px;
+    }
+
+    .nav-bar .nav-pills {
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 8px;
+    }
+
+    .nav-bar .custom-btn {
+        font-size: 14px;
+        padding: 5px 10px;
+    }
+
+    .icon-user {
+        font-size: 28px;
+        padding: 4px;
     }
 
     .logo-box {

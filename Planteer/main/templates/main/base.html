@@ -40,9 +40,11 @@
                 <li>
                     <a class="nav-link" href="{% url 'main:Contact_us_view'%}">Contact Us</a>
                 </li>
+                {%if request.user.is_staff%}
                 <li>
                     <a class="nav-link custom-btn" href="{% url 'plants:add_plant_view'%}">Add Plant</a>
                 </li>
+                {%endif%}
                 {% if request.user.is_authenticated %}
                 <li class="nav-item dropdown">
 
@@ -56,7 +58,7 @@
                     <ul class="dropdown-menu dropdown-menu-end">
 
                         <li class="px-3 py-2 text-muted">
-                            {{ request.user.first_name}}
+                            {{ request.user.first_name}} {{ request.user.last_name}}
                         </li>
                         <li><hr class="dropdown-divider"></li>
                         <li>

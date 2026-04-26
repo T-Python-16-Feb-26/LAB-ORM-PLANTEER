@@ -6,10 +6,15 @@ from django.http import HttpRequest, HttpResponse
 from .forms import PlantForm
 from .models import Plant,Country, Comment
 from django.core.paginator import Paginator
+from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 
 
 def add_plant_view(request: HttpRequest):
+
+    if not request.user.is_staff:
+        messages.warning(request,"Only satff can added plant", "alert-warning")
+        return redirect('main:home_view')
 
     plant_form = PlantForm()
 
@@ -48,6 +53,10 @@ def plant_detail_view(request: HttpRequest, plant_id):
 
 def plant_update_view(request: HttpRequest, plant_id):
 
+    if not request.user.is_staff:
+        messages.warning(request,"Only satff can updated plant", "alert-warning")
+        return redirect('main:home_view')
+
     plant = Plant.objects.get(pk=plant_id)
     countries=Country.objects.all()
 
@@ -72,6 +81,9 @@ def plant_update_view(request: HttpRequest, plant_id):
     })
 
 def plant_delete_view(request:HttpRequest, plant_id):
+    if not request.user.is_staff:
+        messages.warning(request,"Only satff can deleted plant", "alert-warning")
+        return redirect('main:home_view')
     try:
         plant=Plant.objects.get(pk=plant_id)
         plant.delete()
@@ -121,14 +133,14 @@ def search_plants_view(request: HttpRequest):
 
     return render(request, "plants/search_plant.html", {"plants": plants})
 
-
+@login_required
 def add_comment_view(request:HttpRequest, plant_id):
 
     if request.method=="POST":
         plant=Plant.objects.get(pk=plant_id)
         new_comment=Comment(
             plant=plant,
-            name= request.POST.get("name"),
+            user= request.user,
             comment= request.POST.get("comment"),
         )
         new_comment.save()

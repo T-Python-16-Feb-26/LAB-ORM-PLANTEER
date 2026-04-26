@@ -32,7 +32,7 @@
         <p><strong>Used for:</strong> {{ plant.used_for }}</p>
 
         <small class="text-muted">{{ plant.created_at }}</small>
-
+        {% if request.user.is_staff%}
         <div class="d-flex gap-2 mt-4">
                 <a href="{% url 'plants:plant_update_view' plant.id %}" class="btn btn-success ">
                     Update
@@ -44,6 +44,7 @@
                     Delete
                 </button>
             </div>
+            {% endif %}
     </div>
 
 </div>
@@ -53,7 +54,7 @@
 
 {%for comment in comments%}
 <div class="card-comment">
-<h3>{{comment.name}}</h3>
+<h3>{{comment.user.first_name}} {{comment.user.last_name}}</h3>
 <p>{{comment.comment}}</p>
 <p><small class="text-muted">{{comment.created_at_comment}}</small></p>
 </div>
@@ -61,13 +62,16 @@
 {%endfor%}
 
 <hr class="border-3">
-
+{% if request.user.is_authenticated %}
 <h2 class="mt-5">Add comment</h2>
 <form action="{%url 'plants:add_comment_view' plant.id %}" method="post" class="d-flex flex-column gap-3">
   {% csrf_token %}
-  <input type="text" class="form-control w-50" name="name" placeholder="Enter your name...">
    <textarea class="form-control w-50"  rows="3" placeholder="Enter your comment.." name="comment"></textarea>
    <input type="submit" class="btn btn-success w-50" value="Send Comment">
+
+   {%else%}
+   <p class="text-muted sign-style ">Please sign in to add a comment. <a href="{% url 'account:sign_in_view'%}">Sign in</a></p>
+{%endif%}
 
 
 </form>

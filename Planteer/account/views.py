@@ -53,6 +53,6 @@ def log_out_view(request:HttpRequest):
 
     return redirect("main:home_view")
 
-@login_required
+@login_required(login_url="account:sign_in_view")
 def profile_view(request):
     return render(request, "account/profile.html")
