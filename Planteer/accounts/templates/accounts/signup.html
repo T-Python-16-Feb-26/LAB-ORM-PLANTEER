@@ -1,0 +1,51 @@
+{% extends "main/base.html" %}
+
+{% block content %}
+<div class="container d-flex justify-content-center align-items-center" style="min-height: 100vh; padding: 50px 0;">
+    <div class="auth-card">
+        <div class="auth-header text-center mb-4">
+            <h2 class="fw-bold" style="color: var(--accent-gold); letter-spacing: 2px;">JOIN PLANTEER</h2>
+            <p style="color: var(--text-muted); font-size: 0.9rem;">Create your botanical profile</p>
+        </div>
+
+        <form method="POST">
+            {% csrf_token %}
+            
+            <div class="mb-3">
+                <label class="form-label custom-label">FIRST NAME</label>
+                <input type="text" name="first_name" class="form-control custom-input" placeholder="Enter your first name" required>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label custom-label">LAST NAME</label>
+                <input type="text" name="last_name" class="form-control custom-input" placeholder="Enter your last name" required>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label custom-label">USERNAME</label>
+                <input type="text" name="username" class="form-control custom-input" placeholder="Choose a unique username" required>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label custom-label">EMAIL ADDRESS</label>
+                <input type="email" name="email" class="form-control custom-input" placeholder="email@example.com" required>
+            </div>
+
+            <div class="mb-4">
+                <label class="form-label custom-label">PASSWORD</label>
+                <input type="password" name="password" class="form-control custom-input" placeholder="••••••••" required>
+            </div>
+
+            <button type="submit" class="btn btn-gold-action w-100 py-3 fw-bold">
+                CREATE ACCOUNT
+            </button>
+        </form>
+
+        <div class="text-center mt-4 border-top pt-3" style="border-color: rgba(233, 207, 143, 0.1) !important;">
+            <p style="color: var(--text-muted); font-size: 0.85rem;">
+                ALREADY A MEMBER? <a href="{% url 'accounts:sign_in' %}" style="color: var(--accent-gold); text-decoration: none;" class="fw-bold">SIGN IN</a>
+            </p>
+        </div>
+    </div>
+</div>
+{% endblock %}

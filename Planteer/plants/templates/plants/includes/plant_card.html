@@ -1,0 +1,33 @@
+{% load static %}
+<div class="card h-100 border-0 plant-card">
+    {% if plant.image %}
+        <img src="{{ plant.image.url }}" class="card-img-top plant-card-img" alt="{{ plant.name }}">
+    {% else %}
+        <img src="{% static 'images/default_plant.jpg' %}" class="card-img-top plant-card-img" alt="default">
+    {% endif %}
+    
+    <div class="card-body">
+        <h5 class="card-title fw-bold plant-title">{{ plant.name }}</h5>
+        
+        <div class="mb-3 d-flex flex-wrap gap-2">
+            {% for country in plant.countries.all %}
+                <a href="{% url 'plants:country_plants_view' country.id %}" class="text-decoration-none">
+                    <span class="country-badge">
+                        <img src="{{ country.flag.url }}" width="18" class="rounded-sm">
+                        {{ country.name }}
+                    </span>
+                </a>
+            {% endfor %}
+        </div>
+        
+        <p class="card-text plant-description">
+            {{ plant.about|truncatechars:80 }}
+        </p>
+    </div>
+
+    <div class="card-footer bg-transparent border-0 pb-4">
+        <a href="{% url 'plants:plant_detail_view' plant.id %}" class="btn btn-discover w-100">
+            View Details
+        </a>
+    </div>
+</div>

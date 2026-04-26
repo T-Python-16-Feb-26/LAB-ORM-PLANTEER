@@ -1,0 +1,54 @@
+{% extends "main/base.html" %}
+
+{% block content %}
+<div class="container mt-5 min-vh-100">
+    
+    <div class="text-center mb-5">
+        <h2 class="section-title">Search Results</h2>
+        
+        <h5 class="text-muted">
+            Found <span class="text-success fw-bold">{{ results|length }}</span> results
+        </h5>
+
+        {% if request.GET.search %}
+            <p class="mt-2">
+                You searched for: <span class="badge bg-dark rounded-pill px-3 py-2">"{{ request.GET.search }}"</span>
+            </p>
+        {% endif %}
+    </div>
+
+    <hr class="mb-5 opacity-25">
+
+    <div class="row">
+        {% if results %}
+            {% for plant in results %}
+                <div class="col-md-4 mb-4">
+                    <div class="card border-0 shadow-sm rounded-4 overflow-hidden h-100 transition-hover">
+                        {% if plant.image %}
+                            <img src="{{ plant.image.url }}" class="card-img-top" alt="{{ plant.name }}" style="height: 220px; object-fit: cover;">
+                        {% endif %}
+                        <div class="card-body p-4">
+                            <h5 class="card-title fw-bold text-dark">{{ plant.name }}</h5>
+                            <p class="card-text text-secondary small">{{ plant.about|truncatewords:15 }}</p>
+                            <div class="d-flex justify-content-between align-items-center mt-3">
+                                <a href="{% url 'plants:plant_detail_view' plant.id %}" class="btn btn-outline-success rounded-pill btn-sm px-4">View Details</a>
+                                <span class="text-muted small italic">{{ plant.category }}</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        {% else %}
+            <div class="col-12 text-center py-5">
+                <div class="mb-4">
+                    <i class="bi bi-search-heart text-secondary" style="font-size: 4rem; opacity: 0.3;"></i>
+                </div>
+                <h4 class="text-muted">No results found.</h4>
+                <p class="text-secondary">Please make sure you entered at least 2 characters.</p>
+                <a href="{% url 'main:home_view' %}" class="btn btn-dark rounded-pill px-5 mt-3">Search Again</a>
+            </div>
+        {% endif %}
+    </div>
+</div>
+
+{% endblock %}

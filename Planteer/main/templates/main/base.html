@@ -1,0 +1,150 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %} Planteer {% endblock %}</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+
+    <nav class="navbar navbar-expand-lg bg-white border-bottom py-3">
+  <div class="container">
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    
+    <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
+      <a class="navbar-brand fw-bold" href="{% url 'main:home_view' %}">PLANTEER</a>
+      
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <a class="nav-link active" href="{% url 'main:home_view' %}">Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'plants:all_plants_view' %}">Explore</a>
+        </li>
+        {% if request.user.is_authenticated and request.user.is_staff %}
+        <li class="nav-item">
+          <a class="nav-link text-success fw-semibold" href="{% url 'plants:add_plant_view' %}">+ Add Plant</a>
+        </li>
+        {% endif %}
+      </ul>
+
+    <li class="nav-item">
+    <a class="nav-link custom-nav-link {% if request.resolver_match.url_name == 'contact_view' %}active-gold{% endif %}" 
+       href="{% url 'contact:contact_view' %}">
+        <i class="bi bi-envelope-paper me-1"></i> Contact
+    </a>
+</li>
+
+<div class="dropdown">
+  <a class="btn btn-secondary dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    {% if request.user.is_authenticated %}
+        <i class="bi bi-person-circle"></i> {{ request.user.username }}
+    {% else %}
+        <i class="bi bi-person"></i> Account
+    {% endif %}
+  </a>
+
+  <ul class="dropdown-menu dropdown-menu-end">
+    {% if request.user.is_authenticated %}
+        <li><a class="dropdown-item" href="#"><i class="bi bi-person-badge me-2"></i> Profile</a></li>
+        
+        {% if request.user.is_staff %}
+            <li><a class="dropdown-item" href="{% url 'admin:index' %}"><i class="bi bi-cpu me-2"></i> Admin Panel</a></li>
+        {% endif %}
+        
+        <li><hr class="dropdown-divider"></li>
+        <li><a class="dropdown-item text-danger" href="{% url 'accounts:log_out' %}"><i class="bi bi-power me-2"></i> Logout</a></li>
+    
+    {% else %}
+        <li><a class="dropdown-item" href="{% url 'accounts:sign_in' %}"><i class="bi bi-box-arrow-in-right me-2"></i> Sign In</a></li>
+        <li><a class="dropdown-item" href="{% url 'accounts:sign_up' %}"><i class="bi bi-person-plus me-2"></i> Sign Up</a></li>
+    {% endif %}
+  </ul>
+</div>
+
+      <form class="d-flex" role="search" action="{% url 'plants:search_view' %}" method="GET">
+    <input class="form-control me-2 border-0 bg-light shadow-none" 
+           type="search" 
+           name="search" 
+           placeholder="Search for a plant..." 
+           aria-label="Search">
+    <button class="btn btn-dark rounded-pill px-4" type="submit">Search</button>
+</form>
+    </div>
+  </div>
+</nav>
+
+{% if messages %}
+    <div class="messages-container mb-4">
+        {% for message in messages %}
+            <div class="alert alert-custom {% if message.tags %}alert-{{ message.tags }}{% endif %} border-0 shadow-sm" role="alert" style="border-radius: var(--radius-md);">
+                <div class="d-flex align-items-center">
+                    <i class="bi bi-info-circle-fill me-2"></i>
+                    <span class="small fw-bold text-uppercase" style="letter-spacing: 1px;">{{ message }}</span>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+{% endif %}
+
+    <main>
+        {% block content %}
+        {% endblock %}
+    </main>
+
+    <footer class="planteer-footer pt-5 pb-4 mt-auto">
+    <div class="container text-center text-md-start">
+        <div class="row">
+            <div class="col-md-4 col-lg-4 col-xl-3 mx-auto mt-3">
+                <h5 class="text-uppercase mb-4 fw-bold accent-text">Planteer</h5>
+                <p class="small muted-text">
+                    Your digital guide to exploring and managing Saudi Arabia's rich plant life. Simplified and automated for nature lovers.
+                </p>
+            </div>
+
+            <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mt-3">
+                <h6 class="text-uppercase mb-4 fw-bold main-text">Quick Links</h6>
+                <p><a href="{% url 'main:home_view' %}" class="footer-link">Home</a></p>
+                <p><a href="{% url 'plants:all_plants_view' %}" class="footer-link">Explore</a></p>
+                <p><a href="{% url 'plants:add_plant_view' %}" class="footer-link">Add Plant</a></p>
+            </div>
+
+            <div class="col-md-4 col-lg-3 col-xl-3 mx-auto mt-3">
+                <h6 class="text-uppercase mb-4 fw-bold main-text">Contact & Social</h6>
+                <p class="small muted-text"><i class="bi bi-geo-alt-fill me-2 accent-text"></i> Riyadh, Saudi Arabia</p>
+                <p class="small muted-text"><i class="bi bi-envelope-fill me-2 accent-text"></i> info@planteer.com</p>
+                
+                <div class="mt-4">
+                    <a href="#" class="social-icon me-3"><i class="bi bi-twitter-x"></i></a>
+                    <a href="#" class="social-icon me-3"><i class="bi bi-instagram"></i></a>
+                    <a href="#" class="social-icon me-3"><i class="bi bi-facebook"></i></a>
+                    <a href="#" class="social-icon"><i class="bi bi-youtube"></i></a>
+                </div>
+            </div>
+        </div>
+
+        <hr class="mb-4 mt-5 footer-divider">
+
+        <div class="row align-items-center">
+            <div class="col-md-12 text-center">
+                <p class="small muted-text">
+                    © 2026 Copyright: <strong class="accent-text">Planteer.sa</strong>
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+
+
+ <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

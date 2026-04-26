@@ -1,0 +1,41 @@
+{% extends "main/base.html" %}
+{% load static %}
+
+{% block content %}
+<div class="container mt-5">
+
+    <div class="d-flex justify-content-between align-items-center mb-5">
+        
+        <form method="GET" class="m-0">
+            <select name="country_filter" onchange="this.form.submit()" class="form-select custom-select-tech">
+                <option value="">ALL COUNTRIES</option>
+                {% for country in all_countries %}
+                    <option value="{{ country.id }}" {% if request.GET.country_filter == country.id|stringformat:"i" %}selected{% endif %}>
+                        {{ country.name }}
+                    </option>
+                {% endfor %}
+            </select>
+        </form>
+        {% if request.user.is_authenticated and request.user.is_staff %}
+        <a href="{% url 'plants:add_plant_view' %}" class="btn-luxury-green">
+            <i class="bi bi-plus-lg"></i> ADD NEW PLANT
+        </a>
+        {% endif %}
+        
+    </div>
+
+    <div class="row">
+        {% for plant in plants %}
+        <div class="col-md-4 mb-4">
+            {% include 'plants/includes/plant_card.html' with plant=plant %}
+        </div>
+        {% empty %}
+        <div class="col-12 text-center mt-5">
+            <p class="text-muted" style="letter-spacing: 1px;">NO PLANTS FOUND IN THIS CATEGORY.</p>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+
+{% endblock %}

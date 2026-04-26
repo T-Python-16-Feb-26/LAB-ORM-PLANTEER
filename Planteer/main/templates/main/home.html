@@ -1,0 +1,61 @@
+{% extends "main/base.html" %}
+{% load static %}
+
+{% block content %}
+<div class="hero-section">
+    <div class="container text-center">
+        <h1 class="display-3 fw-bold mb-3">Welcome to <span class="accent-text">Planteer</span></h1>
+        <p class="lead muted-text mb-5">Discover the beauty of nature and manage your botanical collection.</p>
+        
+        <div class="row justify-content-center">
+    <div class="col-md-8 col-lg-6">
+        <form class="search-pill" role="search" action="{% url 'plants:search_view' %}" method="GET">
+            <input type="search" name="search" placeholder="Search for a plant, tree or fruit..." aria-label="Search">
+            <button type="submit">
+                <i class="bi bi-search"></i> Search
+            </button>
+        </form>
+    </div>
+</div>
+
+<div class="mt-4">
+            <a href="{% url 'plants:all_plants_view' %}" class="btn-explore">
+                Explore All Plants <i class="bi bi-arrow-right ms-2"></i>
+            </a>
+        </div>
+        
+    </div>
+</div>
+
+<section id="new-plants">
+    <div class="container">
+        <div class="d-flex justify-content-between align-items-center mb-5">
+            <h2 class="fw-bold">Newly Added Plants</h2>
+            <a href="{% url 'plants:all_plants_view' %}" class="footer-link">View All <i class="bi bi-arrow-right"></i></a>
+        </div>
+        
+        <div class="row g-4">
+            {% for plant in plants %}
+            <div class="col-md-4">
+                {% include 'plants/includes/plant_card.html' with plant=plant %}
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<section id="botanical-highlights" style="background-color: var(--secondary-dark);">
+    <div class="container text-center py-5">
+        <h2 class="display-5 fw-bold mb-3 text-white">Botanical Wonders</h2>
+        
+        <p class="mb-5 mx-auto text-white" style="max-width: 700px; opacity: 0.85; line-height: 1.8;">
+            Dive into a world of curated botanical knowledge. Explore the intricate details, 
+            unique characteristics, and the fascinating science behind nature’s most 
+            extraordinary plant species.
+        </p>
+
+        <div class="row justify-content-center">
+            </div>
+    </div>
+</section>
+{% endblock %}

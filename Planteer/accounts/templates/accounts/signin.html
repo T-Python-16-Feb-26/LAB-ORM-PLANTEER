@@ -1,0 +1,36 @@
+{% extends "main/base.html" %}
+
+{% block content %}
+<div class="container d-flex justify-content-center align-items-center" style="min-height: 80vh;">
+    <div class="auth-card">
+        <div class="auth-header text-center mb-4">
+            <h2 class="fw-bold" style="color: var(--accent-gold); letter-spacing: 3px;">SIGN IN</h2>
+            <p style="color: var(--text-muted); font-size: 0.85rem;">WELCOME BACK TO PLANTEER SYSTEM</p>
+        </div>
+
+        <form method="POST">
+            {% csrf_token %}
+            
+            <div class="mb-4">
+                <label class="form-label custom-label">USERNAME</label>
+                <input type="text" name="username" class="form-control custom-input" placeholder="Your username" required>
+            </div>
+
+            <div class="mb-4">
+                <label class="form-label custom-label">PASSWORD</label>
+                <input type="password" name="password" class="form-control custom-input" placeholder="••••••••" required>
+            </div>
+
+            <button type="submit" class="btn btn-gold-action w-100 py-3 fw-bold mt-2">
+                ACCESS ACCOUNT
+            </button>
+        </form>
+
+        <div class="text-center mt-4 border-top pt-3" style="border-color: rgba(233, 207, 143, 0.1) !important;">
+            <p style="color: var(--text-muted); font-size: 0.85rem;">
+                NOT A MEMBER? <a href="{% url 'accounts:sign_up' %}" style="color: var(--accent-gold); text-decoration: none;" class="fw-bold">JOIN NOW</a>
+            </p>
+        </div>
+    </div>
+</div>
+{% endblock %}

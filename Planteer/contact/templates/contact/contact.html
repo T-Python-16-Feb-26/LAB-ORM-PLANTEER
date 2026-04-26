@@ -1,0 +1,30 @@
+{% extends "main/base.html" %}
+
+{% block content %}
+
+<div class="details-wrapper">
+    <div class="container">
+        <div class="contact-card mx-auto" style="max-width: 600px;">
+            <h2 class="accent-text mb-4 text-center">Contact Us</h2>
+            <form method="POST">
+                {% csrf_token %}
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <input type="text" name="first_name" class="form-control-custom" placeholder="First Name" required>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <input type="text" name="last_name" class="form-control-custom" placeholder="Last Name" required>
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <input type="email" name="email" class="form-control-custom" placeholder="Email" required>
+                </div>
+                <div class="mb-4">
+                    <textarea name="message" class="form-control-custom" rows="4" placeholder="Your Message" required></textarea>
+                </div>
+                <button type="submit" class="btn-send w-100">Send</button>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}
