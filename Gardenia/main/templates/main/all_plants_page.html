@@ -1,0 +1,100 @@
+{% extends "main/base.html" %}
+{% load static %}
+
+{% block title %}All Plants — Gardenia 🌿{% endblock %}
+
+{% block content %}
+
+<section class="section">
+  <div class="container">
+
+    
+    <div class="section-header">
+      <h2 class="section-header__title">All Plants</h2>
+      <div class="section-divider"></div>
+    </div>
+
+   
+    <div style="margin-bottom: 25px; display:flex; gap:10px; flex-wrap:wrap;">
+
+      
+      <a href="{% url 'main:all_plants' %}"
+         class="btn btn--outline {% if not selected_category and not selected_edible %}active{% endif %}">
+        All
+      </a>
+
+      
+      <a href="?category=indoor"
+         class="btn btn--outline {% if selected_category == 'indoor' %}active{% endif %}">
+        Indoor
+      </a>
+
+      <a href="?category=outdoor"
+         class="btn btn--outline {% if selected_category == 'outdoor' %}active{% endif %}">
+        Outdoor
+      </a>
+
+      <a href="?category=flower"
+         class="btn btn--outline {% if selected_category == 'flower' %}active{% endif %}">
+        Flowers
+      </a>
+
+      <a href="?used_for=edible"
+        class="btn btn--outline {% if selected_used_for == 'edible' %}active{% endif %}">
+        Edible
+      </a>
+
+    </div>
+
+    
+    {% if plants %}
+      <div class="grid-3">
+
+        {% for plant in plants %}
+          <div class="plant-card">
+
+            
+            <div class="plant-card__img-wrap">
+              {% if plant.image %}
+                <img src="{{ plant.image.url }}" class="plant-card__img">
+              {% else %}
+                <div class="plant-card__img-wrap--empty">🌱</div>
+              {% endif %}
+            </div>
+
+            
+            <div class="plant-card__body">
+              <h3 class="plant-card__name">{{ plant.name }}</h3>
+
+              <p class="plant-card__desc">
+                {{ plant.about|truncatewords:12 }}
+              </p>
+
+              
+              {% if plant.is_edible %}
+                <div style="margin-top:8px; font-size:13px; color:green;">
+                  🌿 Edible
+                </div>
+              {% endif %}
+
+              
+              <a href="{% url 'main:plant_detail' plant.id %}"
+                 class="btn btn--outline"
+                 style="margin-top:10px;">
+                View Details
+              </a>
+
+            </div>
+
+          </div>
+        {% endfor %}
+
+      </div>
+    {% else %}
+      <p>No plants found 🌱</p>
+    {% endif %}
+
+  </div>
+</section>
+
+{% endblock %}

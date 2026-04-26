@@ -1,0 +1,67 @@
+{% extends "main/base.html" %}
+
+{% block title %}Add Plant{% endblock %}
+
+{% block content %}
+
+<section class="form-page">
+  <div class="container">
+      <div class="form-card__header">
+        <p class="form-card__eyebrow">New Plant</p>
+        <h2 class="form-card__title">Add a Plant</h2>
+        <p class="form-card__sub">Fill in plant details below</p>
+      </div>
+
+      <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+
+        <div class="form-group">
+          {{ form.name.label_tag }}
+          {{ form.name }}
+        </div>
+
+        <div class="form-group">
+          {{ form.about.label_tag }}
+          {{ form.about }}
+        </div>
+
+        <div class="form-group">
+          {{ form.used_for.label_tag }}
+          {{ form.used_for }}
+        </div>
+
+        <div class="form-group">
+          {{ form.category.label_tag }}
+          {{ form.category }}
+        </div>
+
+        <div class="form-group form-check">
+          {{ form.is_edible }}
+          {{ form.is_edible.label_tag }}
+        </div>
+
+        <div class="form-group">
+          {{ form.light.label_tag }}
+          {{ form.light }}
+        </div>
+
+        <div class="form-group">
+          {{ form.care_level.label_tag }}
+          {{ form.care_level }}
+        </div>
+
+        <div class="form-group">
+          {{ form.image.label_tag }}
+          {{ form.image }}
+        </div>
+
+        <div class="form-actions">
+          <button type="submit" class="btn btn--primary">Save Plant</button>
+        </div>
+
+      </form>
+
+  </div>
+</section>
+
+{% endblock %}

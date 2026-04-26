@@ -1,0 +1,64 @@
+{% extends "main/base.html" %}
+{% load static %}
+
+{% block title %}Search — Gardenia 🌿{% endblock %}
+
+{% block content %}
+
+<section class="section">
+  <div class="container">
+
+    <div class="section-header">
+      <h2 class="section-header__title">
+        Search Results
+      </h2>
+      <div class="section-divider"></div>
+    </div>
+
+    {% if query %}
+      <p style="margin-bottom:20px;">
+        Results for: <strong>"{{ query }}"</strong>
+      </p>
+    {% endif %}
+
+    {% if plants %}
+      <div class="grid-3">
+
+        {% for plant in plants %}
+          <div class="plant-card">
+
+            <div class="plant-card__img-wrap">
+              {% if plant.image %}
+                <img src="{{ plant.image.url }}" class="plant-card__img">
+              {% else %}
+                <div class="plant-card__img-wrap--empty">🌱</div>
+              {% endif %}
+            </div>
+
+            <div class="plant-card__body">
+              <h3 class="plant-card__name">{{ plant.name }}</h3>
+
+              <p class="plant-card__desc">
+                {{ plant.about|truncatewords:10 }}
+              </p>
+
+              <a href="{% url 'main:plant_detail' plant.id %}"
+                 class="btn btn--outline"
+                 style="margin-top:10px;">
+                View Details
+              </a>
+            </div>
+
+          </div>
+        {% endfor %}
+
+      </div>
+
+    {% else %}
+      <p>No results found 🌱</p>
+    {% endif %}
+
+  </div>
+</section>
+
+{% endblock %}
