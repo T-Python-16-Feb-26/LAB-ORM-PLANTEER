@@ -1,0 +1,22 @@
+{% extends 'main/base.html' %}
+
+{% block title %}Messages | Planteer{% endblock %}
+
+{% block content %}
+<section class="container section-block">
+    <div class="section-header">
+        <h2>Messages from Users</h2>
+    </div>
+
+    {% for message in messages %}
+        <div class="message-card">
+            <h3>{{ message.first_name }} {{ message.last_name }}</h3>
+            <p><strong>Email:</strong> {{ message.email }}</p>
+            <p>{{ message.message }}</p>
+            <small>{{ message.created_at|date:"M d, Y - h:i A" }}</small>
+        </div>
+    {% empty %}
+        <p>No messages yet.</p>
+    {% endfor %}
+</section>
+{% endblock %}

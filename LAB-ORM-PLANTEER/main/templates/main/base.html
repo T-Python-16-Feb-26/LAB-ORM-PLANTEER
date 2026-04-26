@@ -1,0 +1,37 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Planteer{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<header class="navbar">
+    <div class="container nav-content">
+        <a href="{% url 'main:home_view' %}" class="logo">🌿 Planteer</a>
+
+        <nav class="nav-links">
+            <a href="{% url 'main:home_view' %}">Home</a>
+            <a href="{% url 'plants:all_plants_view' %}">All Plants</a>
+            <a href="{% url 'plants:add_plant_view' %}">Add Plant</a>
+            <a href="{% url 'plants:search_view' %}">Search</a>
+            <a href="{% url 'main:contact_view' %}">Contact</a>
+        </nav>
+    </div>
+</header>
+
+<main class="main-content">
+    {% block content %}{% endblock %}
+</main>
+
+<footer class="footer">
+    <div class="container">
+        <p>© 2026 Planteer | Plant Database Website</p>
+    </div>
+</footer>
+</body>
+</html>

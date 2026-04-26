@@ -1,0 +1,25 @@
+{% extends 'main/base.html' %}
+
+{% block title %}{{ country.name }} Plants | Planteer{% endblock %}
+
+{% block content %}
+<section class="container section-block">
+    <div class="section-header">
+        <h2>Plants Native to {{ country.name }}</h2>
+        <p>Browse all plants linked to this country</p>
+    </div>
+
+    <div class="country-header">
+        <img src="{{ country.flag }}" alt="{{ country.name }}">
+        <h3>{{ country.name }}</h3>
+    </div>
+
+    <div class="plants-grid">
+        {% for plant in plants %}
+            {% include 'plants/partials/_plant_card.html' with plant=plant %}
+        {% empty %}
+            <p>No plants found for this country.</p>
+        {% endfor %}
+    </div>
+</section>
+{% endblock %}

@@ -1,0 +1,18 @@
+{% extends 'main/base.html' %}
+
+{% block title %}Delete Plant | Planteer{% endblock %}
+
+{% block content %}
+<section class="container section-block">
+    <div class="form-card">
+        <h2>Delete Plant</h2>
+        <p>Are you sure you want to delete <strong>{{ plant.name }}</strong>?</p>
+
+        <form method="POST">
+            {% csrf_token %}
+            <button type="submit" class="btn-danger">Yes, Delete</button>
+            <a href="{% url 'plants:plant_detail_view' plant.id %}" class="btn-secondary">Cancel</a>
+        </form>
+    </div>
+</section>
+{% endblock %}
