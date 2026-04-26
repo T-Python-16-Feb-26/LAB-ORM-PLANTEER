@@ -1,0 +1,41 @@
+{% extends 'main/base.html' %}
+
+{% block title %}Profile{% endblock %}
+
+{% block content %}
+
+<div class="container mt-5">
+
+    <div class="card shadow p-4">
+        
+        <h3 class="mb-4">My Profile</h3>
+
+        <div class="mb-3">
+            <strong>Username:</strong>
+            <p>{{ request.user.username }}</p>
+        </div>
+
+        <div class="mb-3">
+            <strong>Email:</strong>
+            <p>{{ request.user.email }}</p>
+        </div>
+
+        <div class="mb-3">
+            <strong>Date Joined:</strong>
+            <p>{{ request.user.date_joined }}</p>
+        </div>
+
+        <div class="mb-3">
+            <strong>Comments:</strong>
+            <p></p>
+        </div>
+
+        <div class="mt-4">
+            <a href="{% url 'account:log_out_view'%}" class="btn btn-danger">Logout</a>
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

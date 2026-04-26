@@ -37,6 +37,10 @@ h2 b{
     margin-bottom: 2rem;
 }
 
+.nav-bar .nav-pills {
+    align-items: center;
+}
+
 .nav-bar .nav-link{
     color: var(--main-color);
 }
@@ -46,12 +50,31 @@ h2 b{
     text-decoration: underline;
 }
 
+
 .nav-bar .custom-btn{
     color: white;
     background-color: #4f772d;
     border-radius: 1rem !important;
     font-size: 18px;
+    transition: all 0.3s ease;
 }
+
+.nav-bar .custom-btn:hover{
+    background-color: #90a955;
+    color: white;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+}
+
+.nav-bar .icon-user{
+    color: #4f772d;
+    font-size: 40px;
+    border: 2px solid #6a994e;
+    border-radius: 30px;
+}
+
+
+
 
 
 .logo-box{
@@ -346,6 +369,46 @@ textarea.form-control {
     padding: 20px;
     box-shadow: 0 4px 15px rgba(0,0,0,0.08);
 }
+
+/*style account app*/
+
+.sign-style .custom-btn{
+    width: 10rem;
+    color: white;
+    background-color: #4f772d;
+    border-radius: 1rem !important;
+    font-size: 18px;
+    transition: all 0.3s ease;
+}
+
+.sign-style .custom-btn:hover{
+    background-color: #90a955;
+    color: white;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+}
+
+.form-control:focus {
+    border-color: #90a955 !important;
+    box-shadow: 0 0 0 0.2rem rgba(144, 169, 85, 0.25) !important;
+}
+
+.form-control:hover {
+    border-color: #90a955 !important;
+}
+
+.sign-style a{
+    color: #6a994e;
+    transition:all 0.3s ease;
+    display: inline-block;
+}
+
+.sign-style a:hover{
+    color: #90a955;
+    transform: translateY(-5px);
+}
+
+
 
 
 @media (max-width: 768px) {
