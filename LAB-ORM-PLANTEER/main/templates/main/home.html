@@ -1,0 +1,82 @@
+{% extends 'main/base.html' %}
+
+{% block title %}Home | Planteer{% endblock %}
+
+{% block content %}
+<section class="hero-section">
+    <div class="container hero-content">
+        <div class="hero-text">
+            <h1>Discover the Beauty of Plants</h1>
+            <p>
+                Explore real plants, learn their benefits, search by name,
+                and discover related plants in one clean responsive website.
+            </p>
+            <div class="hero-buttons">
+                <a href="{% url 'plants:all_plants_view' %}" class="btn-primary">Browse Plants</a>
+                <a href="{% url 'plants:add_plant_view' %}" class="btn-secondary">Add New Plant</a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="container section-block">
+    <div class="section-header">
+        <h2>Latest Plants</h2>
+        <p>Recently added plants in the database</p>
+    </div>
+
+    <div class="plants-grid">
+        {% for plant in latest_plants %}
+            <div class="plant-card">
+                <img src="{{ plant.image }}" alt="{{ plant.name }}">
+                <div class="plant-card-body">
+                    <span class="tag">{{ plant.category }}</span>
+                    <h3>{{ plant.name }}</h3>
+                    <p class="small-text">
+                        {% if plant.is_edible %}
+                            Edible plant
+                        {% else %}
+                            Not edible
+                        {% endif %}
+                    </p>
+                    <a href="{% url 'plants:plant_detail_view' plant.id %}" class="btn-view">View Details</a>
+                </div>
+            </div>
+        {% empty %}
+            <p>No plants added yet.</p>
+        {% endfor %}
+    </div>
+</section>
+<section class="container section-block">
+    <div class="section-header">
+        <h2>Why Planteer?</h2>
+        <p>A clean place to discover plants, their benefits, and real details.</p>
+    </div>
+
+    <div class="plants-grid">
+        <div class="plant-card">
+            <div class="plant-card-body">
+                <span class="tag">Real Data</span>
+                <h3>Real Plant Information</h3>
+                <p class="small-text">Each plant includes category, edibility, uses, and image.</p>
+            </div>
+        </div>
+
+        <div class="plant-card">
+            <div class="plant-card-body">
+                <span class="tag">Smart Search</span>
+                <h3>Search & Filter</h3>
+                <p class="small-text">Search plants by name and filter by category or edible status.</p>
+            </div>
+        </div>
+
+        <div class="plant-card">
+            <div class="plant-card-body">
+                <span class="tag">Relations</span>
+                <h3>Plant Comments</h3>
+                <p class="small-text">Users can leave comments on each plant using ORM relationships.</p>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

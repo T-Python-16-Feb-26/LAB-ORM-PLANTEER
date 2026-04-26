@@ -1,0 +1,48 @@
+<div class="plant-card">
+    <img src="{{ plant.image }}" alt="{{ plant.name }}">
+
+    <div class="plant-card-body">
+        <span class="badge">{{ plant.category }}</span>
+
+        <h3>{{ plant.name }}</h3>
+
+        {% if plant.is_edible %}
+            <p>Edible plant</p>
+        {% else %}
+            <p>Not edible</p>
+        {% endif %}
+
+        <a href="{% url 'plants:plant_detail_view' plant.id %}" class="btn-primary">
+            View Details
+        </a>
+    </div>
+</div>
+<div class="plant-card">
+    <img src="{{ plant.image }}" alt="{{ plant.name }}">
+
+    <div class="plant-card-body">
+        <div class="plant-card-top">
+            <span class="tag">{{ plant.category }}</span>
+
+            {% if plant.is_edible %}
+                <span class="edible-badge">Edible</span>
+            {% else %}
+                <span class="not-edible-badge">Not edible</span>
+            {% endif %}
+        </div>
+
+        <h3>{{ plant.name }}</h3>
+
+        <div class="plant-countries">
+            {% for country in plant.countries.all %}
+                <img src="{{ country.flag }}" alt="{{ country.name }}" title="{{ country.name }}">
+            {% empty %}
+                <span class="small-text">No countries</span>
+            {% endfor %}
+        </div>
+
+        <a href="{% url 'plants:plant_detail_view' plant.id %}" class="btn-view">
+            View Details
+        </a>
+    </div>
+</div>
