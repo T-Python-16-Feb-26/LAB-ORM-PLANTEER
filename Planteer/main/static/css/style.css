@@ -295,6 +295,19 @@ textarea.form-control {
 .related-scroll .card {
     width: 500px;  }
 
+.paginators .btn-paginator{
+    background-color: #4f772d ;
+    color: white;
+}
+
+.paginators .btn-paginator-outline{
+    border: 1px solid #4f772d;
+}
+.paginators .btn:hover{
+    background-color: #4f772d; 
+    color: white;
+    transform: scale(1.05); 
+}
 
 .footer {
 

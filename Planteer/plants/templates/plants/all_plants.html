@@ -64,6 +64,20 @@
 {% endfor %}
 </div>
 
+<div class="d-flex justify-content-center mt-5 paginators">
+
+    {% for number_page in plants.paginator.page_range %}
+
+        {% if plants.number == number_page %}
+            <span class="btn btn-paginator mx-1">{{ number_page }}</span>
+        {% else %}
+            <a class="btn btn-paginator-outline mx-2" href="?page={{ number_page }}">{{ number_page }}</a>
+        {% endif %}
+
+    {% endfor %}
+
+</div>
+
 </div>
 
 
