@@ -1,0 +1,158 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="{% block meta_description %}Planteer — Your elegant plant database for plant lovers.{% endblock %}" />
+  <title>{% block title %}Gardenia{% endblock %}</title>
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
+  <!-- Theme -->
+  <script>
+    (function(){
+      var t = localStorage.getItem('planteer-theme') ||
+        (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+      document.documentElement.setAttribute('data-theme', t);
+    })();
+  </script>
+
+  <!-- Stylesheet -->
+  <link rel="stylesheet" href="{% static 'main/css/style.css' %}" />
+
+  {% block extra_head %}{% endblock %}
+</head>
+<body>
+
+  <!-- Navbar -->
+  <nav class="navbar" role="navigation" aria-label="Main navigation">
+    <div class="container navbar__inner">
+
+      
+      <a href="{% url 'main:home' %}" class="navbar__logo" aria-label="Gardenia Home">
+        Gardenia
+      </a>
+
+      
+      <ul class="navbar__links" role="list">
+        <li>
+          <a href="{% url 'main:home' %}" class="navbar__link">Home</a>
+        </li>
+        <li>
+          <a href="{% url 'main:all_plants' %}" class="navbar__link">All Plants</a>
+        </li>
+        <li>
+          <a href="{% url 'main:contact' %}" class="navbar__link">Contact Us</a>
+        </li>
+      </ul>
+
+      
+      <div class="navbar__actions">
+        <button
+          id="theme-toggle"
+          class="theme-toggle"
+          aria-label="Toggle theme"
+          title="Toggle dark / light mode"
+        >🌙</button>
+
+        <a href="{% url 'main:add_plant' %}" class="btn-add-plant">
+          <span>＋</span> Add Plant
+        </a>
+
+        
+        <button
+          id="nav-hamburger"
+          class="navbar__hamburger"
+          aria-label="Open menu"
+          aria-expanded="false"
+          aria-controls="nav-mobile"
+        >
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+
+    </div>
+
+    <div id="nav-mobile" class="navbar__mobile" role="menu">
+      <a href="{% url 'main:home' %}" class="navbar__link" role="menuitem">Home</a>
+      <a href="{% url 'main:all_plants' %}" class="navbar__link" role="menuitem">All Plants</a>
+      <a href="{% url 'main:add_plant' %}" class="navbar__link" role="menuitem">Add Plant</a>
+      <a href="{% url 'main:contact' %}" class="navbar__link" role="menuitem">Contact Us</a>
+    </div>
+  </nav>
+
+  <!-- Main Content -->
+  <main>
+    {% block content %}{% endblock %}
+  </main>
+<!-- Footer -->
+  <footer class="footer" role="contentinfo">
+    <div class="container">
+      <div class="footer__inner">
+ 
+        
+        <div class="footer__brand">
+          <div class="footer__brand-logo">
+            Gardenia
+          </div>
+          <p class="footer__brand-desc">
+            A curated plant database for curious minds and plant enthusiasts. Discover, learn, and grow.
+          </p>
+          <div class="footer__socials">
+            <a href="#" class="footer__social" aria-label="Facebook">f</a>
+            <a href="#" class="footer__social" aria-label="Instagram">in</a>
+            <a href="#" class="footer__social" aria-label="YouTube">▶</a>
+            <a href="#" class="footer__social" aria-label="Twitter">𝕏</a>
+          </div>
+        </div>
+ 
+        
+        <div>
+          <p class="footer__col-title">Explore</p>
+          <ul class="footer__links">
+            <li><a href="{% url 'main:all_plants' %}" class="footer__link">All Plants</a></li>
+            <li><a href="{% url 'main:home' %}" class="footer__link">Search</a></li>
+            <li><a href="{% url 'main:add_plant' %}" class="footer__link">Add Plant</a></li>
+          </ul>
+        </div>
+ 
+       
+        <div>
+          <p class="footer__col-title">Categories</p>
+          <ul class="footer__links">
+            <li><a href="{% url 'main:all_plants' %}?category=tree" class="footer__link">Trees</a></li>
+            <li><a href="{% url 'main:all_plants' %}?category=flower" class="footer__link">Flowers</a></li>
+            <li><a href="{% url 'main:all_plants' %}?category=fruit" class="footer__link">Fruits</a></li>
+            <li><a href="{% url 'main:all_plants' %}?category=vegetable" class="footer__link">Vegetables</a></li>
+          </ul>
+        </div>
+ 
+       
+        <div>
+          <p class="footer__col-title">Info</p>
+          <ul class="footer__links">
+            <li><a href="{% url 'main:home' %}" class="footer__link">Contact Us</a></li>
+            <li><a href="#" class="footer__link">About</a></li>
+            <li><a href="#" class="footer__link">Privacy</a></li>
+          </ul>
+        </div>
+ 
+      </div>
+ 
+      
+      <div class="footer__bottom">
+        <span>© {% now "Y" %} Gardenia. All rights reserved.</span>
+        <span>Made with 🌱 for plant lovers</span>
+      </div>
+    </div>
+  </footer>
+ 
+  
+  <script src="{% static 'js/script.js' %}"></script>
+  {% block extra_scripts %}{% endblock %}
+
+</body>
+</html>

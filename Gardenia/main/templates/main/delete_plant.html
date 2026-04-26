@@ -1,0 +1,40 @@
+{% extends "main/base.html" %}
+
+{% block title %}Delete Plant{% endblock %}
+
+{% block content %}
+
+<section class="form-page">
+  <div class="container">
+
+    <div class="form-card animate-in" style="text-align:center;">
+
+      <div class="form-card__header">
+        <p class="form-card__eyebrow danger">Warning</p>
+        <h2 class="form-card__title">Delete Plant</h2>
+        <p class="form-card__sub">
+          Are you sure you want to delete <strong>{{ plant.name }}</strong>?
+        </p>
+      </div>
+
+      <form method="POST">
+        {% csrf_token %}
+
+        <div class="form-actions" style="justify-content:center;">
+          <button type="submit" class="btn btn--danger">
+            Yes, Delete
+          </button>
+
+          <a href="{% url 'main:plant_detail' plant.id %}" class="btn btn--secondary">
+            Cancel
+          </a>
+        </div>
+
+      </form>
+
+    </div>
+
+  </div>
+</section>
+
+{% endblock %}

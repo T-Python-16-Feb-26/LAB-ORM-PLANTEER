@@ -1,0 +1,61 @@
+{% extends "main/base.html" %}
+
+{% block title %}User Messages{% endblock %}
+
+{% block content %}
+
+<section class="section">
+  <div class="container">
+
+    <div class="section-header">
+      <div>
+        <div class="section-header__label">Inbox</div>
+        <h2 class="section-header__title">Messages from Users</h2>
+      </div>
+    </div>
+
+    <div class="messages-grid">
+
+      {% for msg in messages %}
+      <div class="message-card animate-in">
+
+        <!-- Header -->
+        <div class="message-card__header">
+
+          <div class="message-card__avatar">
+            {{ msg.first_name|first }}
+          </div>
+
+          <div>
+            <div class="message-card__name">
+              {{ msg.first_name }} {{ msg.last_name }}
+            </div>
+            <div class="message-card__email">
+              {{ msg.email }}
+            </div>
+          </div>
+
+          <div class="message-card__date">
+            {{ msg.created_at|date:"Y-m-d" }}
+          </div>
+
+        </div>
+
+        <div class="message-card__divider"></div>
+
+        <!-- Message -->
+        <div class="message-card__body">
+          {{ msg.message }}
+        </div>
+
+      </div>
+      {% empty %}
+        <p>No messages received yet.</p>
+      {% endfor %}
+
+    </div>
+
+  </div>
+</section>
+
+{% endblock %}

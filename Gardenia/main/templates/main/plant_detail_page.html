@@ -1,0 +1,63 @@
+{% extends "main/base.html" %}
+{% load static %}
+
+{% block title %}{{ plant.name }} — Gardenia 🌿{% endblock %}
+
+{% block content %}
+
+<section class="section">
+  <div class="container">
+
+    <div style="display:grid; grid-template-columns:1fr 1fr; gap:40px; align-items:start;">
+
+      <div>
+        {% if plant.image %}
+          <img src="{{ plant.image.url }}" style="width:100%; border-radius:12px;">
+        {% else %}
+          <div style="height:300px; display:flex; align-items:center; justify-content:center; background:#f3f3f3; border-radius:12px;">
+            🌱
+          </div>
+        {% endif %}
+      </div>
+
+      <div>
+
+        <h1 style="margin-bottom:10px;">{{ plant.name }}</h1>
+
+        <p style="opacity:0.7; margin-bottom:20px;">
+          {{ plant.about }}
+        </p>
+
+        <div style="display:flex; flex-direction:column; gap:10px; font-size:15px;">
+
+          <div>🌿 Category: {{ plant.get_category_display }}</div>
+
+          <div>☀️ Light: {{ plant.get_light_display }}</div>
+
+          <div>🧑‍🌾 Care Level: {{ plant.get_care_level_display }}</div>
+
+          <div>🍽️ Edible:
+            {% if plant.is_edible %}
+              Yes
+            {% else %}
+              No
+            {% endif %}
+          </div>
+
+          <div>🎯 Used for: {{ plant.get_used_for_display }}</div>
+
+        </div>
+        <a href="{% url 'main:all_plants' %}"
+           class="btn btn--outline"
+           style="margin-top:25px;">
+          ← Back to Plants
+        </a>
+
+      </div>
+
+    </div>
+
+  </div>
+</section>
+
+{% endblock %}
