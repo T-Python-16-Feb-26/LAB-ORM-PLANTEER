@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% block title %}Messages{% endblock %}
+
+{% block content %}
+<section class="section">
+    <div class="container">
+        <h1 class="page-title">Messages from Users</h1>
+
+        {% if messages_list %}
+        <div class="messages-grid">
+            {% for msg in messages_list %}
+            <div class="message-card">
+                <div class="message-icon">&#9993;</div>
+                <h3 class="message-name">{{ msg.first_name }} {{ msg.last_name }}</h3>
+                <a href="mailto:{{ msg.email }}" class="message-email">{{ msg.email }}</a>
+                <p class="message-body">{{ msg.message }}</p>
+            </div>
+            {% endfor %}
+        </div>
+        {% else %}
+        <div class="empty-state">
+            <h2>No messages yet</h2>
+            <p>When someone contacts you, their messages will appear here.</p>
+        </div>
+        {% endif %}
+    </div>
+</section>
+{% endblock %}

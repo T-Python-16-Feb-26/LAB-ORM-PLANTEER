@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+
+{% block title %}All Plants{% endblock %}
+
+{% block content %}
+<section class="section">
+    <div class="container">
+        <h1 class="page-title">All Plants</h1>
+
+        <!-- Filter Bar -->
+        <form method="GET" class="filter-bar">
+            <div class="filter-group">
+                <label>Plant Name</label>
+                {{ filter_form.name }}
+            </div>
+            <div class="filter-group">
+                <label>Edible</label>
+                {{ filter_form.is_edible }}
+            </div>
+            <div class="filter-group">
+                <label>Country</label>
+                {{ filter_form.country }}
+            </div>
+            <button type="submit" class="btn btn-dark">Filter</button>
+            <a href="{% url 'plants:all_plants' %}" class="btn btn-outline">Clear</a>
+        </form>
+
+        {% if plants %}
+        <div class="plants-grid">
+            {% for plant in plants %}
+            {% include 'plants/includes/plant_card.html' %}
+            {% endfor %}
+        </div>
+        {% else %}
+        <div class="empty-state">
+            <h2>No plants found</h2>
+            <p>Try changing your filters or <a href="{% url 'plants:add_plant' %}">add a new plant</a>.</p>
+        </div>
+        {% endif %}
+    </div>
+</section>
+{% endblock %}

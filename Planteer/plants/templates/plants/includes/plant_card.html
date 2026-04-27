@@ -1,0 +1,22 @@
+{% load static %}
+
+<a href="{% url 'plants:plant_detail' plant.pk %}" class="plant-card">
+    <div class="plant-card-img">
+        <img src="{{ plant.get_image }}" alt="{{ plant.name }}">
+    </div>
+    <div class="plant-card-body">
+        <h3 class="plant-card-title">{{ plant.name }}</h3>
+        <p class="plant-card-desc">{{ plant.description|truncatewords:8 }}</p>
+        <p class="plant-card-category">{{ plant.category.name }}</p>
+        {% if plant.countries.all %}
+        <div class="plant-card-countries">
+            {% for c in plant.countries.all %}
+            <span class="country-tag">
+                <img src="{% if c.flag %}{{ c.flag.url }}{% else %}{% static 'images/default-flag.svg' %}{% endif %}" alt="{{ c.name }}" class="country-flag">
+                {{ c.name }}
+            </span>
+            {% endfor %}
+        </div>
+        {% endif %}
+    </div>
+</a>

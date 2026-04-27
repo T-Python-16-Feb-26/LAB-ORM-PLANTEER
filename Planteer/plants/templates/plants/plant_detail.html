@@ -1,0 +1,98 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}{{ plant.name }}{% endblock %}
+
+{% block content %}
+<section class="section">
+    <div class="container">
+        <div class="detail-layout">
+            <div class="detail-image">
+                <img src="{{ plant.get_image }}" alt="{{ plant.name }}">
+            </div>
+            <div class="detail-info">
+                <h1 class="detail-title">{{ plant.name }}</h1>
+                <p class="detail-category">{{ plant.category.name }}</p>
+                <p class="detail-desc">{{ plant.description }}</p>
+
+                <div class="detail-specs">
+                    <p><strong>Is Edible:</strong> {% if plant.is_edible %}Yes{% else %}No{% endif %}</p>
+                    {% if plant.scientific_name %}
+                    <p><strong>Scientific:</strong> {{ plant.scientific_name }}</p>
+                    {% endif %}
+                </div>
+
+                <div class="detail-countries">
+                    <p class="detail-countries-label">Native to:</p>
+                    <div class="country-tags">
+                        {% for country in plant.countries.all %}
+                        <a href="{% url 'plants:plants_by_country' country.pk %}" class="country-tag country-tag-link">
+                            <img src="{% if country.flag %}{{ country.flag.url }}{% else %}{% static 'images/default-flag.svg' %}{% endif %}" alt="{{ country.name }}" class="country-flag">
+                            {{ country.name }}
+                        </a>
+                        {% empty %}
+                        <span class="empty-text">No countries added for this plant yet.</span>
+                        {% endfor %}
+                    </div>
+                </div>
+
+                <div class="detail-actions">
+                    <a href="{% url 'plants:update_plant' plant.pk %}" class="btn btn-dark">Edit</a>
+                    <a href="{% url 'plants:delete_plant' plant.pk %}" class="btn btn-danger">Delete</a>
+                </div>
+
+                <h2 class="comments-title">Comments ({{ comments|length }})</h2>
+
+                {% if user.is_authenticated %}
+                <div class="comment-form-box">
+                    <p class="detail-category">Commenting as {{ user.username }}</p>
+                    <form method="post" class="styled-form">
+                        {% csrf_token %}
+                        <div class="form-group">
+                            <label for="{{ comment_form.body.id_for_label }}">Comment</label>
+                            {{ comment_form.body }}
+                            {% for error in comment_form.body.errors %}
+                            <span class="error-text">{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                        <button type="submit" class="btn btn-dark">Add Comment</button>
+                    </form>
+                </div>
+                {% else %}
+                <div class="login-prompt">
+                    <p>Please <a href="{% url 'accounts:signin' %}">Sign In</a> or <a href="{% url 'accounts:signup' %}">Sign Up</a> to add a comment.</p>
+                </div>
+                {% endif %}
+
+                <div class="comments-list">
+                    {% for comment in comments %}
+                    <div class="comment-card">
+                        <div class="comment-header">
+                            <strong>{{ comment.user.username }}</strong>
+                            <span class="comment-date">{{ comment.created_at|date:"N j, Y, g:i a" }}</span>
+                        </div>
+                        <p class="comment-body">{{ comment.body }}</p>
+                    </div>
+                    {% empty %}
+                    <p class="empty-text">No comments yet. Be the first to comment!</p>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Related Plants -->
+{% if related_plants %}
+<section class="section section-gray">
+    <div class="container">
+        <h2 class="section-title">Related Plants</h2>
+        <div class="plants-grid">
+            {% for rp in related_plants %}
+            {% include 'plants/includes/plant_card.html' with plant=rp %}
+            {% endfor %}
+        </div>
+    </div>
+</section>
+{% endif %}
+{% endblock %}

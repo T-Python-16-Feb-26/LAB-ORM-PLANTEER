@@ -1,0 +1,70 @@
+from django.db import models
+from django.contrib.auth.models import User
+
+
+class Category(models.Model):
+    name = models.CharField(max_length=100, unique=True)
+    description = models.TextField(blank=True)
+
+    class Meta:
+        verbose_name_plural = "Categories"
+        ordering = ['name']
+
+    def __str__(self):
+        return self.name
+
+
+class Country(models.Model):
+    name = models.CharField(max_length=100, unique=True)
+    flag = models.ImageField(upload_to='flags/', blank=True, null=True)
+
+    class Meta:
+        verbose_name_plural = "Countries"
+        ordering = ['name']
+
+    def __str__(self):
+        return self.name
+
+    def get_flag(self):
+        if self.flag:
+            return self.flag.url
+        return '/static/images/default-flag.svg'
+
+
+class Plant(models.Model):
+    name = models.CharField(max_length=200)
+    scientific_name = models.CharField(max_length=200, blank=True)
+    description = models.TextField()
+    category = models.ForeignKey(Category, on_delete=models.SET_NULL, related_name='plants', null=True, blank=True)
+    image = models.ImageField(upload_to='plants/', blank=True, null=True)
+    is_edible = models.BooleanField(default=False)
+    countries = models.ManyToManyField(Country, related_name='plants', blank=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        ordering = ['-created_at']
+
+    def __str__(self):
+        return self.name
+
+    def get_image(self):
+        if self.image:
+            return self.image.url
+        return '/static/images/default-plant.png'
+
+    def get_related_plants(self):
+        return Plant.objects.filter(category=self.category).exclude(pk=self.pk)[:4]
+
+
+class Comment(models.Model):
+    plant = models.ForeignKey(Plant, on_delete=models.CASCADE, related_name='comments')
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='comments')
+    body = models.TextField()
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        ordering = ['-created_at']
+
+    def __str__(self):
+        return f"{self.user.username} on {self.plant.name}"

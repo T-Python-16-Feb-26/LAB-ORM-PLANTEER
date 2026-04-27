@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Home{% endblock %}
+
+{% block content %}
+<!-- Hero Section -->
+<section class="hero">
+    <div class="container hero-content">
+        <h1 class="hero-title">Planteer</h1>
+        <p class="hero-subtitle">Plant Database For Plants Lovers</p>
+        <form action="{% url 'plants:search' %}" method="GET" class="hero-search">
+            <input type="text" name="q" placeholder="Search For Plant..." class="hero-search-input">
+            <button type="submit" class="hero-search-btn">Search</button>
+        </form>
+    </div>
+</section>
+
+<!-- Plants Section -->
+<section class="section">
+    <div class="container">
+        <div class="section-header">
+            <div>
+                <h2 class="section-title">Plants</h2>
+                <p class="section-subtitle">Learn more about plants</p>
+            </div>
+            <a href="{% url 'plants:all_plants' %}" class="more-link">More &rarr;</a>
+        </div>
+
+        {% if featured_plants %}
+        <div class="plants-grid">
+            {% for plant in featured_plants %}
+            <a href="{% url 'plants:plant_detail' plant.pk %}" class="plant-card">
+                <div class="plant-card-img">
+                    <img src="{{ plant.get_image }}" alt="{{ plant.name }}">
+                </div>
+                <div class="plant-card-body">
+                    <h3 class="plant-card-title">{{ plant.name }}</h3>
+                    <p class="plant-card-desc">{{ plant.description|truncatewords:8 }}</p>
+                    <p class="plant-card-category">{{ plant.category.name }}</p>
+                </div>
+            </a>
+            {% endfor %}
+        </div>
+        <div class="section-footer">
+            <a href="{% url 'plants:all_plants' %}" class="btn btn-dark">View All Plants</a>
+        </div>
+        {% else %}
+        <p class="empty-text">No plants yet. <a href="{% url 'plants:add_plant' %}">Add one!</a></p>
+        {% endif %}
+    </div>
+</section>
+{% endblock %}

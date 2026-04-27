@@ -1,0 +1,97 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ action }} Plant{% endblock %}
+
+{% block content %}
+<section class="section">
+    <div class="container">
+        <h1 class="page-title">{{ action }} Plant</h1>
+
+        <div class="form-container">
+            <form method="POST" enctype="multipart/form-data" class="styled-form">
+                {% csrf_token %}
+
+                {% if form.non_field_errors %}
+                <div class="form-errors">
+                    {% for error in form.non_field_errors %}
+                    <p class="error-text">{{ error }}</p>
+                    {% endfor %}
+                </div>
+                {% endif %}
+
+                {% if form.errors %}
+                <div class="form-errors">
+                    {% for field in form %}
+                        {% for error in field.errors %}
+                        <p class="error-text"><strong>{{ field.label }}:</strong> {{ error }}</p>
+                        {% endfor %}
+                    {% endfor %}
+                </div>
+                {% endif %}
+
+                <!-- Plant Name -->
+                <div class="form-group">
+                    <label for="{{ form.name.id_for_label }}">Plant Name *</label>
+                    {{ form.name }}
+                    {% for error in form.name.errors %}
+                    <span class="error-text">{{ error }}</span>
+                    {% endfor %}
+                </div>
+
+                <!-- Category -->
+                <div class="form-group">
+                    <label for="{{ form.category.id_for_label }}">Category</label>
+                    {{ form.category }}
+                    {% for error in form.category.errors %}
+                    <span class="error-text">{{ error }}</span>
+                    {% endfor %}
+                </div>
+
+                <!-- Description -->
+                <div class="form-group">
+                    <label for="{{ form.description.id_for_label }}">Description *</label>
+                    {{ form.description }}
+                    {% for error in form.description.errors %}
+                    <span class="error-text">{{ error }}</span>
+                    {% endfor %}
+                </div>
+
+                <!-- Is Edible -->
+                <div class="form-group form-checkbox-group">
+                    {{ form.is_edible }}
+                    <label for="{{ form.is_edible.id_for_label }}">This plant is edible</label>
+                </div>
+
+                <!-- Countries -->
+                <div class="form-group">
+                    <label>Native Countries</label>
+                    <div class="countries-checkbox-list">
+                        {% for checkbox in form.countries %}
+                        <label class="country-checkbox-label">
+                            {{ checkbox.tag }} {{ checkbox.choice_label }}
+                        </label>
+                        {% empty %}
+                        <span class="empty-text">No countries found. Add countries from admin first.</span>
+                        {% endfor %}
+                    </div>
+                    {% for error in form.countries.errors %}
+                    <span class="error-text">{{ error }}</span>
+                    {% endfor %}
+                </div>
+
+                <!-- Plant Image -->
+                <div class="form-group">
+                    <label>Plant Image</label>
+                    <label for="{{ form.image.id_for_label }}" class="upload-btn">+ Upload Image</label>
+                    <div class="upload-input-hidden">{{ form.image }}</div>
+                </div>
+
+                <div class="form-actions">
+                    <button type="submit" class="btn btn-dark">{% if action == 'Add' %}Add Plant{% else %}Save Changes{% endif %}</button>
+                    <a href="{% if plant %}{% url 'plants:plant_detail' plant.pk %}{% else %}{% url 'plants:all_plants' %}{% endif %}" class="btn btn-outline">Cancel</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</section>
+{% endblock %}
