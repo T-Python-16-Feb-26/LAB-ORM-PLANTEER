@@ -1,0 +1,48 @@
+{% extends "main/base.html" %}
+
+{% block content %}
+<div class="container py-5">
+
+  <h1 class="fw-bold mb-2">Search Plants</h1>
+  <p class="text-muted mb-4">Find plants by name</p>
+
+  <!-- Search Bar -->
+  <form method="GET" action="{% url 'plants:search_view' %}" class="mb-5">
+    <div class="input-group input-group-lg shadow-sm" style="max-width: 600px;">
+      <input type="text" name="q" class="form-control border-end-0"
+             placeholder="e.g. Rose, Mint, Oak…"
+             value="{{ query }}" autofocus>
+      <button class="btn btn-success px-4" type="submit">
+        <i class="fas fa-search me-1"></i>Search
+      </button>
+    </div>
+  </form>
+
+  <!-- Results -->
+  {% if query %}
+    <h5 class="text-muted mb-4">
+      {% if plants %}
+        {{ plants|length }} result{{ plants|length|pluralize }} for "<strong>{{ query }}</strong>"
+      {% else %}
+        No results for "<strong>{{ query }}</strong>"
+      {% endif %}
+    </h5>
+  {% endif %}
+
+  {% if plants %}
+    {% include "plants/plants-card.html" %}
+  {% elif query %}
+    <div class="text-center py-5">
+      <i class="fas fa-search fa-4x text-muted mb-3"></i>
+      <h4 class="text-muted">No plants matched your search</h4>
+      <p class="text-muted">Try a different name, or <a href="{% url 'plants:all_plants_view' %}">browse all plants</a>.</p>
+    </div>
+  {% else %}
+    <div class="text-center py-5 text-muted">
+      <i class="fas fa-leaf fa-4x mb-3"></i>
+      <h4>Start typing to search</h4>
+    </div>
+  {% endif %}
+
+</div>
+{% endblock %}

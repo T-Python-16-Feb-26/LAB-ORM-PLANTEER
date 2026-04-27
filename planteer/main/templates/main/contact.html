@@ -1,0 +1,84 @@
+{% extends "main/base.html" %}
+
+{% block content %}
+<div class="container py-5">
+  <div class="row g-5 align-items-center">
+
+    <!-- Form Side -->
+    <div class="col-lg-6">
+      <span class="badge bg-success bg-opacity-10 text-success fw-semibold px-3 py-2 mb-3">Get in Touch</span>
+      <h1 class="fw-bold mb-2">Contact Us</h1>
+      <p class="text-muted mb-4">Have a question or suggestion? We'd love to hear from you.</p>
+
+      <div class="card border-0 shadow-sm rounded-4 p-4">
+        <form method="POST" novalidate>
+          {% csrf_token %}
+
+          <div class="row g-3">
+            <!-- First Name -->
+            <div class="col-sm-6">
+              <label for="{{ form.first_name.id_for_label }}" class="form-label fw-semibold">First Name</label>
+              <input type="text" name="first_name" id="{{ form.first_name.id_for_label }}"
+                     class="form-control {% if form.first_name.errors %}is-invalid{% endif %}"
+                     value="{{ form.first_name.value|default:'' }}" placeholder="Jane">
+              {% if form.first_name.errors %}
+                <div class="invalid-feedback">{{ form.first_name.errors|join:", " }}</div>
+              {% endif %}
+            </div>
+
+            <!-- Last Name -->
+            <div class="col-sm-6">
+              <label for="{{ form.last_name.id_for_label }}" class="form-label fw-semibold">Last Name</label>
+              <input type="text" name="last_name" id="{{ form.last_name.id_for_label }}"
+                     class="form-control {% if form.last_name.errors %}is-invalid{% endif %}"
+                     value="{{ form.last_name.value|default:'' }}" placeholder="Smith">
+              {% if form.last_name.errors %}
+                <div class="invalid-feedback">{{ form.last_name.errors|join:", " }}</div>
+              {% endif %}
+            </div>
+
+            <!-- Email -->
+            <div class="col-12">
+              <label for="{{ form.email.id_for_label }}" class="form-label fw-semibold">Email</label>
+              <input type="email" name="email" id="{{ form.email.id_for_label }}"
+                     class="form-control {% if form.email.errors %}is-invalid{% endif %}"
+                     value="{{ form.email.value|default:'' }}" placeholder="jane@example.com">
+              {% if form.email.errors %}
+                <div class="invalid-feedback">{{ form.email.errors|join:", " }}</div>
+              {% endif %}
+            </div>
+
+            <!-- Message -->
+            <div class="col-12">
+              <label for="{{ form.message.id_for_label }}" class="form-label fw-semibold">Message</label>
+              <textarea name="message" id="{{ form.message.id_for_label }}"
+                        class="form-control {% if form.message.errors %}is-invalid{% endif %}"
+                        rows="5" placeholder="Tell us what's on your mind…">{{ form.message.value|default:'' }}</textarea>
+              {% if form.message.errors %}
+                <div class="invalid-feedback">{{ form.message.errors|join:", " }}</div>
+              {% endif %}
+            </div>
+
+            <div class="col-12 mt-2">
+              <button type="submit" class="btn btn-dark btn-lg w-100">
+                <i class="fas fa-paper-plane me-2"></i>Send Message
+              </button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <!-- Image / Info Side -->
+    <div class="col-lg-6 d-none d-lg-flex flex-column align-items-center justify-content-center text-center gap-4">
+      <div class="rounded-4 bg-success bg-opacity-10 p-5" style="max-width: 380px;">
+        <i class="fas fa-envelope-open-text fa-5x text-success mb-4"></i>
+        <h4 class="fw-bold">We're here to help</h4>
+        <p class="text-muted">Whether it's a plant suggestion, a bug report, or just saying hi — we read every message.</p>
+        <a class="btn btn-dark px-4" href="{% url 'main:contact_messages' %}">Like here!</a>
+      </div>
+    </div>
+
+  </div>
+</div>
+{% endblock %}

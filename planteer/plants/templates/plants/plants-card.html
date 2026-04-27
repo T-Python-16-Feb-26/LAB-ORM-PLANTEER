@@ -1,0 +1,36 @@
+<div class="row row-cols-1 row-cols-sm-2 row-cols-lg-3 g-4">
+      {% for plant in plants %}
+        <div class="col">
+          <div class="card h-100 shadow-sm border-0">
+            {% if plant.image %}
+              <img src="{{ plant.image.url }}" class="card-img-top" alt="{{ plant.name }}"
+                   style="height: 220px; object-fit: cover;">
+            {% else %}
+              <div class="bg-secondary d-flex align-items-center justify-content-center"
+                   style="height: 220px;">
+                <i class="fas fa-seedling fa-3x text-white"></i>
+              </div>
+            {% endif %}
+            <div class="card-body d-flex flex-column">
+              <div class="d-flex justify-content-between align-items-start mb-2">
+                <h5 class="card-title fw-bold mb-0">{{ plant.name }}</h5>
+                <span class="badge bg-success text-capitalize">{{ plant.category }}</span>
+              </div>
+              <p class="card-text text-muted small flex-grow-1">
+                {{ plant.about|truncatewords:18 }}
+              </p>
+              <div class="d-flex justify-content-between align-items-center mt-3">
+                {% if plant.is_edible %}
+                  <span class="badge bg-warning text-dark"><i class="fas fa-utensils me-1"></i>Edible</span>
+                {% else %}
+                  <span class="badge bg-secondary">Not Edible</span>
+                {% endif %}
+                <a href="{% url 'plants:plant_detail_view' plant_id=plant.id %}" class="btn btn-sm btn-outline-success">
+                  View <i class="fas fa-arrow-right ms-1"></i>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+        {% endfor %}
+    </div>

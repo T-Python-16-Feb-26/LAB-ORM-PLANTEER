@@ -1,0 +1,45 @@
+{% extends "main/base.html" %}
+
+{% block content %}
+<div class="container py-5">
+
+  <div class="d-flex justify-content-between align-items-center mb-5">
+    <div>
+      <h1 class="fw-bold mb-1">Messages from Users</h1>
+      <p class="text-muted mb-0">{{ contact_messages|length }} message{{ contact_messages|length|pluralize }} received</p>
+    </div>
+  </div>
+
+  {% if contact_messages %}
+    <div class="row g-4">
+      {% for msg in contact_messages %}
+        <div class="col-md-6 col-lg-4">
+          <div class="card border-0 shadow-sm rounded-4 h-100 p-4">
+            <div class="d-flex align-items-center gap-3 mb-3">
+              <div class="bg-success bg-opacity-10 rounded-circle d-flex align-items-center justify-content-center flex-shrink-0"
+                   style="width: 48px; height: 48px;">
+                <i class="fas fa-user text-success"></i>
+              </div>
+              <div>
+                <h6 class="fw-bold mb-0">{{ msg.first_name }} {{ msg.last_name }}</h6>
+                <small class="text-muted">{{ msg.email }}</small>
+              </div>
+            </div>
+            <p class="text-muted small flex-grow-1">{{ msg.message|truncatewords:30 }}</p>
+            <p class="text-muted small mt-3 mb-0">
+              <i class="fas fa-clock me-1"></i>{{ msg.created_at|date:"M j, Y · g:i A" }}
+            </p>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  {% else %}
+    <div class="text-center py-5">
+      <i class="fas fa-inbox fa-4x text-muted mb-3"></i>
+      <h4 class="text-muted">No messages yet</h4>
+      <p class="text-muted">Messages submitted via the contact form will appear here.</p>
+    </div>
+  {% endif %}
+
+</div>
+{% endblock %}

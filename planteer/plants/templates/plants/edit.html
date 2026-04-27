@@ -1,0 +1,124 @@
+{% extends "main/base.html" %}
+
+{% block content %}
+<div class="container py-5">
+  <div class="row justify-content-center">
+    <div class="col-lg-7">
+
+      <div class="d-flex align-items-center mb-4">
+        <a href="{% url 'plants:plant_detail_view' plant_id=plant.id %}" class="btn btn-light me-3">
+          <i class="fas fa-arrow-left"></i>
+        </a>
+        <div>
+          <h1 class="fw-bold mb-0">Edit Plant</h1>
+          <p class="text-muted mb-0">Updating: {{ plant.name }}</p>
+        </div>
+      </div>
+
+      <div class="card border-0 shadow-sm rounded-4 p-4">
+        <form method="POST" enctype="multipart/form-data" novalidate>
+          {% csrf_token %}
+
+          <!-- Name -->
+          <div class="mb-3">
+            <label for="{{ form.name.id_for_label }}" class="form-label fw-semibold">Plant Name</label>
+            {{ form.name }}
+            {% if form.name.errors %}
+              <div class="text-danger small mt-1">{{ form.name.errors|join:", " }}</div>
+            {% endif %}
+          </div>
+
+          <!-- Category -->
+          <div class="mb-3">
+            <label for="{{ form.category.id_for_label }}" class="form-label fw-semibold">Category</label>
+            {{ form.category }}
+            {% if form.category.errors %}
+              <div class="text-danger small mt-1">{{ form.category.errors|join:", " }}</div>
+            {% endif %}
+          </div>
+
+          <!-- About -->
+          <div class="mb-3">
+            <label for="{{ form.about.id_for_label }}" class="form-label fw-semibold">About</label>
+            {{ form.about }}
+            {% if form.about.errors %}
+              <div class="text-danger small mt-1">{{ form.about.errors|join:", " }}</div>
+            {% endif %}
+          </div>
+
+          <!-- Used For -->
+          <div class="mb-3">
+            <label for="{{ form.used_for.id_for_label }}" class="form-label fw-semibold">Used For</label>
+            {{ form.used_for }}
+            {% if form.used_for.errors %}
+              <div class="text-danger small mt-1">{{ form.used_for.errors|join:", " }}</div>
+            {% endif %}
+          </div>
+
+          <!-- Image (current + replace) -->
+          <div class="mb-3">
+            <label class="form-label fw-semibold">Image</label>
+            {% if plant.image %}
+              <div class="mb-2">
+                <img src="{{ plant.image.url }}" alt="{{ plant.name }}"
+                     class="rounded" style="height: 100px; object-fit: cover;">
+                <p class="text-muted small mt-1">Current image — upload a new one to replace it</p>
+              </div>
+            {% endif %}
+            {{ form.image }}
+            {% if form.image.errors %}
+              <div class="text-danger small mt-1">{{ form.image.errors|join:", " }}</div>
+            {% endif %}
+          </div>
+
+          <!-- Is Edible -->
+          <div class="mb-4 form-check">
+            {{ form.is_edible }}
+            <label class="form-check-label fw-semibold" for="{{ form.is_edible.id_for_label }}">
+              This plant is edible
+            </label>
+          </div>
+
+          <div class="d-flex gap-2">
+            <button type="submit" class="btn btn-success px-5">
+              <i class="fas fa-save me-2"></i>Save Changes
+            </button>
+            <a href="{% url 'plants:plant_detail_view' plant_id=plant.id %}" class="btn btn-light px-4">Cancel</a>
+            <button type="button" class="btn btn-outline-danger ms-auto"
+                    data-bs-toggle="modal" data-bs-target="#deleteModal">
+              <i class="fas fa-trash me-1"></i>Delete
+            </button>
+          </div>
+        </form>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- Delete Confirmation Modal -->
+<div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content border-0 shadow rounded-4">
+      <div class="modal-body text-center p-5">
+        <div class="bg-danger bg-opacity-10 rounded-circle d-inline-flex align-items-center justify-content-center mb-4"
+             style="width: 72px; height: 72px;">
+          <i class="fas fa-trash fa-xl text-danger"></i>
+        </div>
+        <h5 class="fw-bold mb-2">Delete "{{ plant.name }}"?</h5>
+        <p class="text-muted small mb-4">This action cannot be undone.</p>
+        <div class="d-flex gap-3 justify-content-center">
+          <form method="POST" action="{% url 'plants:delete_view' plant_id=plant.id %}">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-danger px-4">
+              <i class="fas fa-trash me-1"></i>Yes, Delete
+            </button>
+          </form>
+          <button type="button" class="btn btn-light px-4" data-bs-dismiss="modal">Cancel</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,62 @@
+{% extends "main/base.html" %}
+{% load static %}
+
+{% block content %}
+
+<!-- Hero Section -->
+<section style="
+  background-image: url('{% static 'images/home-bg.jpg' %}');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  aspect-ratio: 16 / 5;
+  margin: 1.5rem 2rem;
+  border-radius: 0.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+">
+  <div class="text-center px-4">
+    <h1 class="display-3 fw-bold mb-2">Planteer</h1>
+    <h2 class="fs-4 fw-bold mb-4">Plant Database For Plants Lovers</h2>
+    <form method="GET" action="{% url 'plants:search_view' %}" class="d-flex gap-2 justify-content-center" style="max-width: 460px; margin: 0 auto;">
+      <input type="text" name="q" class="form-control form-control-lg border border-secondary-subtle rounded"
+             placeholder="Search For Plant...">
+      <button class="btn btn-dark btn-lg px-4" type="submit">Search</button>
+    </form>
+  </div>
+</section>
+
+<!-- Plants Section -->
+<section class="container py-5">
+  <div class="d-flex justify-content-between align-items-start mb-1">
+    <h2 class="fw-bold fs-3 mb-0">Plants</h2>
+    <a href="{% url 'plants:all_plants_view' %}" class="text-dark text-decoration-none">More →</a>
+  </div>
+  <p class="text-muted small mb-4">Learn more about plants</p>
+
+  <div class="row row-cols-1 row-cols-md-3 g-4">
+    {% for plant in plants %}
+      <div class="col">
+        {% if plant.image %}
+          <img src="{{ plant.image.url }}" alt="{{ plant.name }}"
+               style="width: 100%; height: 200px; object-fit: cover;">
+        {% else %}
+          <div class="bg-light d-flex align-items-center justify-content-center"
+               style="height: 200px;">
+            <i class="fas fa-seedling fa-3x text-muted"></i>
+          </div>
+        {% endif %}
+        <div class="mt-2">
+          <p class="fw-bold mb-0">{{ plant.name }}</p>
+          <p class="text-muted small mb-0">{{ plant.about|truncatewords:5 }}</p>
+          <p class="fw-bold small mb-0 text-capitalize">{{ plant.category }}</p>
+        </div>
+      </div>
+    {% empty %}
+      <p class="text-muted col-12">No plants added yet.</p>
+    {% endfor %}
+  </div>
+</section>
+
+{% endblock %}
