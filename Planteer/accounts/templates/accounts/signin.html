@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+
+{% block title %}Sign In{% endblock %}
+
+{% block content %}
+<section class="section">
+    <div class="container">
+        <div class="auth-box">
+            <h1 class="page-title">Sign In</h1>
+            <p class="page-subtitle">Welcome back</p>
+
+            {% if error_message %}
+            <div class="form-errors">
+                <p>{{ error_message }}</p>
+            </div>
+            {% endif %}
+
+            <form method="post" class="styled-form">
+                {% csrf_token %}
+
+                <div class="form-group">
+                    <label for="{{ form.username.id_for_label }}">Username</label>
+                    {{ form.username }}
+                    {% for error in form.username.errors %}
+                    <span class="error-text">{{ error }}</span>
+                    {% endfor %}
+                </div>
+
+                <div class="form-group">
+                    <label for="{{ form.password.id_for_label }}">Password</label>
+                    {{ form.password }}
+                    {% for error in form.password.errors %}
+                    <span class="error-text">{{ error }}</span>
+                    {% endfor %}
+                </div>
+
+                <button type="submit" class="btn btn-dark btn-full">Sign In</button>
+            </form>
+
+            <p class="auth-link">Don't have an account? <a href="{% url 'accounts:signup' %}">Sign Up</a></p>
+        </div>
+    </div>
+</section>
+{% endblock %}

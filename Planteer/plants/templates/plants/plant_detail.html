@@ -41,34 +41,40 @@
                     <a href="{% url 'plants:delete_plant' plant.pk %}" class="btn btn-danger">Delete</a>
                 </div>
 
-                <h2 class="reviews-title">Reviews</h2>
-                <form method="POST" action="{% url 'plants:add_review' plant.pk %}" class="review-form">
-                    {% csrf_token %}
-                    <textarea name="review_text" placeholder="Write your review..." class="review-textarea" rows="3" required></textarea>
-                    <select name="rating" class="review-select" required>
-                        <option value="">Select Rating</option>
-                        <option value="1">1 - Poor</option>
-                        <option value="2">2 - Fair</option>
-                        <option value="3">3 - Good</option>
-                        <option value="4">4 - Very Good</option>
-                        <option value="5">5 - Excellent</option>
-                    </select>
-                    <button type="submit" class="btn btn-primary">Submit Review</button>
-                </form>
+                <h2 class="comments-title">Comments ({{ comments|length }})</h2>
 
-                <div class="reviews-list">
-                    {% for review in reviews %}
-                    <div class="review-item">
-                        <div class="review-header">
-                            <span class="review-stars">{% for i in "12345" %}{% if forloop.counter <= review.rating %}★{% else %}☆{% endif %}{% endfor %}</span>
-                            <span class="review-date">{{ review.created|date:"N j, Y" }}</span>
+                {% if user.is_authenticated %}
+                <div class="comment-form-box">
+                    <p class="detail-category">Commenting as {{ user.username }}</p>
+                    <form method="post" class="styled-form">
+                        {% csrf_token %}
+                        <div class="form-group">
+                            <label for="{{ comment_form.body.id_for_label }}">Comment</label>
+                            {{ comment_form.body }}
+                            {% for error in comment_form.body.errors %}
+                            <span class="error-text">{{ error }}</span>
+                            {% endfor %}
                         </div>
-                        {% if review.comment %}
-                        <p class="review-text">{{ review.comment }}</p>
-                        {% endif %}
+                        <button type="submit" class="btn btn-dark">Add Comment</button>
+                    </form>
+                </div>
+                {% else %}
+                <div class="login-prompt">
+                    <p>Please <a href="{% url 'accounts:signin' %}">Sign In</a> or <a href="{% url 'accounts:signup' %}">Sign Up</a> to add a comment.</p>
+                </div>
+                {% endif %}
+
+                <div class="comments-list">
+                    {% for comment in comments %}
+                    <div class="comment-card">
+                        <div class="comment-header">
+                            <strong>{{ comment.user.username }}</strong>
+                            <span class="comment-date">{{ comment.created_at|date:"N j, Y, g:i a" }}</span>
+                        </div>
+                        <p class="comment-body">{{ comment.body }}</p>
                     </div>
                     {% empty %}
-                    <p class="no-reviews">No reviews yet. Be the first to review this plant!</p>
+                    <p class="empty-text">No comments yet. Be the first to comment!</p>
                     {% endfor %}
                 </div>
             </div>

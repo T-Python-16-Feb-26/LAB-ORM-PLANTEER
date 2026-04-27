@@ -1,5 +1,5 @@
 from django import forms
-from .models import Plant, Category, Country
+from .models import Plant, Category, Country, Comment
 
 
 class PlantForm(forms.ModelForm):
@@ -46,3 +46,20 @@ class PlantFilterForm(forms.Form):
         empty_label='All Countries',
         widget=forms.Select(),
     )
+
+
+class CommentForm(forms.ModelForm):
+
+    class Meta:
+        model = Comment
+        fields = ['body']
+        labels = {
+            'body': 'Comment',
+        }
+        widgets = {
+            'body': forms.Textarea(attrs={
+                'placeholder': 'Write your comment...',
+                'rows': 3,
+                'required': True,
+            }),
+        }

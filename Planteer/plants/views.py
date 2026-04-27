@@ -1,8 +1,8 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.http import HttpRequest
 from django.contrib import messages
-from .models import Plant, Category, Review, Country
-from .forms import PlantForm, PlantFilterForm
+from .models import Plant, Category, Country, Comment
+from .forms import PlantForm, PlantFilterForm, CommentForm
 
 
 def all_plants(request: HttpRequest):
@@ -29,13 +29,25 @@ def all_plants(request: HttpRequest):
 
 def plant_detail(request: HttpRequest, plant_id):
     plant = get_object_or_404(Plant, pk=plant_id)
-    reviews = Review.objects.filter(plant=plant).order_by('-created')
+    comments = plant.comments.all()
+    comment_form = CommentForm()
+
+    if request.method == 'POST' and request.user.is_authenticated:
+        comment_form = CommentForm(request.POST)
+        if comment_form.is_valid():
+            comment = comment_form.save(commit=False)
+            comment.plant = plant
+            comment.user = request.user
+            comment.save()
+            return redirect('plants:plant_detail', plant_id=plant.pk)
+
     related_plants = plant.get_related_plants()
 
     return render(request, 'plants/plant_detail.html', {
         'plant': plant,
         'related_plants': related_plants,
-        'reviews': reviews,
+        'comments': comments,
+        'comment_form': comment_form,
     })
 
 
@@ -98,20 +110,6 @@ def search_plants(request: HttpRequest):
         'searched': searched,
         'result_count': plants.count(),
     })
-
-
-def add_review(request: HttpRequest, plant_id):
-    plant = get_object_or_404(Plant, pk=plant_id)
-
-    if request.method == 'POST':
-        rating = request.POST.get('rating')
-        comment = request.POST.get('review_text', '')
-
-        if rating:
-            Review.objects.create(plant=plant, rating=rating, comment=comment)
-            messages.success(request, 'Review added successfully!')
-
-    return redirect('plants:plant_detail', plant_id=plant.pk)
 
 
 def plants_by_country(request: HttpRequest, country_id):
