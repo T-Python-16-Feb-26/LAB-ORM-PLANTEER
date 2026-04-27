@@ -1,0 +1,60 @@
+{% extends 'main/base.html' %}
+
+{% block title %}All Plants{% endblock %}
+
+{% block content %}
+
+<!-- Filter Section -->
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h1>All Plants</h1>
+    <form method="GET" action="{% url 'plants:all_view' %}" class="d-flex gap-2 align-items-center">
+        <select name="category" class="form-select">
+            <option value="">All Categories</option>
+            {% for value, label in categories %}
+            <option value="{{ value }}" {% if request.GET.category == value %}selected{% endif %}>{{ label }}</option>
+            {% endfor %}
+        </select>
+
+        <select name="is_edible" class="form-select">
+            <option value=""> Both </option>
+            <option value="True" {% if request.GET.is_edible == "True" %}selected{% endif %}>Edible</option>
+            <option value="False" {% if request.GET.is_edible == "False" %}selected{% endif %}>Not Edible</option>
+        </select>
+
+        <select name="country" class="form-select">
+            <option value=""> All Countries </option>
+            {% for country in countries %}
+                <option value="{{ country.id }}">
+                        <span class="fi fi-{{country.flag}}"></span>
+                        {{country.name}}
+
+                </option>
+            {% endfor %}
+
+
+        </select>
+
+        <button type="submit" class="btn btn-success">Filter</button>
+    </form>
+</div>
+
+<!-- Plants Grid -->
+<div class="row row-cols-1 row-cols-md-3 g-4">
+    {% for plant in plants %}
+    <div class="col">
+        <div class="card h-100">
+            <img src="{{ plant.image.url }}" class="card-img-top object-fit-cover" style="height:200px" />
+            <div class="card-body">
+                <span class="badge bg-success mb-1">{{ plant.category }}</span>
+                <h5 class="card-title">{{ plant.name }}</h5>
+                <p class="card-text text-muted">{{ plant.about|truncatechars:80 }}</p>
+                <a href="{% url 'plants:detail_view' plant.id %}" class="btn btn-outline-success btn-sm">View Details</a>
+            </div>
+        </div>
+    </div>
+    {% empty %}
+    <p class="text-muted">No plants found.</p>
+    {% endfor %}
+</div>
+
+{% endblock %}

@@ -1,0 +1,109 @@
+{% extends 'main/base.html' %}
+
+{% block title %}{{ plant.name }}{% endblock %}
+
+{% block content %}
+
+<div class="row">
+    <!-- Plant Image -->
+    <div class="col-md-6">
+        <img src="{{ plant.image.url }}" class="w-100 rounded" style="max-height:400px; object-fit:cover" />
+    </div>
+
+    <!-- Plant Info -->
+    <div class="col-md-6">
+        <span class="badge bg-success mb-2">{{ plant.category }}</span>
+        <h1>{{ plant.name }}</h1>
+        <p class="text-muted">{{ plant.about }}</p>
+        <hr />
+        <h5>Used For:</h5>
+        <p>{{ plant.used_for }}</p>
+        <h5>Edible: {% if plant.is_edible %}<i class="bi bi-check-lg"> Yes </i>{% else %}<i class="bi bi-x-lg"> No </i>{% endif %}</h5>
+
+        <h5>Native to:</h5>
+        <div class="d-flex gap-2 flex-wrap">
+            {% for country in plant.countries.all %}
+                <span class="fi fi-{{ country.flag }}"></span> {{ country.name }}
+            {% empty %}
+                <p class="text-muted">No countries added yet.</p>
+            {% endfor %}
+        </div>
+
+        <div class="d-flex gap-2 mt-3">
+            {% if request.user.is_staff %}
+                <a href="{% url 'plants:update_view' plant.id %}" class="btn btn-primary">Update</a>
+                <button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModal">Delete</button>
+            {% endif %}
+        </div>
+    </div>
+</div>
+
+<!-- Comments -->
+<hr/>
+<h2>Comments</h2>
+
+{% if request.user.is_authenticated %}
+    <form class="d-flex flex-column gap-2 mb-4" action="{% url 'plants:add_comment_view' plant.id %}" method="POST">
+        {% csrf_token %}
+        <textarea class="form-control" name="content" placeholder="Write your comment..." required></textarea>
+        <button type="submit" class="btn btn-success">Add Comment</button>
+    </form>
+{% else %}
+    <div class="alert alert-warning">
+        <a href="{% url 'accounts:sign_in' %}">Sign in</a> to add a comment.
+    </div>
+{% endif %}
+
+<div class="d-flex flex-column gap-3">
+    {% for comment in comments %}
+    <div class="card p-3">
+        <h5 class="card-title">{{ comment.user.username }}</h5>
+        <p class="card-text">{{ comment.content }}</p>
+        <small class="text-muted">{{ comment.created_at|date:"Y-m-d" }}</small>
+    </div>
+    {% empty %}
+        <p class="text-muted">No comments yet. Be the first!</p>
+    {% endfor %}
+</div>
+
+<!-- Related Plants -->
+<hr />
+<h2 class="mt-4">Related Plants</h2>
+<div class="row row-cols-1 row-cols-md-3 g-4 mt-2">
+    {% for related in related_plants %}
+    <div class="col">
+        <div class="card h-100">
+            <img src="{{ related.image.url }}" class="card-img-top object-fit-cover" style="height:200px" />
+            <div class="card-body">
+                <span class="badge bg-success mb-1">{{ related.category }}</span>
+                <h5 class="card-title">{{ related.name }}</h5>
+                <p class="card-text text-muted">{{ related.about|truncatechars:80 }}</p>
+                <a href="{% url 'plants:detail_view' related.id %}" class="btn btn-outline-success btn-sm">View Details</a>
+            </div>
+        </div>
+    </div>
+    {% empty %}
+        <p class="text-muted">No related plants found.</p>
+    {% endfor %}
+</div>
+
+<!-- Delete Modal -->
+<div class="modal fade" id="deleteModal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Delete {{ plant.name }}</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                Are you sure you want to delete <strong>{{ plant.name }}</strong>?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                <a href="{% url 'plants:delete_view' plant.id %}" class="btn btn-danger">Delete</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

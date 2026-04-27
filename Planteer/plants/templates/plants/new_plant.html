@@ -1,0 +1,68 @@
+{% extends 'main/base.html' %}
+
+{% block title %}Add New Plant{% endblock %}
+
+{% block content %}
+
+<h1>Add New Plant</h1>
+
+<div class="row">
+    <div class="col-md-6">
+        <form method="POST" enctype="multipart/form-data" class="d-flex flex-column gap-3">
+            {% csrf_token %}
+
+            <div>
+                <label class="form-label">Name</label>
+                <input type="text" name="name" class="form-control" required minlength="3" />
+            </div>
+
+            <div>
+                <label class="form-label">About</label>
+                <textarea name="about" class="form-control" required></textarea>
+            </div>
+
+            <div>
+                <label class="form-label">Used For</label>
+                <textarea name="used_for" class="form-control" required></textarea>
+            </div>
+
+            <div>
+                <label class="form-label">Category</label>
+                <select name="category" class="form-select" required>
+                    <option value="">Select Category</option>
+                    {% for value, label in form.fields.category.choices %}
+                    <option value="{{ value }}">{{ label }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <div class="form-check">
+                <input type="checkbox" name="is_edible" class="form-check-input" id="is_edible" checked />
+                <label class="form-check-label" for="is_edible">Is Edible?</label>
+            </div>
+
+            <div>
+                <label class="form-label">Image</label>
+                <input type="file" name="image" class="form-control" accept="image/*" required />
+            </div>
+
+            <div>
+                <label class="form-label">Native Countries:</label>
+                <div class="d-flex flex-wrap gap-3 border p-2 rounded border-color">
+                    {% for country in countries %}
+                    <div class="form-check">
+                    <input type="checkbox" name="countries" value="{{ country.id }}" class="form-check-input" id="country_{{ country.id }}" />
+                    <label class="form-check-label" for="country_{{ country.id }}">
+                        <span class="fi fi-{{ country.flag }} "></span> {{ country.name }}
+                    </label>
+                    </div>
+                {% endfor %}
+                </div>
+            </div>
+
+            <button type="submit" class="btn btn-success">Add Plant</button>
+        </form>
+    </div>
+</div>
+
+{% endblock %}

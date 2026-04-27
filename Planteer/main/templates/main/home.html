@@ -1,0 +1,45 @@
+{% extends 'main/base.html' %}
+
+{% block title %}Home Page{% endblock %}
+
+{% block content %}
+
+<!-- Hero Section -->
+<div class="row align-items-center mb-5">
+    <div class="col-md-6">
+        <h1>Planteer</h1>
+        <h4 class="text-muted">Plant Database For Plant Lovers</h4>
+        <form action="{% url 'plants:search_view' %}" method="GET" class="d-flex gap-2 mt-3">
+            <input type="search" name="search" class="form-control" placeholder="Search for a plant...">
+            <button type="submit" class="btn btn-success">Search</button>
+        </form>
+    </div>
+</div>
+
+<hr />
+
+<!-- Latest Plants -->
+<div class="d-flex justify-content-between align-items-center mb-3">
+    <h2>Latest Plants</h2>
+    <a href="{% url 'plants:all_view' %}">More →</a>
+</div>
+
+<div class="row row-cols-1 row-cols-md-3 g-4">
+    {% for plant in plants %}
+    <div class="col">
+        <div class="card h-100">
+            <img src="{{ plant.image.url }}" class="card-img-top object-fit-cover" style="height:200px" />
+            <div class="card-body">
+                <span class="badge bg-success mb-1">{{ plant.category }}</span>
+                <h5 class="card-title">{{ plant.name }}</h5>
+                <p class="card-text text-muted">{{ plant.about|truncatechars:80 }}</p>
+                <a href="{% url 'plants:detail_view' plant.id %}" class="btn btn-outline-success btn-sm">View Details</a>
+            </div>
+        </div>
+    </div>
+    {% empty %}
+    <p class="text-muted">No plants yet. <a href="{% url 'plants:new_view' %}">Add one!</a></p>
+    {% endfor %}
+</div>
+
+{% endblock %}

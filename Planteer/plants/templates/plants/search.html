@@ -1,0 +1,39 @@
+{% extends 'main/base.html' %}
+
+{% block title %}Search Plants{% endblock %}
+
+{% block content %}
+
+<h1>Search Plants</h1>
+
+<!-- Search Bar -->
+<form method="GET" action="{% url 'plants:search_view' %}" class="d-flex gap-2 mb-4">
+    <input type="search" name="search" class="form-control" placeholder="Search for a plant..." value="{{ request.GET.search }}" required minlength="3" />
+    <button type="submit" class="btn btn-success">Search</button>
+</form>
+
+<!-- Results -->
+{% if plants %}
+<h5 class="text-muted mb-3">Results for: "{{ request.GET.search }}"</h5>
+<div class="row row-cols-1 row-cols-md-3 g-4">
+    {% for plant in plants %}
+    <div class="col">
+        <div class="card h-100">
+            <img src="{{ plant.image.url }}" class="card-img-top object-fit-cover" style="height:200px" />
+            <div class="card-body">
+                <span class="badge bg-success mb-1">{{ plant.category }}</span>
+                <h5 class="card-title">{{ plant.name }}</h5>
+                <p class="card-text text-muted">{{ plant.about|truncatechars:80 }}</p>
+                <a href="{% url 'plants:detail_view' plant.id %}" class="btn btn-outline-success btn-sm">View Details</a>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+
+{% elif request.GET.search %}
+<p class="bg-warning p-3 rounded">No results found for "{{ request.GET.search }}"</p>
+
+{% endif %}
+
+{% endblock %}
