@@ -1,0 +1,70 @@
+{% extends 'main/base.html' %}
+{% load static %}
+
+{% block title %} Add Plant {% endblock %}
+
+{% block content %}
+<h1 class="mb-4 mt-4">Add Plant</h1>
+<div class="row g-4 align-items-stretch mb-5 mt-4">
+    <div class="col-12 col-md-6">
+        <form class="d-flex flex-column gap-4 border shadow-sm rounded-3 p-4" action="{% url 'plants:add_plant_view' %}" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div>
+                <label class="form-label fw-semibold" for="name">Name</label>
+                <input type="text" placeholder="e.g. Rose, Sunflower, Basil..." name="name" id="name" class="form-control" required minlength="5" maxlength="1024"/>
+            </div>
+            <div>
+                <label class="form-label fw-semibold" for="about">About</label>
+                <textarea placeholder="Tell us about the plant..." name="about" id="about" class="form-control" required style="height:120px;"></textarea>
+            </div>
+            <div>
+                <label class="form-label fw-semibold" for="used_for">Used For</label>
+                <textarea placeholder="What is this plant used for?" name="used_for" id="used_for" class="form-control" required style="height:120px;"></textarea>
+            </div>
+            <div>
+                <label class="form-label fw-semibold" for="image">Image</label>
+                <input type="file" name="image" id="image" class="form-control" required accept="image/*"/>
+            </div>
+
+            <div>
+                <label class="form-label fw-semibold">Categories</label>
+                <div class="d-flex flex-column flex-sm-row flex-sm-wrap gap-3">
+                    {% for category in categories %}
+                        <div class="d-flex align-items-center gap-2">
+                            <label class="form-check-label" for="check-{{category.id}}">{{category.name}}</label>
+                            <input type="checkbox" class="form-check-input m-0" name="categories" id="check-{{category.id}}" value="{{category.id}}" />
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+            <div>
+                <label class="form-label fw-semibold">Countries</label>
+
+                <div class="border rounded p-2" style="max-height:200px; overflow-y:auto;">
+                    {% for country in countries %}
+                        <div class="form-check">
+                            <input class="form-check-input"
+                                type="checkbox"
+                                name="countries"
+                                value="{{ country.id }}"
+                                id="country-{{ country.id }}">
+                            <label class="form-check-label" for="country-{{ country.id }}">
+                                {{ country.name }}
+                            </label>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+            <div class="d-flex align-items-center gap-2">
+                <label for="is_edible">Is Edible?</label>
+                <input type="checkbox" class="form-check-input m-0" name="is_edible" id="is_edible" value="true"/>
+            </div>
+
+            <input type="submit" value="Add Plant" class="btn btn-primary bg-black mt-2"/>
+        </form>
+    </div>
+    <div class="col-12 col-md-6 d-none d-md-block" style="position:relative; overflow:hidden; min-height:200px;">
+        <img src="{% static 'images/add_bg.webp' %}" alt="Add Plant" class="rounded-3" style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover;">
+    </div>
+</div>
+{% endblock %}

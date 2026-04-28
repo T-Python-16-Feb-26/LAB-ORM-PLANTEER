@@ -1,0 +1,25 @@
+{% extends 'main/base.html' %}
+{% load static %}
+
+{% block title %} Planteer {% endblock %}
+
+{% block content %}
+<div class="hero-section d-flex flex-column justify-content-center align-items-center px-3 px-md-5 gap-3 my-5">
+    <h1 class="text-center">Planteer</h1>
+    <h3 class="text-center">Plant Database For Plants Lovers</h3>
+    <form action="{% url 'plants:search_plants_view' %}" method="GET" class="w-100 mt-3" style="max-width: 600px; ">
+        <div class="d-flex flex-column flex-sm-row gap-2">
+            <input type="search" placeholder="Search For Plant..." class="form-control" value="{{request.GET.search}}" required minlength="3" name="search" required />
+            <input type="submit" value="Search" class="btn btn-primary bg-black border-0"/>
+        </div>
+    </form>
+</div>
+<a href="{% url 'plants:all_plants_view' 'all' %}">
+<div class="d-flex align-items-center justify-content-between ">
+  <h2 class="m-0 p-0">Plants</h2>
+  <span class="material-symbols-outlined text-fxl">arrow_forward</span>
+</div>
+</a>
+<p class="m-0 p-0">Learn more about plants</p>
+{% include 'plants/plant_list.html' %}
+{% endblock %}

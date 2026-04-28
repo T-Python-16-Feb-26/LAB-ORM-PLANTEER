@@ -1,0 +1,79 @@
+.hero-section {
+    padding: 4rem 1.5rem;
+    min-height: 60vh;
+    background-image: url('/static/images/home_bg.webp');
+    background-size: cover; 
+    background-position: center;
+    box-shadow: 0.5rem 0.5rem 0.5rem 0.5rem rgba(0, 0, 0, 0.25);
+    border-radius: 3rem;
+}
+.plants-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+}
+@media (min-width: 576px) {
+    .plants-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (min-width: 992px) {
+    .plants-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+}
+
+.plant-card-image-wrap {
+    border-radius: 10px;
+    overflow: hidden;
+    background-color: #f0f0f0;
+    height: 220px;
+}
+
+.plant-card-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.plant-card-title {
+    margin: 0.8rem 0 0.35rem;
+    font-size: 1.3rem;
+}
+
+.plant-card-about {
+    margin: 0;
+    color: #555;
+}
+.empty-state {
+    margin: 0;
+    color: #555;
+}
+.cat {
+    background-color: rgb(120, 120, 120);
+}
+.Flower {
+    background-color: #e91e8c;
+}
+
+.Fruit {
+    background-color: #f97316;
+}
+
+.Vegetable {
+    background-color: #22c55e;
+}
+.Edible {
+    background-color: #16a34a;
+}
+.NotEdible {
+    background-color: #dc3545;
+}
+.all-btn {
+    background-color: #5a7286;
+}
+.cat:hover {
+    background-color: black;
+}
+a {
+    color:black;
+    text-decoration: none;
+    transition: all 0.1s ease-in;
+}

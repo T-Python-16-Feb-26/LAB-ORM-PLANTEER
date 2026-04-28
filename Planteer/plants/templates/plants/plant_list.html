@@ -1,0 +1,34 @@
+ <div class="plants-grid mt-5">
+        {% for plant in plants %}
+            <article class="plant-card shadow-sm rounded-3 p-2 border position-relative">
+                <a href="{% url 'plants:plant_detail_view' plant.id %}" class="stretched-link" style="text-decoration:none;"></a>
+                <div class="plant-card-image-wrap">
+                    <img src="{{ plant.image.url }}" alt="{{ plant.name }}" class="plant-card-image">
+                </div>
+                <h3 class="plant-card-title">{{ plant.name }}</h3>
+                <p class="plant-card-about">{{ plant.about|truncatechars:100 }}</p>
+                <div class="d-flex flex-wrap gap-1 mt-1 position-relative">
+                {% for category in plant.categories.all %}
+                    <a href="{% url 'plants:all_plants_view' 'all' %}?category={{ category.name }}" class="cat p-1 ps-3 pe-3 rounded-pill text-white {{ category.name }}" style="text-decoration:none; z-index:1;">
+                        {{ category.name }}
+                    </a>
+                {% endfor %}
+                </div>
+                <div class="d-flex flex-row justify-content-between">
+                <div class="d-flex flex-wrap gap-1 mt-1 position-relative">
+                {% for country in plant.countries.all %}
+                    <a href="{% url 'plants:all_plants_view' 'all' %}?country={{ country.id }}" style="z-index:1;">
+                        <img src="{{ country.flag_url }}" alt="{{ country.name }}" title="{{ country.name }}" style="width:24px; height:18px; margin-right:2px; border-radius:2px; border:1px solid #eee; " />
+                    </a>
+                {% endfor %}
+                </div>
+                <div class="d-flex align-items-center gap-1">
+                <h5 class="m-0 p-0 fs-6">{{ plant.plant_comments.count }}</h5>
+                <span class="material-symbols-outlined fs-6">chat_bubble</span>
+                </div>
+            </div>
+            </article>
+        {% empty %}
+            <p class="empty-state">No plants yet. Add your first plant to see it here.</p>
+        {% endfor %}
+</div>

@@ -1,0 +1,85 @@
+{% extends 'main/base.html' %}
+
+
+{% block title %}Search Plants{% endblock %}
+
+{% block content %}
+
+<div class="mt-2 mb-3">
+    {% if plants %}
+    <h1 class="mb-0">Search Results ({{plants.count}})</h1>
+    <p class="mb-0 text-secondary">results for: "{{request.GET.search}}"</p>
+    {% else %}
+    <h1 class="mb-0">Search Plants</h1>
+    {% endif %}
+</div>
+
+{% if plants %}
+<div class="d-flex flex-wrap gap-2 align-items-center justify-content-between mb-4">
+    <div class="d-flex flex-wrap gap-2 align-items-center">
+        <a href="?search={{ request.GET.search }}"
+            class="cat rounded-pill text-white p-1 ps-3 pe-3 all-btn {% if not selected_categories and not edible %}opacity-100{% else %}opacity-50{% endif %}"
+            style="text-decoration:none;">
+            All
+        </a>
+
+        {% for cat in categories %}
+            {% if cat.name in selected_categories %}
+                <a href="?search={{ request.GET.search }}&{% for c in selected_categories %}{% if c != cat.name %}category={{ c }}&{% endif %}{% endfor %}{% if edible %}edible={{ edible }}{% endif %}"
+                    class="cat rounded-pill text-white p-1 ps-3 pe-3 {{ cat.name }}" style="text-decoration:none;">
+                    {{ cat.name }} ✕
+                </a>
+            {% else %}
+                <a href="?search={{ request.GET.search }}&{% for c in selected_categories %}category={{ c }}&{% endfor %}category={{ cat.name }}{% if edible %}&edible={{ edible }}{% endif %}"
+                    class="cat rounded-pill text-white p-1 ps-3 pe-3 {{ cat.name }} opacity-50" style="text-decoration:none;">
+                    {{ cat.name }}
+                </a>
+            {% endif %}
+        {% endfor %}
+
+        {% if edible == 'true' %}
+            <a href="?search={{ request.GET.search }}&{% for c in selected_categories %}category={{ c }}&{% endfor %}"
+                class="cat rounded-pill text-white p-1 ps-3 pe-3 Edible" style="text-decoration:none;">
+                Edible ✕
+            </a>
+        {% else %}
+            <a href="?search={{ request.GET.search }}&{% for c in selected_categories %}category={{ c }}&{% endfor %}edible=true"
+                class="cat rounded-pill text-white p-1 ps-3 pe-3 Edible opacity-50" style="text-decoration:none;">
+                Edible
+            </a>
+        {% endif %}
+
+        {% if edible == 'false' %}
+            <a href="?search={{ request.GET.search }}&{% for c in selected_categories %}category={{ c }}&{% endfor %}"
+                class="cat rounded-pill text-white p-1 ps-3 pe-3 NotEdible" style="text-decoration:none;">
+                Not Edible ✕
+            </a>
+        {% else %}
+            <a href="?search={{ request.GET.search }}&{% for c in selected_categories %}category={{ c }}&{% endfor %}edible=false"
+                class="cat rounded-pill text-white p-1 ps-3 pe-3 NotEdible opacity-50" style="text-decoration:none;">
+                Not Edible
+            </a>
+        {% endif %}
+    </div>
+
+    <form action="{% url 'plants:search_plants_view' %}" method="GET" style="max-width:400px; width:100%;">
+        <div class="d-flex gap-2">
+            <input type="search" placeholder="Search For Plant..." class="form-control" value="{{request.GET.search}}" required minlength="3" name="search" />
+            <input type="submit" value="Search" class="btn btn-primary bg-black border-0"/>
+        </div>
+        {% for cat in selected_categories %}<input type="hidden" name="category" value="{{ cat }}">{% endfor %}
+        {% if edible %}<input type="hidden" name="edible" value="{{ edible }}">{% endif %}
+    </form>
+</div>
+{% else %}
+<form action="{% url 'plants:search_plants_view' %}" method="GET" class="mb-4" style="max-width:500px;">
+    <div class="d-flex gap-2">
+        <input type="search" placeholder="Search For Plant..." class="form-control" value="{{request.GET.search}}" required minlength="3" name="search" />
+        <input type="submit" value="Search" class="btn btn-primary bg-black border-0"/>
+    </div>
+</form>
+{% endif %}
+
+{% include 'plants/plant_list.html' %}
+
+{% endblock %}

@@ -1,0 +1,39 @@
+{% extends 'main/base.html' %}
+{% load static %}
+
+{% block title %} Contact Us {% endblock %}
+
+{% block content %}
+
+<div class="row g-4 align-items-stretch mb-5 mt-4">
+    <div class="col-12 col-md-6">
+        <form class="d-flex flex-column gap-4 border shadow-sm rounded-3 p-4" action="{% url 'main:contact_view' %}" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <h1 class="mb-0 mt-2">Contact us</h1>
+            <p class="mb-4">Have any questions, suggestions, or just want to say hi? We'd love to hear from you! Please fill out the form below and we'll get back to you as soon as possible.</p>
+            <div class="row">
+                <div class="col-12 col-md-6 mb-3 mb-md-0">
+                    <label class="form-label fw-semibold" for="first_name">First Name</label>
+                    <input type="text" placeholder="e.g. John" name="first_name" id="first_name" class="form-control" required minlength="2" maxlength="256"/>
+                </div>
+                <div class="col-12 col-md-6">
+                    <label class="form-label fw-semibold" for="last_name">Last Name</label>
+                    <input type="text" placeholder="e.g. Doe" name="last_name" id="last_name" class="form-control" required minlength="2" maxlength="256"/>
+                </div>
+            </div>
+            <div>
+                <label class="form-label fw-semibold" for="email">Email</label>
+                <input type="email" placeholder="e.g. john.doe@example.com" name="email" id="email" class="form-control" required/>
+            </div>
+            <div>
+                <label class="form-label fw-semibold" for="message">Message</label>
+                <textarea placeholder="Your message..." name="message" id="message" class="form-control" required style="height:120px;"></textarea>
+            </div>
+            <input type="submit" value="Send Message" class="btn btn-primary bg-black mt-4"/>
+        </form>
+    </div>
+    <div class="col-12 col-md-6 d-none d-md-block" style="position:relative; overflow:hidden; min-height:200px;">
+        <img src="{% static 'images/contact_bg.webp' %}" alt="Contact" class="rounded-3" style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover;">
+    </div>
+</div>
+{% endblock %}

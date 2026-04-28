@@ -1,0 +1,69 @@
+{% extends 'main/base.html' %}
+{% load static %}
+{% block title %} All Plants {% endblock %}
+{% block content %}
+<section class="latest-plants-section">
+    <div class="d-flex align-items-center justify-content-between flex-wrap gap-2 mt-2 mb-3">
+        <h1 class="mb-0">All Plants</h1>
+        <p class="mb-0 text-secondary">{{ plants|length }} plant{{ plants|length|pluralize }} found</p>
+    </div>
+
+    <div class="d-flex flex-wrap gap-2 align-items-center mb-4">
+        <form method="get" class="d-inline-block me-2">
+            <select name="country" class="form-select d-inline-block w-auto" onchange="this.form.submit()">
+                <option value="">All Countries</option>
+                {% for country in countries %}
+                    <option value="{{ country.id }}" {% if country.id|stringformat:'s' == selected_country %}selected{% endif %}>{{ country.name }}</option>
+                {% endfor %}
+            </select>
+            {% for c in selected_categories %}
+                <input type="hidden" name="category" value="{{ c }}" />
+            {% endfor %}
+            {% if edible %}<input type="hidden" name="edible" value="{{ edible }}" />{% endif %}
+        </form>
+        <a href="{% url 'plants:all_plants_view' 'all' %}"
+            class="cat rounded-pill text-white p-1 ps-3 pe-3 all-btn {% if not selected_categories and not edible %}opacity-100{% else %}opacity-50{% endif %}">
+            All
+        </a>
+
+        {% for cat in categories %}
+            {% if cat.name in selected_categories %}
+                <a href="?{% for c in selected_categories %}{% if c != cat.name %}category={{ c }}&{% endif %}{% endfor %}{% if edible %}edible={{ edible }}{% endif %}"
+                    class="cat rounded-pill text-white p-1 ps-3 pe-3 {{ cat.name }}" style="text-decoration:none;">
+                    {{ cat.name }} ✕
+                </a>
+            {% else %}
+                <a href="?{% for c in selected_categories %}category={{ c }}&{% endfor %}category={{ cat.name }}{% if edible %}&edible={{ edible }}{% endif %}"
+                    class="cat rounded-pill text-white p-1 ps-3 pe-3 {{ cat.name }} opacity-50" style="text-decoration:none;">
+                    {{ cat.name }}
+                </a>
+            {% endif %}
+        {% endfor %}
+
+        {% if edible == 'true' %}
+            <a href="?{% for c in selected_categories %}category={{ c }}&{% endfor %}"
+                class="cat rounded-pill text-white p-1 ps-3 pe-3 Edible" style="text-decoration:none;">
+                Edible ✕
+            </a>
+        {% else %}
+            <a href="?{% for c in selected_categories %}category={{ c }}&{% endfor %}edible=true"
+                class="cat rounded-pill text-white p-1 ps-3 pe-3 Edible opacity-50" style="text-decoration:none;">
+                Edible
+            </a>
+        {% endif %}
+
+        {% if edible == 'false' %}
+            <a href="?{% for c in selected_categories %}category={{ c }}&{% endfor %}"
+                class="cat rounded-pill text-white p-1 ps-3 pe-3 NotEdible" style="text-decoration:none;">
+                Not Edible ✕
+            </a>
+        {% else %}
+            <a href="?{% for c in selected_categories %}category={{ c }}&{% endfor %}edible=false"
+                class="cat rounded-pill text-white p-1 ps-3 pe-3 NotEdible opacity-50" style="text-decoration:none;">
+                Not Edible
+            </a>
+        {% endif %}
+    </div>
+
+{% include 'plants/plant_list.html' %}
+{% endblock %}

@@ -1,0 +1,111 @@
+Name: Rose
+about: The rose is a woody perennial flowering plant of the genus Rosa, belonging to the family Rosaceae. With over 300 species and thousands of cultivars, roses range from compact shrubs to climbing plants reaching up to 7 metres tall. Their large, showy flowers come in a wide range of colours including white, pink, red, orange, and yellow, and many varieties carry a distinctive fragrance. Most species originate from Asia, though they are now cultivated worldwide.
+used_for: Roses are widely grown as ornamental garden plants prized for their beauty and fragrance. They are used commercially in perfume production and as cut flowers. Some varieties serve as landscape plants for hedging, ground cover, and slope stabilisation.
+image: /flowers/rose.webp
+Category: Flower
+Country: China, Japan, Korea, Europe, United States, Canada
+is_edible: False
+
+Name: Rosemary
+about: Rosemary (Salvia rosmarinus) is a fragrant evergreen shrub native to the Mediterranean region, belonging to the mint family Lamiaceae. It features needle-like leaves and small flowers that can be blue, purple, pink, or white. The plant typically grows up to 1–2 meters tall and thrives in warm, sunny climates with well-drained soil. It is highly valued for both its aromatic foliage and ornamental appeal.
+used_for: Rosemary is widely used as a culinary herb to flavor meats, vegetables, and breads. It also has applications in traditional medicine, aromatherapy, and cosmetic products due to its essential oils. Additionally, it is grown as an ornamental plant in gardens and landscapes.
+image: /vegetables/rosemary.webp
+Category: Vegetable
+Country: Spain, Portugal, Italy, Greece, Turkey, Morocco, Tunisia
+is_edible: True
+
+Name: Roselle
+about: Roselle (Hibiscus sabdariffa) is a tropical plant belonging to the Malvaceae family, known for its bright red calyces and hibiscus-like flowers. It grows as a shrub up to 2–2.5 meters tall and is widely cultivated in warm regions around the world. The fleshy calyces are the most commonly used part and are harvested after flowering.
+used_for: Roselle is primarily used to make herbal teas, juices, jams, and sauces due to its tart flavor. It is also used in traditional medicine and as a natural food coloring. In addition, the plant is sometimes grown for ornamental purposes because of its attractive flowers.
+image: /flowers/roselle.webp
+Category: Flower
+Country: Sudan, Nigeria, Ghana, India, Thailand, Malaysia
+is_edible: True
+
+Name: Sunflower
+about: The sunflower (Helianthus annuus) is a tall annual plant of the daisy family Asteraceae, recognised by its large, bright yellow flower head. It is one of the most widely cultivated plants in the world, valued both for its striking appearance and its highly productive oily seeds.
+used_for: Sunflower seeds are consumed as a healthy snack, either raw or roasted, and are pressed to produce cooking oil. They are also processed into sunflower butter, used as bird feed, and added directly to salads and baked goods.
+image: /flowers/sunflower.webp
+Category: Flower
+Country: United States, Mexico, Canada
+is_edible: True
+
+Name: Tulip
+about: Tulips are spring-blooming perennial bulb plants of the genus Tulipa, in the lily family Liliaceae. Their cup-shaped flowers are large and brightly coloured, commonly appearing in red, orange, pink, yellow, and white. Tulips have a long history of cultivation, particularly in the Netherlands, and remain among the most popular ornamental bulbs in the world.
+used_for: Tulips are grown primarily as ornamental plants in gardens, parks, and as cut flowers. Certain edible varieties have historically been consumed during food shortages, and their petals can be used as a garnish or salad ingredient.
+image: /flowers/tulip.webp
+Category: Flower
+Country: Kazakhstan, Turkey, Iran, Afghanistan, Netherlands
+is_edible: False
+
+Name: Lavender
+about: Lavender (Lavandula) is a genus of 47 species of perennial flowering plants in the sage family Lamiaceae, native to the Mediterranean region. It is well known for its slender purple flower spikes and distinctive calming fragrance. Lavender thrives in warm, dry climates and is extensively cultivated for ornamental, culinary, and medicinal purposes.
+used_for: Lavender is used commercially to produce essential oil for perfumes, cosmetics, and aromatherapy products. It is also used as a culinary herb to flavour teas and desserts, and has traditional applications in medicine for promoting relaxation and relieving minor skin irritations.
+image: /flowers/lavender.webp
+Category: Flower
+Country: Spain, France, Italy, Greece, Lebanon
+is_edible: True
+
+Name: Apple
+about: The apple (Malus domestica) is a deciduous tree in the rose family Rosaceae, widely cultivated across temperate regions for its crisp, sweet fruit. Originating in Central Asia, apples have been grown for thousands of years and now exist in thousands of varieties worldwide, ranging from tart to sweet and green to deep red.
+used_for: Apples are eaten fresh as a nutritious snack and are used in juices, ciders, sauces, pies, and jams. They are a good source of dietary fibre and vitamin C, making them a staple in healthy diets worldwide.
+image: /fruits/apple.webp
+Category: Fruit
+Country: Kazakhstan, Kyrgyzstan, China
+is_edible: True
+
+Name: Banana
+about: The banana is an elongated, curved fruit produced by large herbaceous flowering plants of the genus Musa. It is one of the most widely consumed fruits in the world, valued for its soft, sweet flesh. Almost all commercially grown bananas are seedless cultivars derived from two wild species, Musa acuminata and Musa balbisiana.
+used_for: Bananas are eaten fresh as a quick energy source and are used in smoothies, baked goods, and desserts. In many tropical regions, cooking varieties called plantains are a starchy staple, prepared by frying, boiling, or grilling.
+image: /fruits/banana.webp
+Category: Fruit
+Country: Malaysia, Indonesia, Philippines
+is_edible: True
+
+Name: Orange
+about: The sweet orange (Citrus × sinensis) is a hybrid citrus fruit tree in the family Rutaceae, believed to be a cross between a pomelo and a mandarin. It is the most widely grown fruit tree in the world, cultivated in tropical and subtropical regions for its juicy, vitamin-rich fruit.
+used_for: Oranges are consumed fresh and are one of the most popular sources of vitamin C. They are widely used to produce juice, marmalades, and flavourings. Orange peel is used in confectionery, perfumery, and as a culinary zest in both sweet and savoury dishes.
+image: /fruits/orange.webp
+Category: Fruit
+Country: China, India, Vietnam, Brazil, United States, Egypt
+is_edible: True
+
+Name: Strawberry
+about: The garden strawberry (Fragaria × ananassa) is a widely cultivated hybrid plant in the rose family Rosaceae, grown across the world for its bright red, fragrant fruit. It is celebrated for its sweet flavour, vibrant colour, and aroma, and is botanically an accessory fruit rather than a true berry.
+used_for: Strawberries are enjoyed fresh and are used in jams, desserts, smoothies, and baked goods. They are rich in vitamin C and antioxidants. Dried strawberries are also used in cereals and snack bars.
+image: /fruits/strawberry.webp
+Category: Fruit
+Country: France, United States, Chile, Argentina
+is_edible: True
+
+Name: Tomato
+about: The tomato (Solanum lycopersicum) is a flowering plant in the nightshade family Solanaceae, native to western South America. Although botanically a fruit, it is commonly used as a vegetable in cooking. Tomatoes are one of the most widely grown food plants in the world, available in hundreds of varieties ranging from small cherry types to large beefsteak varieties.
+used_for: Tomatoes are a versatile kitchen staple used fresh in salads, sandwiches, and salsas, or cooked into sauces, soups, and stews. They are rich in lycopene, vitamin C, and potassium. Processed products such as paste, ketchup, and canned tomatoes are used globally in everyday cooking.
+image: /vegetables/tomato.webp
+Category: Vegetable
+Country: Peru, Ecuador, Bolivia
+is_edible: True
+
+Name: Carrot
+about: The carrot (Daucus carota subsp. sativus) is a root vegetable, most commonly orange in colour, though purple, yellow, red, and white varieties also exist. It is native to Iran and surrounding regions, and is one of the most popular and nutritious vegetables cultivated worldwide.
+used_for: Carrots are eaten raw as a snack, juiced, or cooked in soups, stews, and stir-fries. They are an excellent source of beta-carotene, which the body converts to vitamin A, supporting eye health and immune function.
+image: /vegetables/carrot.webp
+Category: Vegetable
+Country: Peru, Bolivia, Chile
+is_edible: True
+
+Name: Potato
+about: The potato (Solanum tuberosum) is a starchy tuberous vegetable native to the Americas, now cultivated as a staple food worldwide. It belongs to the nightshade family Solanaceae and grows as an underground stem tuber. Thousands of varieties exist, varying in size, colour, and texture from waxy to floury.
+used_for: Potatoes are one of the most versatile vegetables in global cuisine, prepared by boiling, baking, roasting, frying, or mashing. They are the base for dishes such as chips, mashed potatoes, soup, and gnocchi, and are a good source of carbohydrates, potassium, and vitamin C.
+image: /vegetables/potato.webp
+Category: Vegetable
+Country: Iran, Pakistan, Afghanistan, Uzbekistan, Turkmenistan
+is_edible: True
+
+Name: Onion
+about: The onion (Allium cepa) is a bulb vegetable and the most widely cultivated species of the genus Allium, closely related to garlic, leeks, and chives. Available in yellow, red, and white varieties, onions have a flavour profile ranging from sweet to sharp and pungent, and are a foundational ingredient in cuisines worldwide.
+used_for: Onions are used raw in salads, pickled as a condiment, or cooked as a flavour base for soups, stews, curries, and sauces. They can be caramelised to bring out natural sweetness or fried for a crispy garnish. Onion powder is a common ingredient in spice blends and seasonings.
+image: /vegetables/onion.webp
+Category: Vegetable
+Country: Iran, Pakistan, Afghanistan, Uzbekistan, Turkmenistan, India
+is_edible: True
