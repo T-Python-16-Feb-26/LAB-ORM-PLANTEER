@@ -1,0 +1,85 @@
+{%extends 'main/base.html'%}
+{% load static %}
+
+{% block title %}All Plants{%endblock%}
+
+
+{% block content %}
+
+<div class="main-content">
+    <div class="more-main">
+    <h2>Plants</h2>
+    </div>
+
+    <form method="get" class="row g-3 mb-4">
+
+    <div class="col-md-4">
+        <label class="form-label">Category</label>
+        <select name="category" class="form-select">
+            <option value="">All</option>
+          {% for value, label in categories %}
+                <option value="{{ value }}" {% if request.GET.category == value %}selected{% endif %}>
+                {{ label }}
+                </option>
+            {% endfor %}
+        </select>
+    </div>
+
+    <div class="col-md-4">
+        <label class="form-label">Edible</label>
+        <select name="is_edible" class="form-select">
+            <option value="">All</option>
+            <option value="true" {% if request.GET.is_edible == 'true' %}selected{% endif %}>Yes</option>
+            <option value="false" {% if request.GET.is_edible == 'false' %}selected{% endif %}>No</option>
+        </select>
+    </div>
+    <div class="col-md-4">
+        <label class="form-label">Country</label>
+        <select name="country" class="form-select">
+            <option value="">All</option>
+            {% for country in countries %}
+                <option value="{{ country.id }}"
+                    {% if request.GET.country == country.id|stringformat:"s" %}selected{% endif %}>
+                    {{ country.name }}
+                </option>
+            {% endfor %}
+        </select>
+    </div>
+
+    <div class="col-md-4 d-flex align-items-end">
+        <button type="submit" class="btn btn-filter">Filter</button>
+    </div>
+
+</form>
+
+    <!--card-->
+        <div class="row g-4">
+{% for plant in plants %}
+  {% include 'components/plant_list.html' %}
+  {% empty %}
+
+    <div class="text-center mt-5">
+        <h6 class="text-muted">No results found </h6>
+    </div>
+{% endfor %}
+</div>
+
+<div class="d-flex justify-content-center mt-5 paginators">
+
+    {% for number_page in plants.paginator.page_range %}
+
+        {% if plants.number == number_page %}
+            <span class="btn btn-paginator mx-1">{{ number_page }}</span>
+        {% else %}
+            <a class="btn btn-paginator-outline mx-2" href="?page={{ number_page }}">{{ number_page }}</a>
+        {% endif %}
+
+    {% endfor %}
+
+</div>
+
+</div>
+
+
+
+{% endblock %}

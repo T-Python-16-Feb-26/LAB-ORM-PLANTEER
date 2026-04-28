@@ -1,0 +1,45 @@
+{%extends 'main/base.html'%}
+{% load static %}
+
+{% block title %}Flora{%endblock%}
+
+{% block header-content %}
+<div class="header-main">
+    <video autoplay muted loop playsinline class="bg-video">
+    <source src="{% static 'video/header-video.mp4'%}" type="video/mp4">
+</video>
+
+
+<div class="hero-content">
+    <h2>Planteer</h2>
+    <h3>Plant Database For Plants Lovers</h3>
+
+    <form class="d-flex" role="search" action="{%url 'plants:search_plant_view'%}" method="get">
+        <input class="form-control me-2" type="search" name="search" placeholder="Search" value="{{ request.GET.search }}">
+        <button class="btn btn-outline-success" type="submit">Search</button>
+    </form>
+</div>
+</div>
+{% endblock %}
+
+{% block content %}
+
+<div class="main-content">
+    <div class="more-main">
+    <h3>Plants</h3>
+    <a href="{%url 'plants:all_plants_view'%}" class="btn"><h6>More <span class="material-symbols-outlined">arrow_right_alt</span></h6></a>
+    </div>
+    <p>Learn more about plants</p>
+
+    <!--card-->
+    <div class="row g-4">
+{% for plant in plants %}
+  {% include 'components/plant_list.html' %}
+{% endfor %}
+</div>
+
+</div>
+
+
+
+{% endblock %}

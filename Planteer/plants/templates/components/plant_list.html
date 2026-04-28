@@ -1,0 +1,31 @@
+<div class="col-md-6">
+    <div class="card h-100">
+      <div class="row g-0">
+        <div class="col-md-4">
+            <img src="{{ plant.image.url }}" class="plant-img">
+        </div>
+        <div class="col-md-8">
+          <div class="card-body">
+            <h5 class="card-title">{{ plant.name_plant }}</h5>
+            <p class="card-text">{{ plant.category }}</p>
+            <div class="d-flex flex-wrap gap-1 mb-2">
+        {% for country in plant.countries.all %}
+            <a href="{% url 'plants:country_detail' country.id %}"
+               class="badge rounded-pill text-bg-light text-dark d-flex align-items-center gap-1 text-decoration-none">
+
+                <img src="{{ country.flag.url }}" width="16" style="border-radius:2px;">
+                <span>{{ country.name }}</span>
+
+            </a>
+        {% endfor %}
+    </div>
+            <p class="card-text">
+              <small class="text-body-secondary">{{ plant.created_at }}</small>
+            </p>
+            <a href="{% url 'plants:plant_detail_view' plant.id %}" class="btn btn-main">Read More</a>
+          </div>
+        </div>
+      </div>
+      
+    </div>
+  </div>

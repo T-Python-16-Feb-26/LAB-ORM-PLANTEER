@@ -1,0 +1,40 @@
+{%extends 'main/base.html'%}
+{% load static %}
+
+{% block title %}Search Page{%endblock%}
+
+
+{% block content %}
+
+
+<h2>Search Plants </h2>
+
+<form method="get" class="d-flex mb-5">
+        <input class="form-control me-2" type="search" name="search" placeholder="Search" value="{{ request.GET.search }}">
+        <button class="btn btn-outline-success" type="submit">Search</button>
+    </form>
+    
+    
+
+
+
+<div class="row g-4">
+{% for plant in plants %}
+ {% include 'components/plant_list.html' %}
+   {% empty %}
+
+    <div class="text-center mt-5">
+        <h6 class="text-muted">No results found </h6>
+    </div>
+{% endfor %}
+</div>
+
+
+
+
+
+
+
+
+{% endblock %}
+
