@@ -1,0 +1,102 @@
+{% extends 'main/base.html' %}
+{% load static %}
+
+{% block title %} {{ publisher.name }} - Publisher Details {% endblock %}
+
+{% block content %}
+<div class="publisher-hero py-5 mb-5" style="background: var(--bs-body-bg); border-bottom: 1px solid #dee2e6;">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-md-3 text-center mb-4 mb-md-0">
+                <div class="logo-wrapper shadow-sm p-2 bg-white rounded-circle d-inline-block" style="width: 180px; height: 180px;">
+                    {% if publisher.logo %}
+                        <img src="{{ publisher.logo.url }}" class="rounded-circle w-100 h-100" style="object-fit: cover;" alt="{{ publisher.name }}">
+                    {% else %}
+                        <div class="rounded-circle w-100 h-100 d-flex align-items-center justify-content-center bg-success bg-opacity-10 text-success fs-1 fw-bold">
+                            {{ publisher.name|slice:":1" }}
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+            
+            <div class="col-md-9 text-center text-md-start">
+                <span class="badge bg-success bg-opacity-10 text-success mb-2 px-3 py-2 rounded-pill fw-bold text-uppercase small">Official Publisher</span>
+                <h1 class="display-4 fw-bold mb-1 text-dark">{{ publisher.name }}</h1>
+                <p class="text-muted mb-3"><i class="fas fa-calendar-check me-2"></i>Established in: {{ publisher.established_at }}</p>
+                
+                <p class="lead text-muted mb-4" style="max-width: 700px;">
+                    {{ publisher.description }}
+                </p>
+                
+                <div class="d-flex flex-wrap gap-3 justify-content-center justify-content-md-start mb-4">
+                    {% if publisher.email %}
+                    <a href="mailto:{{ publisher.email }}" class="btn btn-outline-dark rounded-pill px-4">
+                        <i class="fas fa-envelope me-2"></i> Contact
+                    </a>
+                    {% endif %}
+                    
+                    {% if publisher.website %}
+                    <a href="{{ publisher.website }}" target="_blank" class="btn btn-success rounded-pill px-4 shadow-sm">
+                        <i class="fas fa-external-link-alt me-2"></i> Visit Website
+                    </a>
+                    {% endif %}
+                </div>
+
+                {% if request.user.is_authenticated and request.user.is_superuser %}
+                <div class="d-flex flex-wrap gap-2 justify-content-center justify-content-md-start border-top pt-4">
+                    <a href="{% url 'publishers:update_publisher_view' publisher.id %}" class="btn btn-dark rounded-pill px-4 shadow-sm fw-bold border-0">
+                        <i class="fas fa-edit me-2"></i>Edit Profile
+                    </a>
+
+                    <button type="button" class="btn btn-outline-danger rounded-pill px-4 shadow-sm fw-bold" data-bs-toggle="modal" data-bs-target="#deletePublisherModal">
+                        <i class="fas fa-trash-alt me-2"></i>Delete Publisher
+                    </button>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container mb-5">
+    <div class="section-header d-flex align-items-center gap-3 mb-5">
+        <div class="line flex-grow-1 border-top"></div>
+        <h2 class="fw-bold text-emphasis m-0">Plants by <span class="text-success">{{ publisher.name }}</span></h2>
+        <div class="line flex-grow-1 border-top"></div>
+    </div>
+
+    <div class="row g-4">
+        {% if plants %}
+            {% for plant in plants %}
+                {% include "flora/partials/plant_card.html" %}
+            {% endfor %}
+        {% else %}
+            <div class="col-12 text-center py-5">
+                <div class="p-5 bg-light rounded-4">
+                    <div class="mb-3">
+                        <i class="fas fa-seedling display-4 text-muted opacity-50"></i>
+                    </div>
+                    <h5 class="text-dark fw-bold">No Plants Yet</h5>
+                    <p class="text-muted">This publisher hasn't added any species to our database yet.</p>
+                </div>
+            </div>
+        {% endif %}
+    </div>
+</div>
+
+<div class="modal fade" id="deletePublisherModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content border-0 shadow-lg" style="border-radius: 20px;">
+            <div class="modal-body text-center p-5">
+                <i class="fas fa-exclamation-triangle text-danger display-1 mb-4 opacity-75"></i>
+                <h2 class="fw-bold mb-2">Are you sure?</h2>
+                <p class="text-muted mb-4">You are about to delete <strong>{{ publisher.name }}</strong>. This may fail if they have linked plants.</p>
+                <div class="d-flex justify-content-center gap-3">
+                    <button type="button" class="btn btn-light rounded-pill px-4" data-bs-dismiss="modal">Cancel</button>
+                    <a href="{% url 'publishers:delete_publisher_view' publisher.id %}" class="btn btn-danger rounded-pill px-4">Yes, Delete</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

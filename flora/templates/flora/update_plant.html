@@ -1,0 +1,44 @@
+{% extends 'main/base.html' %}
+{% load static %}
+
+{% block title %} Update {{ plant.name }} - Planteer {% endblock %}
+
+{% block content %}
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+            <div class="editor-container shadow-sm p-5 bg-white rounded border">
+                <div class="editor-header mb-5 text-center">
+                    <h1 class="display-5 fw-bold">Update <span style="color: #198754;">{{ plant.name }}</span></h1>
+                    <p class="text-muted">Modify the plant characteristics or information below.</p>
+                </div>
+                
+<form action="{% url 'flora:update_plant_view' plant.id %}" method="POST" enctype="multipart/form-data">
+    
+    {% include "flora/partials/plant_form.html" %}
+    
+    <button type="submit" class="btn btn-success mt-3">
+        Save Changes
+    </button>
+</form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="deleteModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content border-0 shadow">
+            <div class="modal-body text-center p-5">
+                <i class="fas fa-exclamation-triangle text-danger display-3 mb-3"></i>
+                <h3 class="fw-bold">Are you sure?</h3>
+                <p class="text-muted">You are about to delete <strong>{{ plant.name }}</strong>. This action cannot be undone.</p>
+                <div class="d-flex justify-content-center gap-3 mt-4">
+                    <button type="button" class="btn btn-light px-4 rounded-pill" data-bs-dismiss="modal">Cancel</button>
+                    <a href="{% url 'flora:delete_plant_view' plant.id %}" class="btn btn-danger px-4 rounded-pill">Delete Permanently</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

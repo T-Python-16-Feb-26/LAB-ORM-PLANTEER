@@ -1,0 +1,170 @@
+{% extends 'main/base.html' %}
+{% load static %}
+
+{% block title %} {{ plant.name }} - Planteer {% endblock %}
+
+{% block content %}
+<div class="container py-5">
+    <div class="row g-5 align-items-center mb-5">
+        <div class="col-md-4">
+            <div class="detail-img-container shadow-sm border" style="border-radius: 20px; overflow: hidden;">
+                {% if plant.image %}
+                    <img src="{{ plant.image.url }}" class="img-fluid w-100" style="height: 600px; object-fit: cover;" alt="{{ plant.name }}">
+                {% else %}
+                    <img src="/media/images/plant_default.jpg" class="img-fluid w-100 h-100 object-fit-cover" alt="Default Image">
+                {% endif %}
+            </div>
+        </div>
+
+        <div class="col-md-8">
+            <div class="d-flex justify-content-between align-items-start mb-2">
+                <div>
+                    <h1 class="display-4 fw-bold mb-1 main-title">{{ plant.name }}</h1>
+                    <span class="badge bg-success rounded-pill px-3 py-2 mb-3">
+                        {{ plant.get_category_display }}
+                    </span>
+                </div>
+                
+                {% if request.user.is_authenticated and request.user.is_superuser %}
+                <div class="d-flex gap-2">
+                    <a href="{% url 'flora:update_plant_view' plant.id %}" class="btn btn-dark rounded-pill px-4 shadow-sm fw-bold border-0">
+                        <i class="fas fa-edit me-2"></i>Edit Plant
+                    </a>
+
+                    <button type="button" class="btn btn-outline-danger rounded-pill px-4 shadow-sm fw-bold" data-bs-toggle="modal" data-bs-target="#deleteModal">
+                       <i class="fas fa-trash-alt me-2"></i>Delete
+                    </button>
+                </div>
+                {% endif %}
+            </div>
+
+            <div class="alert alert-info border-0 shadow-sm rounded-4 mb-4 py-3 bg-opacity-10">
+                <i class="fas fa-info-circle me-2"></i> {{ plant.get_status_message }}
+            </div>
+            
+            <div class="plant-description mb-4">
+                <p class="plant-text" style="line-height: 1.8; font-size: 1.1rem;">{{ plant.about }}</p>
+            </div>
+
+            <div class="row">
+                <div class="col-md-6 border-end">
+                    <p class="mb-2 text-muted small text-uppercase fw-bold">Basic Info</p>
+                    
+                    <div class="publisher-info mb-3 p-2 rounded-3 bg-light d-flex align-items-center shadow-sm border border-success border-opacity-10">
+                        {% if plant.publisher %}
+                            {% if plant.publisher.logo %}
+                                <img src="{{ plant.publisher.logo.url }}" width="40" height="40" class="rounded-circle me-2 object-fit-cover shadow-sm" alt="logo">
+                            {% endif %}
+                            <div>
+                                <p class="mb-0 small text-muted lh-1" style="font-size: 0.7rem;">Published By</p>
+                                <a href="{% url 'publishers:publisher_detail_view' plant.publisher.id %}" class="text-decoration-none fw-bold text-dark">
+                                    {{ plant.publisher.name }}
+                                </a>
+                            </div>
+                        {% else %}
+                            <p class="mb-0 small text-muted"><i class="fas fa-user-edit me-1"></i> Independent Entry</p>
+                        {% endif %}
+                    </div>
+
+                    <p class="mb-2"><strong>Category:</strong> <span class="plant-text">{{ plant.get_category_display }}</span></p>
+                    <p class="mb-2"><strong>Is Edible:</strong> <span class="plant-text">{% if plant.is_edible %} <i class="fas fa-check-circle text-success"></i> Yes {% else %} <i class="fas fa-times-circle text-danger"></i> No {% endif %}</span></p>
+                    <p class="mb-0"><strong>Used For:</strong></p>
+                    <p class="plant-text">{{ plant.used_for }}</p>
+                </div>
+                                    
+                <div class="col-md-6 ps-md-4">
+                    <p class="mb-2 text-muted small text-uppercase fw-bold">Geographic Origin</p>
+                    <p class="mb-2"><strong>Native Countries:</strong></p>
+                    <div class="d-flex flex-wrap gap-2">
+                        {% for country in plant.countries.all %}
+                            <a href="{% url 'flora:all_plants_view' %}?country={{ country.id }}" 
+                               class="badge bg-light text-dark border rounded-pill px-3 py-2 d-flex align-items-center shadow-sm text-decoration-none transition-hover">
+                                {% if country.flag %}
+                                    <img src="{{ country.flag.url }}" width="20" height="13" class="me-2 shadow-sm" alt="flag">
+                                {% endif %}
+                                {{ country.name }}
+                            </a>
+                        {% empty %}
+                            <span class="text-muted small">No countries recorded.</span>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <hr class="my-5 opacity-10">
+
+    <section class="related-plants mb-5">
+        <h3 class="fw-bold mb-4">Related Plants</h3>
+        <div class="row g-5">
+            {% for plant in related_plants %}
+                {% include "flora/partials/plant_card.html" %}
+            {% empty %}
+            <div class="col-12 text-center py-4">
+                <p class="text-muted">No related plants found in this category.</p>
+            </div>
+            {% endfor %}
+        </div>
+    </section>
+
+    <hr class="my-5 opacity-10">
+<section class="comments-section">
+    <h3 class="fw-bold mb-4">Comments ({{ comments.count }})</h3>
+    
+    <div class="d-flex flex-column gap-3 mb-5">
+        {% for comment in comments %}
+        <div class="comment-item p-3 border-bottom">
+            <h6 class="text-success fw-bold text-uppercase">{{ comment.user.username }}</h6>
+            <p>{{ comment.content }}</p>
+    </div>
+        {% empty %}
+            <p class="text-muted">No comments yet.</p>
+        {% endfor %}
+    </div>
+
+    {% if request.user.is_authenticated %}
+        <div class="add-comment-wrapper p-4 rounded-4 border bg-light shadow-sm">
+            <h4 class="fw-bold mb-3">Leave a Comment</h4>
+            <form action="{% url 'flora:add_comment_view' plant.id %}" method="POST">
+                {% csrf_token %} <textarea class="form-control mb-3" name="content" rows="4" required placeholder="What do you think?"></textarea>
+                <div class="text-end">
+                    <button type="submit" class="btn btn-success rounded-pill px-5">Post Comment</button>
+                </div>
+            </form>
+        </div>
+    {% else %}
+        <div class="p-4 rounded-4 bg-success bg-opacity-10 border border-success text-center">
+            <p class="mb-2 text-dark fw-bold">Only registered users can add comments.</p>
+            <a href="{% url 'accounts:sign_in' %}?next={{ request.path }}" class="btn btn-success btn-sm rounded-pill px-4">Sign In to Comment</a>
+        </div>
+    {% endif %}
+</section>
+</div>
+
+<div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content border-0 shadow-lg" style="border-radius: 20px;">
+            <div class="modal-header border-0 pb-0">
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body text-center p-5 pt-0">
+                <div class="mb-4">
+                    <i class="fas fa-exclamation-triangle text-danger" style="font-size: 4rem; opacity: 0.8;"></i>
+                </div>
+                <h3 class="fw-bold mb-2">Are you sure?</h3>
+                <p class="text-muted mb-4">You are about to delete <span class="fw-bold text-dark">{{ plant.name }}</span>. This action cannot be undone.</p>
+                
+                <div class="d-grid gap-2">
+                    <a href="{% url 'flora:delete_plant_view' plant.id %}" class="btn btn-danger rounded-pill py-2 fw-bold">
+                        Yes, Delete Permanently
+                    </a>
+                    <button type="button" class="btn btn-light rounded-pill py-2 fw-bold" data-bs-dismiss="modal">
+                        Cancel, Keep it
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
