@@ -1,0 +1,10 @@
+<div class="plant-card">
+  {% if plant.image %}
+    <img src="{{ plant.image.url }}">
+  {% endif %}
+  <div class="plant-info">
+    <h5>{{ plant.name }}</h5>
+    <p>{{ plant.about|truncatechars:50 }}</p>
+    <span class="plant-category">{{ plant.get_category_display }}</span>
+  </div>
+</div>

@@ -1,0 +1,46 @@
+{% extends 'Planteer/base.html' %}
+{% block content %}
+
+<div class="container mt-5 mb-5">
+
+  <h1 class="mb-5">Messages</h1>
+
+  <div class="row">
+
+    {% for msg in contacts %}
+
+    <div class="col-md-6 mb-4">
+      <div class="msg-card">
+        <div class="msg-card-header">
+          <div class="msg-avatar">
+            {{ msg.first_name|first }}{{ msg.last_name|first }}
+          </div>
+          <div>
+            <h6 class="msg-name">{{ msg.first_name }} {{ msg.last_name }}</h6>
+            <p class="msg-email">{{ msg.email }}</p>
+          </div>
+
+          <!-- DELETE - ADMIN ONLY -->
+          {% if request.user.is_staff %}
+          <a href="/messages/{{ msg.id }}/delete/"
+             onclick="return confirm('Delete this message?')"
+             class="ms-auto">
+            <i class="fa-solid fa-trash" style="color: #2e5d34;"></i>
+          </a>
+          {% endif %}
+
+        </div>
+        <p class="msg-body">{{ msg.message }}</p>
+        <span class="msg-date">{{ msg.created_at|date:"d M Y" }}</span>
+      </div>
+    </div>
+
+    {% empty %}
+      <p class="text-muted">No messages yet</p>
+    {% endfor %}
+
+  </div>
+
+</div>
+
+{% endblock %}

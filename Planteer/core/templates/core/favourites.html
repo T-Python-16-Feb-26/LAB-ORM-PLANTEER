@@ -1,0 +1,47 @@
+{% extends 'Planteer/base.html' %}
+{% block content %}
+
+<div class="container mt-5 mb-5">
+
+  <!-- HEADER -->
+  <div class="mb-5">
+    <a href="/" class="breadcrumb-link">Home</a>
+    <span class="mx-1">›</span>
+    <span class="breadcrumb-link">Favourites</span>
+  </div>
+
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <div>
+      <h1 class="page-title">My Favourites</h1>
+      <p class="page-subtitle">Plants you have saved</p>
+    </div>
+    <a href="/plants/all/" class="btn-view-all">Browse All Plants →</a>
+  </div>
+
+  <!-- PLANTS -->
+  {% if plants %}
+  <div class="row">
+    {% for plant in plants %}
+    <div class="col-md-4 mb-4">
+      {% include "plants/partials/plant_card.html" with plant=plant %}
+    </div>
+    {% endfor %}
+  </div>
+
+  {% else %}
+  <!-- EMPTY -->
+  <div class="fav-empty text-center mt-5">
+    <div class="fav-empty-icon">
+      <i class="fa-regular fa-heart"></i>
+    </div>
+    <h3 class="mt-4">No favourites yet</h3>
+    <p class="text-muted">Press the heart icon on any plant to save it here</p>
+    <a href="/plants/all/" class="btn btn-main mt-3">
+      Browse Plants
+    </a>
+  </div>
+  {% endif %}
+
+</div>
+
+{% endblock %}

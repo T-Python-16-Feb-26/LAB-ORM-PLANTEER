@@ -1,0 +1,59 @@
+{% extends 'Planteer/base.html' %}
+{% block content %}
+
+<div class="container mt-5 mb-5">
+  <div class="row justify-content-center">
+    <div class="col-md-5">
+
+      <div class="auth-box">
+
+        <!-- HEADER -->
+        <div class="text-center mb-4">
+          <div class="auth-icon">
+            <i class="fa-solid fa-leaf"></i>
+          </div>
+          <h2 class="auth-title mt-3">Welcome Back</h2>
+          <p class="auth-subtitle">Sign in to your Planteer account</p>
+        </div>
+
+        <!-- ERROR -->
+        {% if error %}
+          <div class="alert alert-danger rounded-3 mb-3">
+            ⚠️ {{ error }}
+          </div>
+        {% endif %}
+
+        <!-- FORM -->
+        <form method="POST">
+          {% csrf_token %}
+
+          <div class="mb-3">
+            <label class="auth-label">Username</label>
+            <input type="text" name="username" class="form-control"
+                   placeholder="Your username" required>
+          </div>
+
+          <div class="mb-4">
+            <label class="auth-label">Password</label>
+            <input type="password" name="password" class="form-control"
+                   placeholder="••••••••" required>
+          </div>
+
+          <button type="submit" class="btn btn-main w-100">
+            Sign In 🌿
+          </button>
+
+        </form>
+
+        <p class="text-center mt-4" style="font-size: 14px; color: #888;">
+          Don't have an account?
+          <a href="/register/" class="auth-link">Create one</a>
+        </p>
+
+      </div>
+
+    </div>
+  </div>
+</div>
+
+{% endblock %}

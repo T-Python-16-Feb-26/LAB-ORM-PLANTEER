@@ -1,0 +1,39 @@
+{% extends 'Planteer/base.html' %}
+{% block content %}
+
+<!-- HERO -->
+<div class="article-hero" style="background-image: url('{{ article.image }}');">
+  <div class="article-hero-overlay">
+    <div class="container">
+      <span class="hero-badge">{{ article.tag }}</span>
+      <h1 class="article-hero-title mt-3">{{ article.title }}</h1>
+      <div class="article-hero-meta mt-3">
+        <span><i class="fa-regular fa-user"></i> {{ article.author }}</span>
+        <span><i class="fa-regular fa-clock"></i> {{ article.read_time }}</span>
+        <span><i class="fa-regular fa-calendar"></i> {{ article.date }}</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- CONTENT -->
+<div class="container mt-5 mb-5">
+  <div class="row justify-content-center">
+    <div class="col-md-8">
+
+      <a href="/care-tips/" class="breadcrumb-link mb-4 d-inline-block">
+        ← Back to Care Tips
+      </a>
+
+      {% for section in article.content %}
+      <div class="article-section mb-4">
+        <h4 class="article-heading">{{ section.heading }}</h4>
+        <p class="article-text">{{ section.text }}</p>
+      </div>
+      {% endfor %}
+
+    </div>
+  </div>
+</div>
+
+{% endblock %}

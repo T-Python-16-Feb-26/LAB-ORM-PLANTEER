@@ -1,0 +1,63 @@
+<div class="plant-card">
+
+  <!-- BADGES -->
+  <div class="card-badges">
+    <span class="badge-category">{{ plant.get_category_display }}</span>
+    {% if plant.is_edible %}
+      <span class="badge-edible">Edible</span>
+    {% endif %}
+  </div>
+
+  <!-- FAV BUTTON -->
+  {% with favs=request.COOKIES.favs|default:'' %}
+  <a href="/plants/{{ plant.id }}/favourite/?next={{ request.path }}"
+     class="fav-btn {% if plant.id|stringformat:'s' in favs %}fav-active{% endif %}">
+    <i class="fa-{% if plant.id|stringformat:'s' in favs %}solid{% else %}regular{% endif %} fa-heart"></i>
+  </a>
+  {% endwith %}
+
+  <!-- IMAGE -->
+  {% if plant.image %}
+    <img src="{{ plant.image.url }}" alt="{{ plant.name }}">
+  {% endif %}
+
+  <!-- CONTENT -->
+  <div class="card-body">
+    <h5>{{ plant.name }}</h5>
+    <p>{{ plant.about|truncatechars:70 }}</p>
+
+    <!-- META INFO -->
+    {% if plant.water or plant.light or plant.countries.first %}
+    <div class="plant-meta">
+      {% if plant.water %}
+        <span><i class="fa-solid fa-droplet"></i> {{ plant.get_water_display }}</span>
+      {% endif %}
+      {% if plant.light %}
+        <span><i class="fa-solid fa-sun"></i> {{ plant.get_light_display }}</span>
+      {% endif %}
+      {% if plant.countries.first %}
+        <span><i class="fa-solid fa-location-dot"></i> {{ plant.countries.first.name }}</span>
+      {% endif %}
+    </div>
+    {% endif %}
+
+    <!-- FOOTER -->
+    <div class="plant-footer">
+      <a href="/plants/{{ plant.id }}/detail/" class="details-link">
+        View Details →
+      </a>
+      {% if request.user.is_staff %}
+      <div class="card-actions">
+        <a href="/plants/{{ plant.id }}/update/">
+          <i class="fa-solid fa-pen"></i>
+        </a>
+        <a href="/plants/{{ plant.id }}/delete/"
+           onclick="return confirm('Are you sure?')">
+          <i class="fa-solid fa-trash"></i>
+        </a>
+      </div>
+      {% endif %}
+    </div>
+
+  </div>
+</div>

@@ -1,0 +1,77 @@
+{% extends 'Planteer/base.html' %}
+{% block content %}
+
+<div class="container mt-5 mb-5">
+  <div class="row justify-content-center">
+    <div class="col-md-8">
+
+      <!-- HEADER -->
+      <div class="text-center mb-5">
+        <span class="hero-badge">GET IN TOUCH</span>
+        <h1 class="page-title mt-2">Contact Us</h1>
+        <p class="page-subtitle">Have a question or suggestion? We'd love to hear from you.</p>
+      </div>
+
+      {% if request.GET.sent %}
+        <div class="alert-success-custom text-center mb-4">
+          ✅ Message sent successfully!
+        </div>
+      {% endif %}
+
+      {% if errors %}
+        <div class="alert alert-danger rounded-3 mb-4">
+          {% for error in errors %}
+            <p class="mb-0">⚠️ {{ error }}</p>
+          {% endfor %}
+        </div>
+      {% endif %}
+
+      <!-- FORM -->
+      <div class="contact-form-box">
+        <form method="POST">
+          {% csrf_token %}
+
+          <div class="row">
+            <div class="col-md-6 mb-3">
+              <label>First Name *</label>
+              <input type="text" name="first_name" class="form-control"
+                     placeholder="e.g. Sara"
+                     value="{{ form_data.first_name|default:'' }}"
+                     required minlength="2">
+            </div>
+            <div class="col-md-6 mb-3">
+              <label>Last Name *</label>
+              <input type="text" name="last_name" class="form-control"
+                     placeholder="e.g. Ahmed"
+                     value="{{ form_data.last_name|default:'' }}"
+                     required minlength="2">
+            </div>
+          </div>
+
+          <div class="mb-3">
+            <label>Email *</label>
+            <input type="email" name="email" class="form-control"
+                   placeholder="example@email.com"
+                   value="{{ form_data.email|default:'' }}"
+                   required>
+          </div>
+
+          <div class="mb-4">
+            <label>Message *</label>
+            <textarea name="message" class="form-control" rows="5"
+                      placeholder="Write your message here..."
+                      required minlength="10">{{ form_data.message|default:'' }}</textarea>
+          </div>
+
+          <button type="submit" class="btn btn-main w-100">
+            Send Message 🌿
+          </button>
+
+        </form>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,83 @@
+{% extends 'Planteer/base.html' %}
+{% block content %}
+
+<div class="container mt-5 mb-5">
+
+  <!-- HEADER -->
+  <div class="text-center mb-5">
+    <span class="hero-badge">YOUR MATCHES</span>
+    <h1 class="page-title mt-3">Your Perfect Plants</h1>
+    <p class="page-subtitle">Based on your answers, here are the best plants for you</p>
+  </div>
+
+  <!-- RESULTS -->
+  {% if plants %}
+  <div class="row">
+    {% for plant in plants %}
+    <div class="col-md-4 mb-4">
+      <div class="plant-card">
+
+        <div class="card-badges">
+          <span class="badge-category">{{ plant.get_category_display }}</span>
+          {% if plant.is_edible %}
+            <span class="badge-edible">Edible</span>
+          {% endif %}
+        </div>
+
+        {% if plant.image %}
+          <img src="{{ plant.image.url }}" alt="{{ plant.name }}">
+        {% endif %}
+
+        <div class="card-body">
+          <h5>{{ plant.name }}</h5>
+          <p>{{ plant.about|truncatechars:80 }}</p>
+
+          <div class="plant-meta mb-3">
+            {% if plant.water %}
+              <span><i class="fa-solid fa-droplet"></i> {{ plant.get_water_display }}</span>
+            {% endif %}
+            {% if plant.light %}
+              <span><i class="fa-solid fa-sun"></i> {{ plant.get_light_display }}</span>
+            {% endif %}
+            {% if plant.care_level %}
+              <span><i class="fa-solid fa-leaf"></i> {{ plant.get_care_level_display }}</span>
+            {% endif %}
+          </div>
+
+          <a href="/plants/{{ plant.id }}/detail/" class="btn btn-main w-100">
+            View Details →
+          </a>
+        </div>
+
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+
+  {% else %}
+  <!-- NO RESULTS -->
+  <div class="text-center mt-5">
+    <div class="no-results-icon">
+      <i class="fa-solid fa-seedling"></i>
+    </div>
+    <h3 class="mt-3">No exact matches found</h3>
+    <p class="text-muted">Try different answers or browse all our plants</p>
+    <div class="d-flex gap-3 justify-content-center mt-4">
+      <a href="/find-my-plant/" class="btn btn-main">Try Again</a>
+      <a href="/plants/all/" class="btn-view-all">Browse All Plants</a>
+    </div>
+  </div>
+  {% endif %}
+
+  <!-- RETAKE -->
+  {% if plants %}
+  <div class="text-center mt-5">
+    <a href="/find-my-plant/" class="btn-view-all">
+      ← Retake Quiz
+    </a>
+  </div>
+  {% endif %}
+
+</div>
+
+{% endblock %}

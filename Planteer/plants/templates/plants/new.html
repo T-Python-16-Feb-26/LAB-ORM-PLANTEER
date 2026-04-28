@@ -1,0 +1,111 @@
+{% extends 'Planteer/base.html' %}
+{% load static %}
+{% block content %}
+
+<div class="container mt-4 mb-5">
+
+  <!-- BREADCRUMB -->
+  <div class="mb-2">
+    <a href="/" class="breadcrumb-link">Home</a>
+    <span>›</span>
+    <a href="/plants/all/" class="breadcrumb-link">All Plants</a>
+    <span>›</span>
+    <span>Add Plant</span>
+  </div>
+
+  <!-- TITLE -->
+  <div class="text-center mb-4">
+    <span class="hero-badge">NEW PLANT</span>
+    <h1 class="page-title mt-2">Add New Plant</h1>
+    <p class="page-subtitle">Fill in the details below to add a new plant</p>
+  </div>
+
+  <!-- FORM -->
+  <div class="row justify-content-center">
+    <div class="col-md-9">
+      <form method="POST" enctype="multipart/form-data" class="plant-form">
+        {% csrf_token %}
+
+        <!-- NAME -->
+        <div class="mb-4">
+          <label>Plant Name *</label>
+          <input type="text" name="name" class="form-control"
+                 placeholder="e.g. Monstera Deliciosa"
+                 value="{{ form.name.value|default:'' }}"
+                 required minlength="2">
+          {% if form.name.errors %}
+            <div class="text-danger mt-1">{{ form.name.errors.0 }}</div>
+          {% endif %}
+        </div>
+
+        <!-- ABOUT -->
+        <div class="mb-4">
+          <label>About *</label>
+          <textarea name="about" class="form-control" rows="4"
+            placeholder="Describe the plant..."
+            required minlength="10">{{ form.about.value|default:'' }}</textarea>
+          {% if form.about.errors %}
+            <div class="text-danger mt-1">{{ form.about.errors.0 }}</div>
+          {% endif %}
+        </div>
+
+        <!-- USED FOR -->
+        <div class="mb-4">
+          <label>Used For *</label>
+          <textarea name="used_for" class="form-control" rows="3"
+            placeholder="e.g. Interior decoration, air purification..."
+            required>{{ form.used_for.value|default:'' }}</textarea>
+          {% if form.used_for.errors %}
+            <div class="text-danger mt-1">{{ form.used_for.errors.0 }}</div>
+          {% endif %}
+        </div>
+
+        <!-- IMAGE -->
+        <div class="mb-4">
+          <label>Image</label>
+          <input type="file" name="image" class="form-control">
+          {% if form.image.errors %}
+            <div class="text-danger mt-1">{{ form.image.errors.0 }}</div>
+          {% endif %}
+        </div>
+
+        <!-- CATEGORY + EDIBLE -->
+        <div class="row mb-4">
+          <div class="col-md-6">
+            <label>Category *</label>
+            <select name="category" class="form-control" required>
+              <option value="">-- Select Category --</option>
+              <option value="TR" {% if form.category.value == 'TR' %}selected{% endif %}>Tropical</option>
+              <option value="SU" {% if form.category.value == 'SU' %}selected{% endif %}>Succulents</option>
+              <option value="HE" {% if form.category.value == 'HE' %}selected{% endif %}>Herbs</option>
+              <option value="FE" {% if form.category.value == 'FE' %}selected{% endif %}>Ferns</option>
+              <option value="FL" {% if form.category.value == 'FL' %}selected{% endif %}>Flowering</option>
+              <option value="TRS" {% if form.category.value == 'TRS' %}selected{% endif %}>Trees</option>
+            </select>
+            {% if form.category.errors %}
+              <div class="text-danger mt-1">{{ form.category.errors.0 }}</div>
+            {% endif %}
+          </div>
+
+          <div class="col-md-6 d-flex align-items-end">
+            <div class="form-check form-switch">
+              <input class="form-check-input" type="checkbox" name="is_edible"
+                     {% if form.is_edible.value %}checked{% endif %}>
+              <label class="form-check-label ms-2">Edible</label>
+            </div>
+          </div>
+        </div>
+
+        <!-- BUTTONS -->
+        <div class="d-flex gap-3">
+          <button class="btn btn-main w-50">+ Add Plant</button>
+          <a href="/plants/all/" class="btn btn-light w-50 text-center">Cancel</a>
+        </div>
+
+      </form>
+    </div>
+  </div>
+
+</div>
+
+{% endblock %}

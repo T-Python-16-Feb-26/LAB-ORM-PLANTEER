@@ -1,0 +1,186 @@
+{% extends 'Planteer/base.html' %}
+{% block content %}
+
+<!-- HERO -->
+<section class="find-hero">
+  <div class="container">
+    <div class="row align-items-center" style="min-height: 500px;">
+      <div class="col-md-6">
+        <span class="hero-badge">PERSONALIZED FOR YOU</span>
+        <h1 class="find-hero-title mt-3">Find Your Perfect Plant</h1>
+        <p class="find-hero-desc">
+          Answer 3 quick questions about your space, lifestyle, and experience
+          — we'll match you with the plants that will actually thrive with you.
+        </p>
+        <div class="d-flex gap-3 mt-4 flex-wrap">
+          <a href="#quiz" class="btn btn-main">
+            <i class="fa-solid fa-wand-magic-sparkles me-2"></i> Start the Quiz — 1 minute
+          </a>
+          <a href="/plants/all/" class="btn-view-all">
+            Browse All Plants
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section class="how-section">
+  <div class="container text-center">
+    <div class="row">
+
+      <div class="col-md-4 mb-4">
+        <div class="how-card">
+          <div class="how-icon" style="background:#f0f9f0;">
+            <i class="fa-regular fa-message" style="color:#2e5d34;"></i>
+          </div>
+          <h6>3 Quick Questions</h6>
+          <p>Light, watering habits, and experience level</p>
+        </div>
+      </div>
+
+      <div class="col-md-4 mb-4">
+        <div class="how-card">
+          <div class="how-icon" style="background:#fef9c3;">
+            <i class="fa-solid fa-brain" style="color:#d97706;"></i>
+          </div>
+          <h6>Smart Matching</h6>
+          <p>Our algorithm scores all 16 plants against your answers</p>
+        </div>
+      </div>
+
+      <div class="col-md-4 mb-4">
+        <div class="how-card">
+          <div class="how-icon" style="background:#dcfce7;">
+            <i class="fa-solid fa-seedling" style="color:#16a34a;"></i>
+          </div>
+          <h6>4 Perfect Picks</h6>
+          <p>Get your top matches with reasons why</p>
+        </div>
+      </div>
+
+    </div>
+
+    <a href="#quiz" class="btn btn-main mt-2">
+      <i class="fa-solid fa-wand-magic-sparkles me-2"></i> Start Quiz Now
+    </a>
+  </div>
+</section>
+
+<!-- QUIZ -->
+<section class="quiz-section" id="quiz">
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-md-7">
+
+        <h2 class="section-title text-center mb-5">Find My Plant 🌿</h2>
+
+        <form method="GET" action="/find-my-plant/results/">
+
+          <!-- QUESTION 1 -->
+          <div class="quiz-question mb-5">
+            <h5 class="quiz-q">1. How much natural light does your space get?</h5>
+            <div class="quiz-options">
+              <label class="quiz-option">
+                <input type="radio" name="light" value="DIR" required>
+                <div class="quiz-option-box">
+                  <i class="fa-solid fa-sun"></i>
+                  <span>Bright & Sunny</span>
+                  <small>Direct sunlight most of the day</small>
+                </div>
+              </label>
+              <label class="quiz-option">
+                <input type="radio" name="light" value="IND">
+                <div class="quiz-option-box">
+                  <i class="fa-solid fa-cloud-sun"></i>
+                  <span>Bright but Indirect</span>
+                  <small>Near a window, no direct sun</small>
+                </div>
+              </label>
+              <label class="quiz-option">
+                <input type="radio" name="light" value="LOW">
+                <div class="quiz-option-box">
+                  <i class="fa-solid fa-moon"></i>
+                  <span>Low Light</span>
+                  <small>Away from windows</small>
+                </div>
+              </label>
+            </div>
+          </div>
+
+          <!-- QUESTION 2 -->
+          <div class="quiz-question mb-5">
+            <h5 class="quiz-q">2. How often do you want to water your plant?</h5>
+            <div class="quiz-options">
+              <label class="quiz-option">
+                <input type="radio" name="water" value="LOW" required>
+                <div class="quiz-option-box">
+                  <i class="fa-solid fa-droplet" style="color:#94a3b8;"></i>
+                  <span>Rarely</span>
+                  <small>Once every 2-3 weeks</small>
+                </div>
+              </label>
+              <label class="quiz-option">
+                <input type="radio" name="water" value="MO">
+                <div class="quiz-option-box">
+                  <i class="fa-solid fa-droplet" style="color:#3b82f6;"></i>
+                  <span>Sometimes</span>
+                  <small>Once a week</small>
+                </div>
+              </label>
+              <label class="quiz-option">
+                <input type="radio" name="water" value="HIGH">
+                <div class="quiz-option-box">
+                  <i class="fa-solid fa-droplet" style="color:#0284c7;"></i>
+                  <span>Often</span>
+                  <small>Every few days</small>
+                </div>
+              </label>
+            </div>
+          </div>
+
+          <!-- QUESTION 3 -->
+          <div class="quiz-question mb-5">
+            <h5 class="quiz-q">3. What is your experience with plants?</h5>
+            <div class="quiz-options">
+              <label class="quiz-option">
+                <input type="radio" name="care" value="EASY" required>
+                <div class="quiz-option-box">
+                  <i class="fa-solid fa-seedling" style="color:#16a34a;"></i>
+                  <span>Beginner</span>
+                  <small>I'm new to plants</small>
+                </div>
+              </label>
+              <label class="quiz-option">
+                <input type="radio" name="care" value="MED">
+                <div class="quiz-option-box">
+                  <i class="fa-solid fa-leaf" style="color:#2e5d34;"></i>
+                  <span>Intermediate</span>
+                  <small>I have some experience</small>
+                </div>
+              </label>
+              <label class="quiz-option">
+                <input type="radio" name="care" value="HARD">
+                <div class="quiz-option-box">
+                  <i class="fa-solid fa-tree" style="color:#1a3a1a;"></i>
+                  <span>Expert</span>
+                  <small>I love a challenge</small>
+                </div>
+              </label>
+            </div>
+          </div>
+
+          <div class="text-center">
+            <button type="submit" class="btn btn-main px-5 py-3">
+              <i class="fa-solid fa-wand-magic-sparkles me-2"></i> Find My Plant!
+            </button>
+          </div>
+
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% endblock %}

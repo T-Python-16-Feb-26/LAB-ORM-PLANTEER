@@ -1,0 +1,38 @@
+{% extends 'Planteer/base.html' %}
+{% block content %}
+
+<div class="container mt-4 mb-5">
+
+  <!-- BREADCRUMB -->
+  <div class="mb-4">
+    <a href="/" class="breadcrumb-link">Home</a>
+    <span class="mx-1">›</span>
+    <a href="/plants/all/" class="breadcrumb-green">All Plants</a>
+    <span class="mx-1">›</span>
+    <span class="breadcrumb-link">{{ country.name }}</span>
+  </div>
+
+  <div class="mb-4">
+  {% if country.flag %}
+    <img src="{{ country.flag.url }}" style="width:50px; border-radius:6px;" class="me-2">
+  {% endif %}
+  <!-- HEADER -->
+  <div class="mb-4">
+    <h1 class="page-title">Plants native to {{ country.name }}</h1>
+    <p class="page-subtitle">Showing {{ plants|length }} plants</p>
+  </div>
+
+  <!-- PLANTS -->
+  <div class="row">
+    {% for plant in plants %}
+    <div class="col-md-4 mb-4">
+      {% include "plants/partials/plant_card.html" with plant=plant %}
+    </div>
+    {% empty %}
+      <p class="text-muted">No plants found for this country.</p>
+    {% endfor %}
+  </div>
+
+</div>
+
+{% endblock %}

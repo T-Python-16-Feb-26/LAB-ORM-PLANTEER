@@ -1,0 +1,45 @@
+{% extends 'Planteer/base.html' %}
+{% block content %}
+
+<div class="container mt-4">
+
+  <h2>Edit Plant</h2>
+
+  <form method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
+
+    <input type="text" name="name" value="{{ plant.name }}" class="form-control mb-3">
+
+    <textarea name="about" class="form-control mb-3">{{ plant.about }}</textarea>
+
+    <textarea name="used_for" class="form-control mb-3">{{ plant.used_for }}</textarea>
+    <input type="file" name="image" class="form-control mb-3">
+
+   
+    <div class="mb-3">
+      <label>Category</label>
+      <select name="category" class="form-control" required>
+
+        <option value="TR" {% if plant.category == "TR" %}selected{% endif %}>Tropical</option>
+        <option value="SU" {% if plant.category == "SU" %}selected{% endif %}>Succulents</option>
+        <option value="HE" {% if plant.category == "HE" %}selected{% endif %}>Herbs</option>
+        <option value="FE" {% if plant.category == "FE" %}selected{% endif %}>Ferns</option>
+        <option value="FL" {% if plant.category == "FL" %}selected{% endif %}>Flowering</option>
+        <option value="TRS" {% if plant.category == "TRS" %}selected{% endif %}>Trees</option>
+
+      </select>
+    </div>
+
+    <div class="mb-3">
+  <label>Edible</label>
+
+  <input type="checkbox" name="is_edible"
+         {% if plant.is_edible %}checked{% endif %}>
+</div>
+    <button class="btn btn-main">Update</button>
+
+  </form>
+
+</div>
+
+{% endblock %}
