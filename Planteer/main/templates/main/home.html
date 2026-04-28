@@ -1,0 +1,43 @@
+{% extends 'main/base.html' %}
+{% load static %}
+
+{% block content %}
+
+
+<section class="hero">
+
+    <div class="hero-content">
+        <h1>Welcome to Planteer 🌿</h1>
+        <p>Discover and explore amazing plants around the world</p>
+
+        <a href="/plants/all/" class="hero-btn">Explore Plants</a>
+    </div>
+
+</section>
+
+
+<section class="home-section">
+
+    <h2> Featured Plants</h2>
+
+    <div class="plants-grid">
+        {% for plant in plants|slice:":3" %}
+            <div class="plant-card">
+
+                {% if plant.image %}
+                    <img src="{{ plant.image.url }}">
+                {% else %}
+                    <img src="{% static 'plants/default.jpg' %}">
+                {% endif %}
+
+                <h3>{{ plant.name }}</h3>
+
+                <a href="{% url 'plant_detail' plant.id %}">View Details</a>
+
+            </div>
+        {% endfor %}
+    </div>
+
+</section>
+
+{% endblock %}

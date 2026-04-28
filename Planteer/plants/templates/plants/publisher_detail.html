@@ -1,0 +1,28 @@
+{% extends 'main/base.html' %}
+{% load static %}
+
+{% block content %}
+
+<div class="publisher-header">
+
+    <h1 class="publisher-name">
+        {{ publisher.name }}
+    </h1>
+
+    <p class="publisher-description">
+        {{ publisher.description|default:"No description available" }}
+    </p>
+
+</div>
+
+<h2 class="section-title">Plants by this publisher</h2>
+
+<div class="plants-grid">
+    {% for plant in plants %}
+        {% include 'plants/plant_card.html' %}
+    {% empty %}
+        <p>No plants found</p>
+    {% endfor %}
+</div>
+
+{% endblock %}

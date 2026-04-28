@@ -1,0 +1,17 @@
+
+  {% load static %}
+<div class="plant-card">
+
+    {% if plant.image %}
+        <img src="{{ plant.image.url }}" alt="{{ plant.name }}">
+    {% else %}
+        <img src="{% static 'plants/default.jpg' %}" alt="{{ plant.name }}">
+    {% endif %}
+
+    <h4>{{ plant.name }}</h4>
+
+    <p>{{ plant.description|truncatewords:10 }}</p>
+
+    <a href="{% url 'plant_detail' plant.id %}">View Details</a>
+
+</div>

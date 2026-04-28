@@ -1,0 +1,78 @@
+{% extends 'main/base.html' %}
+{% load static %}
+
+{% block content %}
+
+<h1 class="page-title">Add New Plant 🌱</h1>
+
+<form method="POST" enctype="multipart/form-data" class="add-form">
+    {% csrf_token %}
+
+    {% if error %}
+        <p style="color:red; text-align:center;">{{ error }}</p>
+    {% endif %}
+
+    <div class="form-group">
+        <label>Plant Name</label>
+        <input type="text" name="name" required minlength="2">
+    </div>
+
+    <div class="form-group">
+        <label>Description</label>
+        <textarea name="description" required></textarea>
+    </div>
+
+    <div class="form-group">
+        <label>Image</label>
+        <input type="file" name="image">
+    </div>
+
+    <div class="form-group">
+        <label>Category</label>
+        <select name="category" required>
+            <option value="">Select Category</option>
+            <option value="Fruit">Fruit</option>
+            <option value="Vegetable">Vegetable</option>
+            <option value="Tree">Tree</option>
+            <option value="Flower">Flower</option>
+        </select>
+    </div>
+
+    <div class="form-group checkbox">
+        <input type="checkbox" name="is_edible">
+        <label>Is edible</label>
+    </div>
+
+  
+    <div class="form-group">
+        <label>Countries</label>
+
+        <div class="countries-grid">
+            {% for c in countries %}
+                <label class="country-item">
+                    <input type="checkbox" name="countries" value="{{ c.id }}">
+                    <span>{{ c.name }}</span>
+                </label>
+            {% endfor %}
+        </div>
+    </div>
+   
+<div class="form-group">
+    <label>Publisher</label>
+
+    <select name="publisher" required>
+        <option value="">Select Publisher</option>
+
+        {% for p in publishers %}
+            <option value="{{ p.id }}">
+                {{ p.name }}
+            </option>
+        {% endfor %}
+
+    </select>
+</div>
+
+<button type="submit" class="btn">Add Plant</button>
+</form>
+
+{% endblock %}

@@ -1,0 +1,21 @@
+{% extends 'main/base.html' %}
+
+{% block content %}
+
+<h1 class="page-title">Messages from Users</h1>
+
+<div class="messages-container">
+
+    {% for m in messages %}
+        <div class="message-card">
+            <h3>{{ m.first_name }} {{ m.last_name }}</h3>
+            <p class="email">{{ m.email }}</p>
+            <p class="text">{{ m.message }}</p>
+        </div>
+    {% empty %}
+        <p style="text-align:center;">No messages yet</p>
+    {% endfor %}
+
+</div>
+
+{% endblock %}

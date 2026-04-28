@@ -1,0 +1,25 @@
+{% extends 'main/base.html' %}
+{% load static %}
+
+{% block content %}
+
+<h1 class="page-title">Publishers</h1>
+
+<div class="plants-grid">
+    {% for p in publishers %}
+        <div class="plant-card">
+
+            <h3>{{ p.name }}</h3>
+
+            <p>{{ p.description|default:"No description" }}</p>
+
+            <a href="{% url 'plants_by_publisher' p.id %}">
+                View Plants
+            </a>
+
+        </div>
+    {% endfor %}
+</div>
+
+
+{% endblock %}

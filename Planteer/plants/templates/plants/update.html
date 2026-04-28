@@ -1,0 +1,48 @@
+{% extends 'main/base.html' %}
+
+{% block content %}
+
+<h1 class="page-title">Edit Plant </h1>
+
+<form method="POST" enctype="multipart/form-data" class="add-form">
+    {% csrf_token %}
+
+    {% if error %}
+        <p style="color:red; text-align:center;">{{ error }}</p>
+    {% endif %}
+
+    <div class="form-group">
+        <label>Plant Name</label>
+        <input type="text" name="name" value="{{ plant.name }}" required>
+    </div>
+
+    <div class="form-group">
+        <label>Description</label>
+        <textarea name="description" required>{{ plant.description }}</textarea>
+    </div>
+
+    <div class="form-group">
+        <label>Category</label>
+        <select name="category">
+            <option value="Fruit" {% if plant.category == "Fruit" %}selected{% endif %}>Fruit</option>
+            <option value="Vegetable" {% if plant.category == "Vegetable" %}selected{% endif %}>Vegetable</option>
+            <option value="Tree" {% if plant.category == "Tree" %}selected{% endif %}>Tree</option>
+            <option value="Flower" {% if plant.category == "Flower" %}selected{% endif %}>Flower</option>
+        </select>
+    </div>
+
+    <div class="form-group checkbox">
+        <input type="checkbox" name="is_edible" {% if plant.is_edible %}checked{% endif %}>
+        <label>Is edible</label>
+    </div>
+
+    <div class="form-group">
+        <label>Change Image</label>
+        <input type="file" name="image">
+    </div>
+
+    <button class="btn">Update Plant</button>
+
+</form>
+
+{% endblock %}

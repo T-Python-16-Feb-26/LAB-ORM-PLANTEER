@@ -1,0 +1,62 @@
+{% extends 'main/base.html' %}
+{% load static %}
+
+{% block content %}
+
+<h1 class="page-title">All Plants</h1>
+
+<form method="GET" class="search-form">
+
+    <select name="country">
+        <option value="">All Countries</option>
+        {% for c in countries %}
+            <option value="{{ c.id }}"
+                {% if request.GET.country == c.id|stringformat:"s" %}selected{% endif %}>
+                {{ c.name }}
+            </option>
+        {% endfor %}
+    </select>
+
+ 
+    <select name="category">
+        <option value="">All Categories</option>
+        <option value="Fruit" {% if request.GET.category == "Fruit" %}selected{% endif %}>Fruit</option>
+        <option value="Vegetable" {% if request.GET.category == "Vegetable" %}selected{% endif %}>Vegetable</option>
+        <option value="Flower" {% if request.GET.category == "Flower" %}selected{% endif %}>Flower</option>
+        <option value="Tree" {% if request.GET.category == "Tree" %}selected{% endif %}>Tree</option>
+    </select>
+
+   
+    <select name="edible">
+        <option value="">All</option>
+        <option value="yes" {% if request.GET.edible == "yes" %}selected{% endif %}>Edible</option>
+        <option value="no" {% if request.GET.edible == "no" %}selected{% endif %}>Not Edible</option>
+    </select>
+
+    <button type="submit" class="filter-btn">Filter</button>
+
+</form>
+<div class="plants-grid">
+
+  
+   {% for plant in plants %}
+    {% include 'plants/plant_card.html' %}
+
+    {% endfor %}
+
+</div>
+
+<div class="pagination">
+
+    {% if plants.has_previous %}
+        <a href="?page={{ plants.previous_page_number }}" class="page-btn">← Previous</a>
+    {% endif %}
+
+    <span>Page {{ plants.number }} of {{ plants.paginator.num_pages }}</span>
+
+    {% if plants.has_next %}
+        <a href="?page={{ plants.next_page_number }}" class="page-btn">Next →</a>
+    {% endif %}
+
+</div>
+{% endblock %}

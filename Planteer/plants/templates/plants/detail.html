@@ -1,0 +1,143 @@
+{% extends 'main/base.html' %}
+{% load static %}
+
+{% block content %}
+
+<div class="detail-container">
+
+  
+    <div class="detail-image">
+        {% if plant.image %}
+            <img src="{{ plant.image.url }}" alt="{{ plant.name }}">
+        {% else %}
+            <img src="{% static 'plants/default.jpg' %}" alt="{{ plant.name }}">
+        {% endif %}
+    </div>
+
+
+    <div class="detail-info">
+        <h1>{{ plant.name }}</h1>
+
+        <p>{{ plant.description }}</p>
+
+        <p><strong>Category:</strong> {{ plant.category }}</p>
+        <p><strong>Edible:</strong> {% if plant.is_edible %}Yes{% else %}No{% endif %}</p>
+
+   
+        {% if plant.publisher %}
+        <div class="publisher-box">
+            <strong>Publisher:</strong>
+            <a href="{% url 'plants_by_publisher' plant.publisher.id %}" class="tag">
+                {{ plant.publisher.name }}
+            </a>
+            <p class="publisher-desc">
+                {{ plant.publisher.description|default:"No description available" }}
+            </p>
+        </div>
+        {% endif %}
+
+        <hr>
+
+        <div class="info-tags">
+            <strong>Countries:</strong><br>
+
+            {% for c in plant.countries.all %}
+                <a href="{% url 'plants_by_country' c.id %}" class="country-item">
+
+                    {% if c.flag %}
+                        <img src="{{ c.flag.url }}" class="flag">
+                    {% endif %}
+
+                    <span>{{ c.name }}</span>
+
+                </a>
+            {% empty %}
+                <p>No countries available</p>
+            {% endfor %}
+        </div>
+
+        <hr>
+
+   
+        {% if request.user.is_superuser %}
+        <div class="actions">
+
+            <a href="{% url 'update_plant' plant.id %}" class="btn edit">
+                Edit
+            </a>
+
+            <form method="POST" action="{% url 'delete_plant' plant.id %}">
+                {% csrf_token %}
+                <button type="submit" class="btn delete">
+                    Delete
+                </button>
+            </form>
+
+        </div>
+        {% endif %}
+
+    </div>
+</div>
+
+<hr>
+
+<h2 class="section-title">Related Plants</h2>
+
+<div class="plants-grid">
+    {% for plant in related %}
+        {% include 'plants/plant_card.html' %}
+    {% empty %}
+        <p>No related plants found.</p>
+    {% endfor %}
+</div>
+
+<hr>
+
+
+<h2 class="section-title">Reviews</h2>
+
+<div class="comments-section">
+
+    {% for c in comments %}
+        <div class="comment-card">
+            <h4>{{ c.user.username }}</h4>
+            <p>{{ c.text }}</p>
+            <small>{{ c.created_at }}</small>
+        </div>
+    {% empty %}
+        <p>No comments yet.</p>
+    {% endfor %}
+
+</div>
+
+<hr>
+
+
+{% if request.user.is_authenticated %}
+
+<h3 class="section-title">Add Review</h3>
+
+<form method="POST" action="{% url 'add_comment' plant.id %}" class="add-form">
+    {% csrf_token %}
+
+    <div class="form-group">
+        <label>Your Comment</label>
+        <textarea name="comment" required minlength="3" placeholder="Write your comment..."></textarea>
+    </div>
+
+    <button type="submit" class="btn">Add Comment</button>
+</form>
+
+{% else %}
+
+<div style="text-align:center; margin-top:20px;">
+    <p style="color:red;">Only registered users can add reviews</p>
+
+    <a href="{% url 'login' %}" class="btn" style="width:200px; margin:auto;">
+        Login
+    </a>
+</div>
+
+{% endif %}
+
+{% endblock %}
