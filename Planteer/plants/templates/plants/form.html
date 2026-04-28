@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>{% if plant %}Update{% else %}Add{% endif %} Plant</h1>
+
+<form method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
+
+    <input type="text" name="name" placeholder="Name" class="form-control mb-2" value="{{ plant.name }}">
+
+    <textarea name="about" class="form-control mb-2" placeholder="About...">{{ plant.about }}</textarea>
+
+    <textarea name="used_for" class="form-control mb-2" placeholder="Used for...">{{ plant.used_for }}</textarea>
+
+    <input type="file" name="image" class="form-control mb-2">
+
+    <select name="category" class="form-select mb-2">
+        <option value="tree">Tree</option>
+        <option value="flower">Flower</option>
+        <option value="herb">Herb</option>
+    </select>
+
+    <h6>Countries</h6>
+
+    <div class="d-flex align-items-center gap-3 flex-wrap">
+        {% for country in countries %}
+            <div class="form-check">
+                <input 
+                    type="checkbox" 
+                    class="form-check-input" 
+                    name="countries" 
+                    value="{{ country.id }}"
+                    id="country{{ country.id }}"
+                >
+                <label class="form-check-label" for="country{{ country.id }}">
+                    {{ country.name }}
+                </label>
+            </div>
+        {% endfor %}
+    </div>
+    
+    <h6  class="mt-4">Edible</h6>
+    <label>
+        <input type="checkbox" class="form-check-input" name="is_edible" {% if plant.is_edible %}checked{% endif %}>
+        Edible
+    </label>
+    <br>
+    <button class="btn btn-primary mt-4 form-control"><a href="/plants/{{plant.id}}/detail/">Save</a></button>
+</form>
+
+{% if error %}
+<p class="text-danger">{{ error }}</p>
+{% endif %}
+
+{% endblock %}

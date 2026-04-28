@@ -1,0 +1,167 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html, body {
+    height: 100%;
+    margin: 0;
+}
+
+body{
+    padding: 60px 90px;
+    display: flex;
+    flex-direction: column;
+    margin: 0;
+}
+
+main {
+    flex: 1;
+}
+
+
+header {
+    display: flex;
+    flex-direction: row;
+    position: relative;
+    align-items: center;
+    justify-content: space-between;
+}
+
+header a{
+    text-decoration: none;
+    color: black;
+}
+
+.btn-primary{
+    background-color: black;
+    border: none;
+    padding: 13px 20px;
+    font-size: 20px;
+}
+
+.nav-links{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 2rem;
+    font-size: 20px;
+}
+
+footer{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    gap: 30rem;
+    border-top: 0.1rem solid black;
+    padding: 20px;
+}
+
+.nav-footer{
+    display: flex;
+    flex-direction: column;
+}
+
+.logo-footer{
+    padding-bottom: 80px;
+}
+
+.fa-brands{
+    font-size: 25px;
+}
+
+a{
+    text-decoration: none;
+    color: black;
+}
+
+.hero, .img {
+    height: 600px;
+    background-image: url("../images/element5-digital-z6i_UCBuu5Q-unsplash.jpg");
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    color: rgb(0, 0, 0);
+    margin-top: 60px;
+    border-radius: 15px;
+}
+
+.hero h1{
+    font-size: 80px;
+}
+
+.hero h3{
+    font-size: 60px;
+}
+
+.btn-outline-success{
+    background-color: black;
+    color: white;
+    border:none;
+}
+
+.plant-section{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    padding-top: 60px;
+}
+
+.all-plants{
+    padding-top: 60px;
+    padding-bottom: 60px;
+}
+
+
+.btn-primary:hover{
+    background-color: #198754;
+}
+
+.btn-primary a{
+    color: white;
+}
+
+.card{
+    height: auto;
+}
+
+.card-body{
+    height: 450px;
+        
+
+}
+
+.card-body img{
+    height: 270px;
+    
+}
+
+.plant-img{
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    justify-items: start;
+}
+
+.more-plants a{
+    display: flex;
+    flex-direction: row;
+    gap: 0.5rem;
+}
+
+a:hover{
+    color: #000000;
+}
+
+.section-flag{
+    background-color: #00000025;
+    border-radius: 50px;
+    padding: 4px;
+}
+

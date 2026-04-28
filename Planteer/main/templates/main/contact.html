@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>Contact Us</h1>
+<h4>Subheading for description or instructions</h4>
+
+<div class="d-flex flex-row" style="justify-content: space-between;">
+    <div class="from-control">
+        <form method="POST">
+            {% csrf_token %}
+            
+            <div class="d-flex flex-col gap-2 pt-4">    
+                <input type="text" name="first_name" placeholder="First Name" class="form-control mb-2 ">
+                <input type="text" name="last_name" placeholder="Last Name" class="form-control mb-2">
+            </div>
+            <input type="email" name="email" placeholder="Email" class="form-control mb-2">
+
+            <textarea name="message" class="form-control mb-2" placeholder="Message..."></textarea>
+
+            <button class="btn btn-success form-control mb-3">Send</button>
+        </form>
+    </div>
+
+    <div class="img">
+        <!-- img -->
+    </div>
+</div>
+
+
+{% endblock %}
