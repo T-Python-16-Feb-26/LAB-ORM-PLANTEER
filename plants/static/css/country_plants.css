@@ -1,0 +1,346 @@
+.about-page {
+    padding: 115px 0 90px;
+}
+
+.country-hero-card {
+    display: grid;
+    grid-template-columns: 1.4fr 0.8fr;
+    gap: 26px;
+    align-items: center;
+    padding: 34px;
+    margin-bottom: 34px;
+    border-radius: 32px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    box-shadow: var(--shadow);
+    overflow: hidden;
+    position: relative;
+}
+
+.country-hero-card::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background:
+        radial-gradient(circle at top left, rgba(120, 190, 120, 0.10), transparent 30%),
+        radial-gradient(circle at bottom right, rgba(120, 190, 120, 0.08), transparent 28%);
+    pointer-events: none;
+}
+
+.country-hero-content,
+.country-hero-flag {
+    position: relative;
+    z-index: 1;
+}
+
+.country-hero-badge {
+    display: inline-flex;
+    padding: 8px 16px;
+    border-radius: 999px;
+    background: rgba(93, 163, 105, 0.12);
+    color: #4f9259;
+    font-size: 0.82rem;
+    font-weight: 800;
+    margin-bottom: 16px;
+}
+
+.country-hero-content h1 {
+    margin: 0 0 12px;
+    font-size: clamp(2rem, 4vw, 3.2rem);
+    line-height: 1.05;
+    font-weight: 900;
+    color: var(--text);
+}
+
+.country-hero-content p {
+    margin: 0 0 22px;
+    max-width: 620px;
+    color: var(--muted);
+    line-height: 1.9;
+}
+
+.country-hero-stats {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 14px;
+    margin-bottom: 22px;
+}
+
+.country-stat {
+    min-width: 120px;
+    padding: 14px 16px;
+    border-radius: 20px;
+    background: var(--surface-2);
+    border: 1px solid var(--border);
+}
+
+.country-stat strong {
+    display: block;
+    margin-bottom: 4px;
+    font-size: 1.25rem;
+    font-weight: 900;
+    color: var(--text);
+}
+
+.country-stat span {
+    color: var(--muted);
+    font-size: 0.88rem;
+    font-weight: 700;
+}
+
+.country-hero-actions {
+    display: flex;
+    gap: 12px;
+}
+
+.country-hero-flag {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.country-hero-flag img {
+    width: min(100%, 320px);
+    border-radius: 28px;
+    border: 1px solid var(--border);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.10);
+}
+
+.country-plants-section {
+    padding: 30px;
+    border-radius: 28px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    box-shadow: var(--shadow);
+}
+
+.country-section-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: end;
+    gap: 16px;
+    margin-bottom: 24px;
+}
+
+.section-kicker {
+    display: inline-block;
+    margin-bottom: 8px;
+    color: #4f9259;
+    font-size: 0.84rem;
+    font-weight: 800;
+}
+
+.country-section-head h2 {
+    margin: 0;
+    font-size: 1.8rem;
+    font-weight: 900;
+    color: var(--text);
+}
+
+.country-results-count {
+    color: var(--muted);
+    font-weight: 800;
+    font-size: 0.94rem;
+}
+
+.plant-detail-topbar{
+    margin-bottom:18px;
+    display:flex;
+    direction: ltr;
+}
+.back-link {
+    display: inline-flex;
+    margin-right: auto;
+    align-items: center;
+    justify-content: center;
+    min-width: 170px;
+    height: 44px;
+    padding: 0 16px;
+    border-radius: 12px;
+    background: rgba(120, 120, 120, 0.10);
+    border: 1px solid rgba(120, 120, 120, 0.16);
+    color: var(--muted);
+    text-decoration: none;
+    font-weight: 700;
+    transition: all 0.25s ease;
+}
+
+.back-link:hover {
+    background: rgba(120, 120, 120, 0.16);
+    color: var(--text);
+    transform: translateY(-2px);
+}
+
+body.dark-mode .country-hero-card,
+body.dark-mode .country-plants-section {
+    background: linear-gradient(
+        180deg,
+        rgba(24, 29, 25, 0.94),
+        rgba(19, 23, 20, 0.94)
+    );
+    border: 1px solid rgba(110, 125, 113, 0.16);
+    box-shadow: 0 18px 38px rgba(0, 0, 0, 0.22);
+}
+
+/* ===== ABOUT DARK MODE ===== */
+
+body.dark-mode .about-page,
+html.dark-mode .about-page,
+html[data-theme="dark"] .about-page {
+    background: transparent;
+}
+
+body.dark-mode .about-hero,
+body.dark-mode .about-story-card,
+body.dark-mode .about-highlight-text,
+body.dark-mode .about-highlight-stats,
+body.dark-mode .about-cta,
+html.dark-mode .about-hero,
+html.dark-mode .about-story-card,
+html.dark-mode .about-highlight-text,
+html.dark-mode .about-highlight-stats,
+html.dark-mode .about-cta,
+html[data-theme="dark"] .about-hero,
+html[data-theme="dark"] .about-story-card,
+html[data-theme="dark"] .about-highlight-text,
+html[data-theme="dark"] .about-highlight-stats,
+html[data-theme="dark"] .about-cta {
+    background: linear-gradient(180deg, rgba(24, 31, 27, 0.96), rgba(17, 22, 19, 0.98)) !important;
+    border: 1px solid rgba(115, 201, 134, 0.18) !important;
+    box-shadow: 0 18px 40px rgba(0, 0, 0, 0.35) !important;
+    color: #edf3ee !important;
+}
+
+body.dark-mode .about-stat-card,
+html.dark-mode .about-stat-card,
+html[data-theme="dark"] .about-stat-card {
+    background: linear-gradient(180deg, #202922, #171f1a) !important;
+    border: 1px solid rgba(115, 201, 134, 0.18) !important;
+    color: #edf3ee !important;
+}
+
+body.dark-mode .about-hero h1,
+body.dark-mode .about-story-card h2,
+body.dark-mode .about-highlight-text h2,
+body.dark-mode .about-cta h2,
+html.dark-mode .about-hero h1,
+html.dark-mode .about-story-card h2,
+html.dark-mode .about-highlight-text h2,
+html.dark-mode .about-cta h2,
+html[data-theme="dark"] .about-hero h1,
+html[data-theme="dark"] .about-story-card h2,
+html[data-theme="dark"] .about-highlight-text h2,
+html[data-theme="dark"] .about-cta h2 {
+    color: #ffffff !important;
+}
+
+body.dark-mode .about-hero p,
+body.dark-mode .about-story-card p,
+body.dark-mode .about-highlight-text p,
+body.dark-mode .about-cta p,
+body.dark-mode .about-stat-card span,
+html.dark-mode .about-hero p,
+html.dark-mode .about-story-card p,
+html.dark-mode .about-highlight-text p,
+html.dark-mode .about-cta p,
+html.dark-mode .about-stat-card span,
+html[data-theme="dark"] .about-hero p,
+html[data-theme="dark"] .about-story-card p,
+html[data-theme="dark"] .about-highlight-text p,
+html[data-theme="dark"] .about-cta p,
+html[data-theme="dark"] .about-stat-card span {
+    color: #b9c4bc !important;
+}
+
+body.dark-mode .about-feature-list li,
+html.dark-mode .about-feature-list li,
+html[data-theme="dark"] .about-feature-list li {
+    background: #202922 !important;
+    border: 1px solid rgba(115, 201, 134, 0.18) !important;
+    color: #edf3ee !important;
+}
+
+body.dark-mode .floating-badge,
+html.dark-mode .floating-badge,
+html[data-theme="dark"] .floating-badge {
+    background: rgba(32, 41, 34, 0.96) !important;
+    border: 1px solid rgba(115, 201, 134, 0.2) !important;
+    color: #edf3ee !important;
+}
+
+body.dark-mode .about-hero-image-card,
+html.dark-mode .about-hero-image-card,
+html[data-theme="dark"] .about-hero-image-card {
+    background: #202922 !important;
+    border-color: rgba(115, 201, 134, 0.2) !important;
+}
+
+@media (max-width: 991px) {
+    .country-plants-page {
+        padding: 125px 0 65px;
+    }
+
+    .country-hero-card {
+        grid-template-columns: 1fr;
+    }
+
+    .country-hero-flag {
+        justify-content: flex-start;
+    }
+}
+
+@media (max-width: 767px) {
+    .country-plants-page {
+        padding: 110px 0 50px;
+    }
+    .plant-detail-topbar {
+        margin-bottom: 14px;
+    }
+
+    .country-hero-card,
+    .country-plants-section {
+        padding: 22px 18px;
+        border-radius: 22px;
+    }
+
+    .country-section-head {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .country-hero-flag img {
+        width: 100%;max-width: 220px;
+    }
+        .back-link {
+        min-width: 140px;
+        height: 40px;
+        padding: 0 14px;
+        font-size: 0.84rem;
+        border-radius: 10px;
+    }
+}
+
+@media (max-width: 480px) {
+    .country-hero-content h1 {
+        font-size: 1.7rem;
+    }
+
+    .country-hero-stats {
+        flex-direction: column;
+    }
+
+    .country-stat {
+        width: 100%;
+    }
+        .plant-detail-topbar {
+        margin-bottom: 12px;
+    }
+    .back-link {
+        min-width: 120px;
+        width: auto;
+        height: 38px;
+        padding: 0 12px;
+        font-size: 0.8rem;
+        border-radius: 10px;
+    }
+}

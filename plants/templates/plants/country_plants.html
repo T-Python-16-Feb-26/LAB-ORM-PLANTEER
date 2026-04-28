@@ -1,0 +1,77 @@
+{% extends 'core/base.html' %}
+{% load static %}
+{% load i18n %}
+
+{% block title %}
+    {{ country.name }} | Planteer
+{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/plants_page.css' %}">
+<link rel="stylesheet" href="{% static 'css/country_plants.css' %}">
+{% endblock %}
+
+{% block content %}
+<section class="country-plants-page">
+    <div class="container">
+        <div class="plant-detail-topbar">
+            <a href="{% url 'plants:plants_page' %}" class="back-link">
+                {% trans "Back to Plants" %}
+            </a>
+        </div>
+
+        <section class="country-hero-card">
+            <div class="country-hero-content">
+                <span class="country-hero-badge">
+                    {% trans "The Country" %}
+                </span>
+
+                <h1>{{ country.name }}</h1>
+
+                <p>
+                    {% trans "Discover the plants associated with this country" %}
+                </p>
+
+                <div class="country-hero-stats">
+                    <div class="country-stat">
+                        <strong>{{ plants|length }}</strong>
+                        <span>{% trans "Plants" %}</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="country-hero-flag">
+                {% if country.flag %}
+                    <img src="{{ country.flag.url }}" alt="{{ country.name }}">
+                {% else %}
+                    <img src="{% static 'images/default-flag.png' %}" alt="{{ country.name }}">
+                {% endif %}
+            </div>
+        </section>
+
+        <section class="country-plants-section">
+            <div class="country-section-head">
+                <div>
+                    <h2>{% trans "The group of plants associated with this country" %}</h2>
+                </div>
+
+                <span class="country-results-count">
+                    {{ plants|length }} {% trans "plants found" %}
+                </span>
+            </div>
+
+            <div class="plants-grid">
+                {% for plant in plants %}
+                    {% include 'plants/includes/plant_parts.html' with plant=plant %}
+                {% empty %}
+                    <div class="plants-empty">
+                        <h3>{% trans "No plants found" %}</h3>
+                        <p>{% trans "There are no plants linked to this country yet." %}</p>
+                    </div>
+                {% endfor %}
+            </div>
+        </section>
+
+    </div>
+</section>
+{% endblock %}

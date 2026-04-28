@@ -1,0 +1,180 @@
+
+{% extends 'core/base.html' %}
+{% load i18n %}
+{% load static %}
+
+{% block title %}{% trans "Contact Us" %} | Planteer{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/contact.css' %}">
+{% endblock %}
+
+{% block content %}
+<section class="contact-page">
+    <div class="contact-orb orb-one"></div>
+    <div class="contact-orb orb-two"></div>
+
+    <div class="container">
+        <div class="contact-hero reveal-up">
+            <div class="contact-hero-text">
+                <span class="contact-kicker">{% trans "Get In Touch" %}</span>
+                <h1>{% trans "Contact Us" %}</h1>
+                <p>
+                    {% trans "Have a question, suggestion, or message for Planteer? We would love to hear from you" %}
+                </p>
+            </div>
+        </div>
+
+        <div class="contact-layout">
+            <div class="contact-form-card reveal-left">
+                <div class="contact-form-head">
+                    <h2>{% trans "Send a Message" %}</h2>
+                    <p>{% trans "Fill out the form below and we will get back to you" %}</p>
+                </div>
+
+                {% if success %}
+                    <div class="form-success">
+                        {% trans "Your message has been sent successfully" %}
+                    </div>
+                {% endif %}
+
+                <form method="POST" class="contact-form">
+                    {% csrf_token %}
+
+                    <div class="contact-form-row">
+                        <div class="form-group">
+                            <label for="{{ form.first_name.id_for_label }}">
+                                {% trans "First Name" %}
+                            </label>
+                            <input
+                                type="text"
+                                name="first_name"
+                                id="{{ form.first_name.id_for_label }}"
+                                value="{{ form.first_name.value|default:'' }}"
+                                placeholder="{% trans 'First name' %}"
+                                class="form-control {% if form.first_name.errors %}input-error{% endif %}"
+                                required
+                                minlength="2"
+                                maxlength="100"
+                            >
+                            {% for error in form.first_name.errors %}
+                                <small class="form-error">{{ error }}</small>
+                            {% endfor %}
+                        </div>
+
+                        <div class="form-group">
+                            <label for="{{ form.last_name.id_for_label }}">
+                                {% trans "Last Name" %}
+                            </label>
+                            <input
+                                type="text"
+                                name="last_name"
+                                id="{{ form.last_name.id_for_label }}"
+                                value="{{ form.last_name.value|default:'' }}"
+                                placeholder="{% trans 'Last name' %}"
+                                class="form-control {% if form.last_name.errors %}input-error{% endif %}"
+                                required
+                                minlength="2"
+                                maxlength="100"
+                            >
+                            {% for error in form.last_name.errors %}
+                                <small class="form-error">{{ error }}</small>
+                            {% endfor %}
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="{{ form.email.id_for_label }}">
+                            {% trans "Email" %}
+                        </label>
+                        <input
+                            type="email"
+                            name="email"
+                            id="{{ form.email.id_for_label }}"
+                            value="{{ form.email.value|default:'' }}"placeholder="{% trans 'Email address' %}"
+                            class="form-control {% if form.email.errors %}input-error{% endif %}"
+                            required
+                            maxlength="150"
+                        >
+                        {% for error in form.email.errors %}
+                            <small class="form-error">{{ error }}</small>
+                        {% endfor %}
+                    </div>
+
+                    <div class="form-group">
+                        <label for="{{ form.message.id_for_label }}">
+                            {% trans "Message" %}
+                        </label>
+                        <textarea
+                            name="message"
+                            id="{{ form.message.id_for_label }}"
+                            placeholder="{% trans 'Write your message' %}"
+                            class="form-control form-textarea {% if form.message.errors %}input-error{% endif %}"
+                            required
+                            minlength="10"
+                            maxlength="1000"
+                            rows="6"
+                        >{{ form.message.value|default:'' }}</textarea>
+                        {% for error in form.message.errors %}
+                            <small class="form-error">{{ error }}</small>
+                        {% endfor %}
+                    </div>
+
+                        {% if form.non_field_errors %}
+                            {% for error in form.non_field_errors %}
+                                <small class="form-error">{{ error }}</small>
+                            {% endfor %}
+                        {% endif %}
+
+                    <div class="contact-form-actions">
+                        <button type="submit" class="contact-submit-btn">
+                            <span>{% trans "Send Message" %}</span>
+                            <i class="fa-solid fa-paper-plane"></i>
+                        </button>
+                    </div>
+                </form>
+            </div>
+
+            <div class="contact-info-card reveal-right">
+                <div class="contact-info-block">
+                    <div class="contact-info-icon">
+                        <i class="fa-solid fa-envelope"></i>
+                    </div>
+                    <div class="contact-info-text">
+                        <h3>{% trans "Email Us" %}</h3>
+                        <p>hello@planteer.com</p>
+                    </div>
+                </div>
+
+                <div class="contact-info-block">
+                    <div class="contact-info-icon">
+                        <i class="fa-solid fa-seedling"></i>
+                    </div>
+                    <div class="contact-info-text">
+                        <h3>{% trans "Plant Support" %}</h3>
+                        <p>{% trans "Ask about plants, care tips, and suggestions" %}</p>
+                    </div>
+                </div>
+
+                <div class="contact-info-block">
+                    <div class="contact-info-icon">
+                        <i class="fa-regular fa-clock"></i>
+                    </div>
+                    <div class="contact-info-text">
+                        <h3>{% trans "Response Time" %}</h3>
+                        <p>{% trans "Usually within 24 to 48 hours" %}</p>
+                    </div>
+                </div>
+
+                <div class="contact-mini-card">
+                    <span class="mini-badge">{% trans "Planteer Care" %}</span>
+                    <h4>{% trans "We care about your feedback" %}</h4>
+                    <p>{% trans "Every message helps us improve the plant experience for everyone" %}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script src="{% static 'js/contact.js' %}"></script>
+{% endblock %}

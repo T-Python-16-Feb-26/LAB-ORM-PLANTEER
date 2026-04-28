@@ -1,0 +1,287 @@
+{% extends 'core/base.html' %}
+{% load static %}
+{% load i18n %}
+
+{% block title %}{% trans "Home" %} | Planteer{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/home.css' %}">
+{% endblock %}
+
+{% block content %}
+
+<!-- HERO SECTION -->
+<section class="hero-section" id="hero">
+    <div class="hero-media">
+        <img src="{% static 'images/background.png' %}" alt="{% trans 'Plants' %}">
+    </div>
+
+    <div class="hero-overlay"></div>
+
+    <div class="container">
+        <div class="hero-content" data-aos="fade-up" data-aos-duration="1000">
+            <h1>
+                {% trans "Discover the right plant for the right space" %}
+            </h1>
+
+            <p>
+                {% trans "Planteer is a modern platform that helps users explore real plants, discover the best option for their lifestyle, and learn how to care for plants through a smart and elegant experience" %}
+            </p>
+
+            <div class="hero-actions">
+                <a href="#explore" class="planteer-btn">
+                    {% trans "Explore Plants" %}
+                </a>
+
+                <a href="#plant-day" class="planteer-btn-outline">
+                    {% trans "Learn More" %}
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ABOUT SECTION -->
+<section class="home-section about-section" id="about">
+    <div class="container">
+
+        <div class="about-grid">
+
+            <div class="about-copy" data-aos="fade-up" data-aos-duration="900">
+                <span class="section-kicker">
+                    {% trans "Why Planteer" %}
+                </span>
+
+                <h2 class="section-title">
+                    {% trans "More than a plant website" %}
+                </h2>
+
+                <p class="section-text">
+                    {% trans "Planteer is designed to help users do more than just browse plants. It offers a modern way to explore plant categories, understand plant details, and discover the most suitable plant through smart tools and simple guidance" %}
+                </p>
+
+                <p class="section-text">
+                    {% trans "The goal is to create a user-friendly botanical platform for beginners and plant lovers, combining real plant information with a smooth and intelligent experience" %}
+                </p>
+
+                <a href="#services" class="planteer-btn">
+                    {% trans "Explore Smart Tools" %}
+                </a>
+            </div>
+            <div class="about-visual" data-aos="fade-left" data-aos-duration="1000">
+                <a href="{% url 'plants:plants_page' %}" class="about-image-card about-link-card">
+                    <img src="{% static 'images/main_plant.png' %}" alt="{% trans 'Plant Experience' %}">
+
+                    <div class="about-image-overlay">
+                        <span>{% trans "Smart Botanical Experience" %}</span>
+                    </div>
+                </a>
+            </div>
+
+        </div>
+
+        <!-- Statistics SECTION-->
+        <div class="stats-grid" data-aos="fade-up" data-aos-delay="120">
+
+            <div class="stat-card soft-card">
+                <strong>50+</strong>
+                <span>{% trans "Real Plants" %}</span>
+            </div>
+
+            <div class="stat-card soft-card">
+                <strong>4</strong>
+                <span>{% trans "Plant Categories" %}</span>
+            </div>
+
+            <div class="stat-card soft-card">
+                <strong>15+</strong>
+                <span>{% trans "Smart Features" %}</span>
+            </div>
+
+            <div class="stat-card soft-card">
+                <strong>100%</strong>
+                <span>{% trans "Responsive Experience" %}</span>
+            </div>
+
+        </div>
+
+    </div>
+</section>
+
+<!-- PLANT OF THE DAY SECTION -->
+<section class="home-section plant-day-section" id="plant-day">
+    <div class="container"><a href="{% url 'plants:plants_page' %}" class="plant-day-wrapper plant-day-link" data-aos="zoom-in-up" data-aos-duration="1000">
+
+            <div class="plant-day-image">
+                <img src="{% static 'images/monstera.png' %}" alt="{% trans 'Plant of the Day' %}">
+            </div>
+
+            <div class="plant-day-content">
+                <span class="section-kicker">
+                    {% trans "Daily Highlight" %}
+                </span>
+
+                <h2 class="section-title">
+                    {% trans "Plant of the Day" %}
+                </h2>
+
+                <h3 class="plant-day-name">
+                    {% trans "Monstera Deliciosa" %}
+                </h3>
+
+                <p class="section-text">
+                    {% trans "A stylish and beginner-friendly indoor plant known for its elegant leaves and easy care routine" %}
+                </p>
+
+                <div class="plant-day-meta">
+                    <span>{% trans "Light" %}: {% trans "Bright indirect light" %}</span>
+                    <span>{% trans "Water" %}: {% trans "Moderate watering" %}</span>
+                    <span>{% trans "Category" %}: {% trans "Indoor Plant" %}</span>
+                </div>
+
+                <span class="planteer-btn">
+                    {% trans "View More Plants" %}
+                </span>
+            </div>
+
+        </a>
+    </div>
+</section>
+
+<!-- SERVICES SECTION-->
+<section class="home-section services-section" id="services">
+    <div class="container">
+        <div class="section-head center-head" data-aos="fade-up">
+            <span class="section-kicker">
+                {% trans "Smart Tools" %}
+            </span>
+
+            <h2 class="section-title">
+                {% trans "Features that make the experience smarter" %}
+            </h2>
+
+            <p class="section-text">
+                {% trans "Planteer offers modern tools that help users search, compare, explore, and identify plants in a more practical and engaging way" %}
+            </p>
+        </div>
+
+        <div class="services-grid">
+
+            <a href="{% url 'plants:find_plant' %}" class="service-card service-feature-card service-link-card" data-aos="fade-up">
+                <div class="service-icon">
+                    <i class="fa-solid fa-seedling"></i>
+                </div>
+
+                <div class="service-number">01</div>
+
+                <h3>{% trans "Find Your Perfect Plant" %}</h3>
+
+                <p>{% trans "Answer a few simple questions and discover the plant that best matches for you" %}</p>
+
+                <span class="service-arrow">
+                    <i class="fa-solid fa-arrow-right"></i>
+                </span>
+            </a>
+
+            <a href="{% url 'plants:plants_page' %}" class="service-card service-feature-card service-link-card" data-aos="fade-up" data-aos-delay="100">
+                <div class="service-icon">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                </div>
+
+                <div class="service-number">02</div>
+
+                <h3>{% trans "Search Plants" %}</h3>
+
+                <p>{% trans "Quickly search for plants and access their details in an easy and direct way" %}</p>
+
+                <span class="service-arrow">
+                    <i class="fa-solid fa-arrow-right"></i>
+                </span>
+            </a>
+
+            <a href="{% url 'core:services' %}" class="service-card service-feature-card service-link-card" data-aos="fade-up" data-aos-delay="200">
+                <div class="service-icon">
+                    <i class="fa-solid fa-scale-balanced"></i>
+                </div>
+
+                <div class="service-number">03</div>
+
+                <h3>{% trans "Compare Plants" %}</h3>
+
+                <p>{% trans "Compare two plants to better understand the differences and choose the right one" %}</p>
+
+                <span class="service-arrow">
+                    <i class="fa-solid fa-arrow-right"></i>
+                </span>
+            </a>
+
+            <a href="{% url 'core:services' %}" class="service-card service-feature-card service-link-card" data-aos="fade-up" data-aos-delay="300">
+                <div class="service-icon">
+                    <i class="fa-solid fa-camera"></i>
+                </div>
+
+                <div class="service-number">04</div>
+
+                <h3>{% trans "Upload and Identify" %}</h3>
+
+                <p>{% trans "Upload a plant image and discover useful information about it" %}</p>
+
+                <span class="service-arrow">
+                    <i class="fa-solid fa-arrow-right"></i>
+                </span>
+            </a>
+
+        </div>
+    </div>
+</section>
+
+<!-- EXPLORE SECTION -->
+<section class="home-section explore-section" id="explore">
+    <div class="container">
+
+        <div class="section-head explore-head" data-aos="fade-up">
+            <div class="explore-head-text">
+                <span class="section-kicker">
+                    {% trans "Explore Plants" %}
+                </span>
+
+                <h2 class="section-title">
+                    {% trans "Browse different plant categories" %}
+                </h2>
+
+                <p class="section-text">
+                    {% trans "Explore a variety of plant types and discover what suits your room, your taste, and your care style" %}
+                </p>
+            </div>
+
+            <a href="{% url 'plants:plants_page' %}" class="explore-more-btn">
+                <span>{% trans "Explore More Categories" %}</span>
+            </a>
+        </div>
+
+        <div class="explore-grid">
+            <a href="{% url 'plants:plants_page' %}?category=indoor" class="explore-card" data-aos="fade-up">
+                <img src="{% static 'images/indoor.png' %}" alt="{% trans 'Indoor Plants' %}">
+                <div class="explore-overlay">
+                    <h3>{% trans "Indoor Plants" %}</h3>
+                </div>
+            </a>
+
+            <a href="{% url 'plants:plants_page' %}?category=outdoor" class="explore-card" data-aos="fade-up" data-aos-delay="100">
+                <img src="{% static 'images/outdoor.png' %}" alt="{% trans 'Outdoor Plants' %}">
+                <div class="explore-overlay">
+                    <h3>{% trans "Outdoor Plants" %}</h3>
+                </div>
+            </a>
+
+            <a href="{% url 'plants:plants_page' %}?is_edible=true" class="explore-card" data-aos="fade-up" data-aos-delay="200">
+                <img src="{% static 'images/food_plant.png' %}" alt="{% trans 'Edible Plants' %}">
+                <div class="explore-overlay">
+                    <h3>{% trans "Edible Plants" %}</h3>
+                </div>
+            </a>
+        </div>
+
+    </div>
+</section>
+{% endblock %}

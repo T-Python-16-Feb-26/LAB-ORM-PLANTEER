@@ -1,0 +1,57 @@
+{% extends 'core/base.html' %}
+{% load i18n %}
+
+{% block title %}{% trans "Search Plants" %}{% endblock %}
+
+{% block content %}
+<section class="all-plants-page">
+    <div class="container">
+        <div class="plants-page-header">
+            <h1>{% trans "Search Results" %}</h1>
+
+            {% if query %}
+                <p>
+                    {% trans "Results for" %}:
+                    <strong>"{{ query }}"</strong>
+                </p>
+            {% endif %}
+        </div>
+        <form action="{% url 'plants:search_plants' %}" method="GET" class="plants-search-form">
+            <input
+                type="text"
+                name="q"
+                value="{{ query }}"
+                placeholder="{% trans 'Search plants...' %}">
+
+            <button type="submit">
+                {% trans "Search" %}
+            </button>
+        </form>
+
+        <div class="plants-grid">
+            {% for plant in plants %}
+                <article class="plant-card">
+                    <img src="{{ plant.image.url }}" alt="{{ plant.name }}">
+
+                    <div class="plant-card-body">
+                        <h3>{{ plant.name }}</h3>
+                        <p>{{ plant.about|truncatewords:14 }}</p>
+
+                        <a href="{% url 'plants:plant_detail' plant.id %}" class="planteer-btn">
+                            {% trans "View Details" %}
+                        </a>
+                    </div>
+                </article>
+            {% empty %}
+                <div class="plants-empty-state">
+                    <i class="fa-solid fa-seedling"></i>
+                    <h3>{% trans "No plants found" %}</h3>
+                    <p>
+                        {% trans "Try searching with a different keyword" %}
+                    </p>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+{% endblock %}

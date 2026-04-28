@@ -1,0 +1,180 @@
+{% extends 'core/base.html' %}
+{% load i18n %}
+{% load static %}
+
+{% block title %}
+    {% trans "About" %} | Planteer
+{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/about.css' %}">
+{% endblock %}
+
+{% block content %}
+<section class="about-page">
+
+    <div class="about-orb orb-one"></div>
+    <div class="about-orb orb-two"></div>
+
+    <div class="container">
+
+
+        <section class="about-hero reveal-up">
+            <div class="about-hero-content">
+                <span class="about-kicker">
+                    {% trans "About Planteer" %}
+                </span>
+
+                <h1>
+                    {% trans "A smarter botanical experience for every plant lover" %}
+                </h1>
+
+                <p>
+                    {% trans "Planteer is a modern platform that helps users explore real plants, understand their needs, and discover the right plant for every room, lifestyle, and level of experience" %}
+                </p>
+
+                <div class="about-hero-actions">
+                    <a href="{% url 'plants:plants_page' %}" class="planteer-btn">
+                        {% trans "Explore Plants" %}
+                    </a>
+
+                    <a href="{% url 'core:contact' %}" class="planteer-btn-outline">
+                        {% trans "Contact Us" %}
+                    </a>
+                </div>
+            </div>
+
+            <div class="about-hero-visual">
+                <div class="about-hero-image-card">
+                    <img src="{% static 'images/about.png' %}" alt="{% trans 'Plant Experience' %}">
+                </div>
+
+                <div class="floating-badge badge-one">
+                    <i class="fa-solid fa-leaf"></i>
+                    <span>{% trans "Real Plants" %}</span>
+                </div>
+
+                <div class="floating-badge badge-two">
+                    <i class="fa-solid fa-seedling"></i>
+                    <span>{% trans "Smart Discovery" %}</span>
+                </div>
+            </div>
+        </section>
+
+
+        <section class="about-story-grid">
+            <article class="about-story-card reveal-left">
+                <div class="about-card-icon">
+                    <i class="fa-solid fa-bullseye"></i>
+                </div>
+
+                <h2>{% trans "Our Mission" %}</h2>
+
+                <p>
+                    {% trans "We aim to make plant discovery easier, smarter, and more enjoyable by combining elegant design with useful plant information" %}
+                </p>
+            </article>
+
+            <article class="about-story-card reveal-up">
+                <div class="about-card-icon">
+                    <i class="fa-solid fa-layer-group"></i>
+                </div>
+
+                <h2>{% trans "What We Offer" %}</h2>
+
+                <p>
+                    {% trans "Planteer allows users to browse plant categories, search for plants, compare options, and learn practical care information in a smooth experience" %}
+                </p>
+            </article>
+
+            <article class="about-story-card reveal-right">
+                <div class="about-card-icon">
+                    <i class="fa-solid fa-heart"></i>
+                </div>
+
+                <h2>{% trans "Why Plants Matter" %}</h2>
+
+                <p>
+                    {% trans "Plants add beauty, calmness, and life to spaces. They help people feel closer to nature while improving the atmosphere of homes and workspaces" %}
+                </p>
+            </article>
+        </section>
+
+ 
+        <section class="about-highlight reveal-up">
+            <div class="about-highlight-text">
+                <span class="about-mini-kicker">
+                    {% trans "Planteer Experience" %}
+                </span>
+
+                <h2>
+                    {% trans "Built for beginners, plant lovers, and modern spaces" %}
+                </h2>
+
+                <p>{% trans "Whether you are looking for an indoor plant, a decorative flower, or a useful edible plant, Planteer helps you find choices that match your taste and your daily routine" %}
+                </p>
+
+                <ul class="about-feature-list">
+                    <li>
+                        <i class="fa-solid fa-check"></i>
+                        <span>{% trans "Explore real plant categories" %}</span>
+                    </li>
+                    <li>
+                        <i class="fa-solid fa-check"></i>
+                        <span>{% trans "Compare plants more easily" %}</span>
+                    </li>
+                    <li>
+                        <i class="fa-solid fa-check"></i>
+                        <span>{% trans "Understand watering and lighting needs" %}</span>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="about-highlight-stats">
+                <div class="about-stat-card">
+                    <strong>50+</strong>
+                    <span>{% trans "Real Plants" %}</span>
+                </div>
+
+                <div class="about-stat-card">
+                    <strong>4</strong>
+                    <span>{% trans "Plant Categories" %}</span>
+                </div>
+
+                <div class="about-stat-card">
+                    <strong>100%</strong>
+                    <span>{% trans "Responsive Experience" %}</span>
+                </div>
+
+                <div class="about-stat-card">
+                    <strong>24/7</strong>
+                    <span>{% trans "Easy Access" %}</span>
+                </div>
+            </div>
+        </section>
+
+
+        <section class="about-cta reveal-up">
+            <div class="about-cta-content">
+                <span class="about-kicker">
+                    {% trans "Start Exploring" %}
+                </span>
+
+                <h2>{% trans "Discover plants that fit your lifestyle" %}</h2>
+
+                <p>
+                    {% trans "Explore Planteer and enjoy a botanical journey designed to be simple, elegant, and helpful" %}
+                </p>
+
+                <a href="{% url 'plants:plants_page' %}" class="planteer-btn">
+                    {% trans "Browse Plants" %}
+                </a>
+            </div>
+        </section>
+
+    </div>
+</section>
+
+<script src="{% static 'js/about.js' %}">
+</script>
+{% endblock %}

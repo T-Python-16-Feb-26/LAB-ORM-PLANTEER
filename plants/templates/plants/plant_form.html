@@ -1,0 +1,125 @@
+{% extends 'core/base.html' %}
+{% load i18n %}
+{% load static %}
+
+{% block title %}{{ plant.name }} | Planteer{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/plant_form.css' %}">
+{% endblock %}
+
+{% block content %}
+<section class="plant-form-page">
+    <div class="container">
+
+        <div class="plant-form-card">
+            <div class="plant-form-head">
+                <h1>
+                    {% if form.instance.pk %}
+                        {% trans "Edit Plant" %}
+                    {% else %}
+                        {% trans "Add Plant" %}
+                    {% endif %}
+                </h1>
+
+                <p>
+                    {% trans "Fill in the plant information below" %}
+                </p>
+            </div>
+
+            <form method="POST" enctype="multipart/form-data" class="plant-form" novalidate>
+                {% csrf_token %}
+
+                <div class="form-group">
+                    <label>{% trans "Name" %}</label>
+                    {{ form.name }}
+                    {% for error in form.name.errors %}
+                        <small class="form-error">{{ error }}</small>
+                    {% endfor %}
+                </div>
+
+                <div class="form-group">
+                    <label>{% trans "About" %}</label>
+                    {{ form.about }}
+                    {% for error in form.about.errors %}
+                        <small class="form-error">{{ error }}</small>
+                    {% endfor %}
+                </div>
+
+                <div class="form-group">
+                    <label>{% trans "Used For" %}</label>
+                    {{ form.used_for }}
+                    {% for error in form.used_for.errors %}
+                        <small class="form-error">{{ error }}</small>
+                    {% endfor %}
+                </div>
+
+                <div class="form-row two-fields">
+                    <div class="form-group">
+                        <label>{% trans "Light Requirement" %}</label>
+                        {{ form.light_requirement }}
+                        {% for error in form.light_requirement.errors %}
+                            <small class="form-error">{{ error }}</small>
+                        {% endfor %}
+                    </div>
+
+                    <div class="form-group">
+                        <label>{% trans "Watering" %}</label>
+                        {{ form.watering }}
+                        {% for error in form.watering.errors %}
+                            <small class="form-error">{{ error }}</small>
+                        {% endfor %}
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>{% trans "Category" %}</label>
+                        {{ form.category }}
+                        {% for error in form.category.errors %}
+                            <small class="form-error">{{ error }}</small>
+                        {% endfor %}
+                    </div>
+
+                    <div class="form-group checkbox-group">
+                        <label>{% trans "Edible" %}</label>
+                        <div class="checkbox-wrapper">
+                            {{ form.is_edible }}
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>{% trans "Image" %}</label>
+                    {{ form.image }}
+                    {% for error in form.image.errors %}
+                        <small class="form-error">{{ error }}</small>
+                    {% endfor %}
+                </div>
+
+                {% if form.non_field_errors %}
+                    <div class="form-group">
+                        {% for error in form.non_field_errors %}
+                            <small class="form-error">{{ error }}</small>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+
+                <div class="form-actions"><a href="{% url 'plants:plants_page' %}" class="cancel-btn">
+                        {% trans "Cancel" %}
+                    </a>
+
+                    <button type="submit" class="save-btn">
+                        {% if form.instance.pk %}
+                            {% trans "Save Changes" %}
+                        {% else %}
+                            {% trans "Add Plant" %}
+                        {% endif %}
+                    </button>
+                </div>
+            </form>
+        </div>
+
+    </div>
+</section>
+{% endblock %}

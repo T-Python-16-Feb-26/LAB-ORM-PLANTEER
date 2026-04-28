@@ -1,0 +1,48 @@
+{% load static %}
+{% load i18n %}
+
+<article class="plant-card">
+    <div class="plant-card-image">
+        {% if plant.image %}
+            <img src="{{ plant.image.url }}" alt="{{ plant.name }}">
+        {% else %}
+            <img src="{% static 'images/default-plant.jpg' %}" alt="{{ plant.name }}">
+        {% endif %}
+    </div>
+
+    <div class="plant-card-body">
+        <div class="plant-badges">
+            <span class="plant-badge">
+                {{ plant.get_category_display }}
+            </span>
+
+            {% if plant.is_edible %}
+                <span class="plant-badge edible-badge">
+                    {% trans "Edible" %}
+                </span>
+            {% endif %}
+        </div>
+
+        <h3 class="plant-name">{{ plant.name }}</h3>
+
+        <p class="plant-about">
+            {{ plant.about|truncatewords:18 }}
+        </p>
+
+        <div class="plant-meta">
+            {% if plant.light_requirement %}
+                <span>{% trans "Light" %}: {{ plant.light_requirement }}</span>
+            {% endif %}
+
+            {% if plant.watering %}
+                <span>{% trans "Water" %}: {{ plant.watering }}</span>
+            {% endif %}
+        </div>
+
+        <div class="plant-actions">
+            <a href="{% url 'plants:plant_detail' plant.id %}" class="planteer-btn-outline">
+                {% trans "View Details" %}
+            </a>
+        </div>
+    </div>
+</article>

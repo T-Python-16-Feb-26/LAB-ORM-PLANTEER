@@ -1,0 +1,138 @@
+{% extends 'core/base.html' %}
+{% load static %}
+{% load i18n %}
+
+{% block title %}{% trans "Services" %} | Planteer{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/services.css' %}">
+{% endblock %}
+
+{% block content %}
+<section class="services-page">
+    <div class="services-bg-shape shape-one"></div>
+    <div class="services-bg-shape shape-two"></div>
+
+    <div class="container">
+
+        <section class="services-hero reveal-up">
+
+            <h2 class="services-title">
+                {% trans "Features that make the experience smarter" %}
+            </h2>
+
+            <p class="services-text">
+                {% trans "Discover, search, compare, and identify plants in a simpler and smarter way" %}
+            </p>
+        </section>
+
+        <section class="services-cards-grid">
+
+            <a href="{%url 'plants:find_plant' %}" class="service-card reveal-up">
+                <div class="service-card-glow"></div>
+                <span class="service-card-number">01</span>
+
+                <div class="service-card-icon">
+                    <i class="fa-solid fa-seedling"></i>
+                </div>
+
+                <h2 class="service-card-title">
+                    {% trans "Find Your Perfect Plant" %}
+                </h2>
+
+                <p class="service-card-text">
+                    {% trans "Answer a few simple questions and discover the plant that best matches for you" %}
+                </p>
+
+                <div class="service-card-action">
+                    <span class="arrow-circle">
+                        <i class="fa-solid fa-arrow-left"></i>
+                    </span>
+                </div>
+            </a>
+
+            <a href="{% url 'plants:plants_page' %}" class="service-card reveal-up">
+                <div class="service-card-glow"></div>
+                <span class="service-card-number">02</span>
+
+                <div class="service-card-icon">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                </div>
+
+                <h2 class="service-card-title">
+                    {% trans "Search Plants" %}
+                </h2>
+
+                <p class="service-card-text">
+                    {% trans "Search for plants and view their details in a clear, simple, and direct way" %}
+                </p>
+
+                <div class="service-card-action">
+                    <span class="arrow-circle">
+                        <i class="fa-solid fa-arrow-left"></i>
+                    </span>
+                </div>
+            </a>
+
+            <div class="service-card service-card-disabled reveal-up service-popup-trigger">
+                <div class="service-card-glow"></div>
+                <span class="service-card-number">03</span>
+                <span class="coming-soon-badge">
+                    {% trans "Coming Soon" %}
+                </span>
+
+                <div class="service-card-icon">
+                    <i class="fa-solid fa-arrow-right"></i>
+                </div>
+
+                <h2 class="service-card-title">
+                    {% trans "Compare Plants" %}
+                </h2>
+
+                <p class="service-card-text">
+                    {% trans "Compare two plants to better understand the differences and choose the right one" %}
+                </p>
+
+                <div class="service-card-action">
+                    <span class="arrow-circle">
+                        <i class="fa-solid fa-arrow-left"></i>
+                    </span>
+                </div>
+
+                <div class="coming-popup">
+                    {% trans "This feature is coming soon" %}
+                </div>
+            </div>
+            <div class="service-card service-card-disabled reveal-up">
+                <div class="service-card-glow"></div>
+                <span class="service-card-number">04</span>
+
+                <span class="coming-soon-badge">
+                    {% trans "Coming Soon" %}
+                </span>
+
+                <div class="service-card-icon">
+                    <i class="fa-solid fa-camera"></i>
+                </div>
+
+                <h2 class="service-card-title">{% trans "Upload and Identify" %}
+                </h2>
+
+                <p class="service-card-text">
+                    {% trans "Upload a plant image and discover useful information" %}
+                </p>
+
+                <div class="service-card-action">
+                    <span class="arrow-circle">
+                        <i class="fa-solid fa-arrow-left"></i>
+                    </span>
+                </div>
+            </div>
+
+        </section>
+    </div>
+</section>
+
+<script src="{% static 'js/service.js' %}"></script>
+</script>
+{% endblock %}

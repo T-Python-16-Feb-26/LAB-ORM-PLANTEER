@@ -1,0 +1,82 @@
+{% extends 'core/base.html' %}
+{% load i18n %}
+{% load static %}
+
+{% block title %}{% trans "Find Your Perfect Plant" %} | Planteer{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/find_plant.css' %}">
+{% endblock %}
+
+{% block content %}
+<section class="plant-chat-page">
+    <div class="container">
+
+        <div class="plant-chat-shell">
+            <div class="plant-chat-header">
+                <span class="plant-chat-badge">{% trans "Smart Plant Finder" %}</span>
+                <h1>{% trans "Find Your Perfect Plant" %}</h1>
+                <p>
+                    {% trans "Describe the plant you want, and get a smart suggestion" %}
+                </p>
+            </div>
+
+            <div class="plant-chat-body" id="plantChatBody">
+                {% if chat_history %}
+                    {% for message in chat_history %}
+                        <div class="chat-row {% if message.sender == 'user' %}user-row{% else %}bot-row{% endif %}">
+                            <div class="chat-bubble {% if message.sender == 'user' %}user-bubble{% else %}bot-bubble{% endif %}">
+                                {{ message.text|linebreaksbr }}
+                            </div>
+                        </div>
+                    {% endfor %}
+                {% else %}
+                    <div class="chat-empty-state">
+                        <div class="empty-icon">
+                            <i class="fa-solid fa-seedling"></i>
+                        </div>
+                        <h3>{% trans "Start with a simple request" %}</h3>
+                        <p>
+                            {% trans "Example: I want an indoor plant with low watering" %}
+                        </p>
+                    </div>
+                {% endif %}
+            </div>
+
+            <form method="POST" class="plant-chat-form">
+                {% csrf_token %}
+                <div class="chat-input-wrap">
+                    <input
+                        type="text"
+                        name="message"
+                        placeholder="{% trans 'Type your plant request here...' %}"
+                        required
+                    >
+                    <button type="submit" class="send-chat-btn">
+                        <i class="fa-solid fa-paper-plane"></i>
+                        <span>{% trans "Send" %}</span>
+                    </button>
+                </div>
+
+                <div class="quick-suggestions">
+                    <button type="button" class="quick-chip" onclick="fillPlantMessage('أبي نبتة داخلية قليلة الري')">
+                        {% trans "Indoor + low watering" %}
+                    </button>
+
+                    <button type="button" class="quick-chip" onclick="fillPlantMessage('أبي نبتة صالحة للأكل')">
+                        {% trans "Edible plant" %}
+                    </button>
+
+                    <button type="button" class="quick-chip" onclick="fillPlantMessage('أبي خيار ثاني')">
+                        {% trans "Another option" %}
+                    </button>
+                </div>
+            </form>
+        </div>
+
+    </div>
+</section>
+
+<script src="{% static 'js/find_plant.js' %}">
+</script>
+{% endblock %}

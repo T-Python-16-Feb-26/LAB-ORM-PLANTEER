@@ -1,0 +1,1262 @@
+.plant-detail-page {
+    padding: 150px 0 90px;
+    min-height: 100vh;
+    background:
+        radial-gradient(circle at top left, rgba(47, 93, 58, 0.05), transparent 28%),
+        var(--bg);
+}
+
+.plant-detail-topbar {
+    margin-bottom: 18px;
+    display: flex;
+    direction: ltr;
+}
+
+.back-link {
+    display: inline-flex;
+    margin-right: auto;
+    align-items: center;
+    justify-content: center;
+    min-width: 170px;
+    height: 44px;
+    padding: 0 16px;
+    border-radius: 12px;
+    background: rgba(120, 120, 120, 0.10);
+    border: 1px solid rgba(120, 120, 120, 0.16);
+    color: var(--muted);
+    text-decoration: none;
+    font-weight: 700;
+    transition: all 0.25s ease;
+}
+
+.back-link:hover {
+    background: rgba(120, 120, 120, 0.16);
+    color: var(--text);
+    transform: translateY(-2px);
+}
+
+.plant-detail-grid {
+    display: grid;
+    grid-template-columns: 0.92fr 1.08fr;
+    gap: 28px;
+    align-items: stretch;
+    margin-bottom: 30px;
+}
+
+.plant-detail-image-card,
+.plant-detail-content-card,
+.comments-section,
+.related-plants-section {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 28px;
+    overflow: hidden;
+    box-shadow: var(--shadow);
+}
+
+.plant-detail-content-card {
+    height: 720px;
+    padding: 30px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+}
+
+.plant-detail-image-card {
+    height: 720px;
+}
+
+.plant-detail-image-card img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    display: block;
+}
+
+.plant-detail-badges {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 18px;
+}
+
+.plant-badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 8px 12px;
+    border-radius: 999px;
+    background: rgba(47, 93, 58, 0.08);
+    color: var(--primary);
+    border: 1px solid rgba(47, 93, 58, 0.08);
+    font-size: 0.8rem;
+    font-weight: 700;
+}
+
+.edible-badge {
+    background: rgba(115, 201, 134, 0.16);
+    color: #4d9a5b;
+    border-color: rgba(115, 201, 134, 0.18);
+}
+
+.plant-detail-title {
+    margin: 0 0 14px;
+    font-size: clamp(2rem, 4vw, 2.8rem);
+    font-weight: 800;
+    color: var(--text);
+    line-height: 1.15;
+}
+
+.plant-detail-description {
+    margin: 0 0 15px;
+    color: var(--muted);
+    font-size: 0.96rem;
+    line-height: 1.5;
+}
+
+/* unified info card */
+.plant-detail-main-card {
+    margin:12px;
+    padding: 8px;
+    border-radius: 22px;
+    background: linear-gradient(180deg, rgba(86, 171, 99, 0.05), rgba(86, 171, 99, 0.02));
+    border: 1px solid var(--border);
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+.detail-block {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    padding: 8px;
+    border-radius: 18px;
+    border: 1px solid rgba(86, 171, 99, 0.08);
+}
+
+.detail-chip {
+    align-self: flex-start;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 7px 12px;
+    border-radius: 999px;
+    background: rgba(86, 171, 99, 0.10);
+    color: #4f8d59;
+    font-size: 0.78rem;
+    font-weight: 800;
+}
+
+.detail-block-text {
+    margin: 0;
+    color: var(--text);
+    font-size: 0.94rem;
+    line-height: 1.8;
+}
+
+/* countries card moved up */
+.plant-countries-inline-section {
+    margin: 0 0 6px;
+}
+
+.plant-countries-card {
+    padding: 8px;
+    border-radius: 22px;
+    background: var(--surface);
+    box-shadow: none;
+}
+
+.plant-countries-head {
+    margin-bottom: 12px;
+}
+
+.plant-countries-head h3 {
+    margin: 0 0 2px;
+    font-size: 1.05rem;
+    font-weight: 800;
+    color: var(--text);
+}
+
+.plant-countries-head p {
+    margin: 0;
+    color: var(--muted);
+    line-height: 1.7;
+    font-size: 0.9rem;
+}
+
+.country-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.country-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 14px;
+    border-radius: 999px;
+    background: var(--surface-2);
+    border: 1px solid var(--border);
+    text-decoration: none;
+    color: var(--text);
+    font-size: 0.88rem;
+    font-weight: 700;
+    transition: 0.25s ease;
+}
+
+.country-tag:hover {
+    transform: translateY(-2px);
+    border-color: rgba(93, 163, 105, 0.28);
+    background: rgba(93, 163, 105, 0.10);
+}
+
+.country-tag img {
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.empty-tag {
+    opacity: 0.75;
+    cursor: default;
+}
+
+.plant-detail-actions {
+    display: flex;
+    gap: 14px;
+    margin-top: 6px;
+    flex-wrap: wrap;
+}
+
+.plant-detail-actions .planteer-btn,
+.delete-plant-btn {
+    appearance: none;
+    -webkit-appearance: none;
+    width: 170px;
+    min-width: 170px;
+    height: 52px;
+    border-radius: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    font-size: 0.95rem;
+    font-weight: 700;
+    transition: all 0.25s ease;
+    padding: 0 14px;
+    margin: 0;
+    box-sizing: border-box;
+    text-align: center;
+    line-height: 1;
+    white-space: nowrap;
+}
+
+.plant-detail-actions .planteer-btn {
+    background: rgba(86, 171, 99, 0.12);
+    border: 1px solid rgba(86, 171, 99, 0.22);
+    color: #4f8d59;
+    box-shadow: none;
+}
+
+.plant-detail-actions .planteer-btn:hover {
+    background: rgba(86, 171, 99, 0.18);
+    border-color: rgba(86, 171, 99, 0.30);
+    color: #3f7448;
+    transform: translateY(-2px);
+}
+
+.delete-plant-btn {
+    background: rgba(220, 53, 69, 0.12);
+    border: 1px solid rgba(220, 53, 69, 0.22);
+    color: #c0392b;
+}
+
+.delete-plant-btn:hover {
+    background: rgba(220, 53, 69, 0.18);
+    border-color: rgba(220, 53, 69, 0.30);
+    color: #a92c20;
+    transform: translateY(-2px);
+}
+
+/* comments */
+.comments-section {
+    padding: 28px;
+    width: 100%;
+    margin-bottom: 30px;
+}
+
+.comments-section h3 {
+    margin: 0 0 20px;
+    font-size: 1.4rem;
+    color: var(--text);
+}
+
+.comment-form {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    margin-bottom: 28px;
+}
+
+.comment-form input,
+.comment-form textarea {
+    width: 100%;
+    padding: 14px 16px;
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    background: var(--surface-2);
+    color: var(--text);
+    font-size: 0.95rem;
+    box-sizing: border-box;
+}
+
+.comment-form textarea {
+    resize: vertical;
+    min-height: 120px;
+}
+
+.add-comment-btn {
+    width: 100%;
+    height: 52px;
+    border: none;
+    border-radius: 14px;
+    background: linear-gradient(135deg, #5ea36b, #4d8b59);
+    color: #fff;
+    font-weight: 700;
+    cursor: pointer;
+    transition: 0.25s;
+}
+
+.add-comment-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 24px rgba(77, 139, 89, 0.18);
+}
+
+.comments-list {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.comment-card {
+    padding: 18px;
+    border-radius: 18px;
+    background: var(--surface-2);
+    border: 1px solid var(--border);
+}
+
+.comment-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.comment-head strong {
+    color: var(--text);
+}
+
+
+.comment-card p {
+    margin: 0;
+    color: var(--text);
+    line-height: 1.7;
+}
+
+.no-comments {
+    color: var(--muted);
+    text-align: center;
+    margin: 0;
+}
+
+/* related */
+.related-plants-section {
+    padding: 28px;
+}
+
+.related-plants-head {
+    margin-bottom: 20px;
+}
+
+.related-plants-head h3 {
+    margin: 0 0 6px;
+    font-size: 1.35rem;
+    color: var(--text);
+    font-weight: 800;
+}
+
+.related-plants-head p {
+    margin: 0;
+    color: var(--muted);
+    font-size: 0.92rem;
+}
+
+.related-plants-grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 18px;
+}
+
+.related-plant-card {
+    background: var(--surface-2);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.related-plant-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 14px 28px rgba(0, 0, 0, 0.06);
+}
+
+.related-plant-image {
+    height: 180px;
+    overflow: hidden;
+}
+
+.related-plant-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.related-plant-body {
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    flex: 1;
+}
+
+.related-plant-badge {
+    align-self: flex-start;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 6px 10px;
+    border-radius: 999px;
+    background: rgba(47, 93, 58, 0.08);
+    color: var(--primary);
+    border: 1px solid rgba(47, 93, 58, 0.08);
+    font-size: 0.72rem;
+    font-weight: 700;
+}
+
+.related-plant-body h4 {
+    margin: 0;
+    font-size: 1rem;
+    color: var(--text);
+    font-weight: 700;
+}
+
+.related-plant-body p {
+    margin: 0;
+    font-size: 0.88rem;
+    color: var(--muted);
+    line-height: 1.6;
+    flex: 1;
+}
+
+.related-plant-btn {
+    width: 100%;
+    height: 44px;
+    border-radius: 12px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    font-size: 0.88rem;
+    font-weight: 700;
+    background: rgba(86, 171, 99, 0.12);
+    border: 1px solid rgba(86, 171, 99, 0.22);
+    color: #4f8d59;
+    transition: all 0.25s ease;
+}
+
+.related-plant-btn:hover {
+    background: rgba(86, 171, 99, 0.18);
+    border-color: rgba(86, 171, 99, 0.30);
+    color: #3f7448;
+    transform: translateY(-2px);
+}
+
+.related-plants-empty {
+    grid-column: 1 / -1;
+    padding: 42px 20px;
+    border-radius: 22px;
+    background: var(--surface-2);
+    border: 1px dashed var(--border);
+    text-align: center;
+}
+
+.related-plants-empty-icon {
+    width: 64px;
+    height: 64px;
+    margin: 0 auto 14px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(86, 171, 99, 0.10);
+    color: #4f8d59;
+    font-size: 1.4rem;
+}
+
+.related-plants-empty h4 {
+    margin: 0 0 8px;
+    color: var(--text);
+    font-size: 1.05rem;
+    font-weight: 800;
+}
+
+.related-plants-empty p {
+    margin: 0;
+    color: var(--muted);
+    font-size: 0.9rem;
+    line-height: 1.6;
+}
+
+/* modal */
+.delete-modal {
+    position: fixed;
+    inset: 0;
+    background: rgba(17, 24, 19, 0.45);
+    backdrop-filter: blur(8px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    z-index: 9999;
+    opacity: 0;
+    visibility: hidden;
+    transition: 0.28s ease;
+}
+
+.delete-modal.show {
+    opacity: 1;
+    visibility: visible;
+}
+
+.delete-modal-card {
+    width: 100%;
+    max-width: 420px;
+    background: var(--surface);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 28px;
+    padding: 34px 30px 28px;
+    text-align: center;
+    box-shadow: 0 30px 80px rgba(0, 0, 0, 0.18);
+    transform: translateY(16px) scale(.96);
+    transition: 0.28s ease;
+}
+
+.delete-modal.show .delete-modal-card {
+    transform: translateY(0) scale(1);
+}
+
+.delete-modal-icon {
+    width: 72px;
+    height: 72px;
+    margin: 0 auto 18px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(231, 76, 60, 0.12);
+    color: #d94b4b;
+    font-size: 1.6rem;
+}
+
+.delete-modal-card h3 {
+    margin: 0 0 10px;
+    font-size: 1.55rem;
+    font-weight: 800;
+    color: var(--text);
+}
+
+.delete-modal-card p {
+    margin: 0;
+    color: var(--muted);
+    line-height: 1.7;
+    font-size: .96rem;
+}
+
+.delete-modal-actions {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin-top: 28px;
+    width: 100%;
+}
+
+.delete-form {
+    width: 100%;
+    margin: 0;
+}
+
+.delete-form .confirm-delete-btn,
+.cancel-delete-btn {
+    width: 100%;
+    height: 52px;
+    border-radius: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 0.95rem;
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0 14px;
+}
+
+.cancel-delete-btn {
+    border: 1px solid rgba(120,120,120,.18);
+    background: rgba(120,120,120,.08);
+    color: var(--text);
+}
+
+.cancel-delete-btn:hover {
+    background: rgba(120,120,120,.14);
+}
+
+.confirm-delete-btn {
+    border: 1px solid rgba(217,75,75,.18);
+    background: rgba(217,75,75,.12);
+    color: #d94b4b;
+}
+
+.confirm-delete-btn:hover {
+    background: #d94b4b;
+    color: #fff;
+    transform: translateY(-2px);
+}
+
+/* RTL / LTR */
+html[dir="rtl"] .plant-detail-content-card,
+html[dir="rtl"] .comments-section,
+html[dir="rtl"] .related-plants-section {
+    text-align: right;
+}
+
+html[dir="ltr"] .plant-detail-content-card,
+html[dir="ltr"] .comments-section,
+html[dir="ltr"] .related-plants-section {
+    text-align: left;
+}
+
+html[dir="rtl"] .plant-detail-badges,
+html[dir="rtl"] .country-tags,
+html[dir="rtl"] .plant-detail-actions {
+    justify-content: flex-start;
+}
+
+html[dir="ltr"] .plant-detail-badges,
+html[dir="ltr"] .country-tags,
+html[dir="ltr"] .plant-detail-actions {
+    justify-content: flex-start;
+}
+
+html[dir="rtl"] .comment-head {
+    flex-direction: row-reverse;
+}
+
+html[dir="ltr"] .comment-head {
+    flex-direction: row;
+}
+
+/* dark mode */
+body.dark-mode .plant-detail-image-card,
+body.dark-mode .plant-detail-content-card,
+body.dark-mode .comments-section,
+body.dark-mode .related-plants-section {
+    background: linear-gradient(180deg, rgba(24, 29, 25, 0.94), rgba(19, 23, 20, 0.94));
+    border: 1px solid rgba(110, 125, 113, 0.16);
+    box-shadow: 0 18px 38px rgba(0, 0, 0, 0.22);
+}
+
+body.dark-mode .plant-detail-title,
+body.dark-mode .comments-section h3,
+body.dark-mode .related-plants-head h3,
+body.dark-mode .comment-head strong,
+body.dark-mode .related-plant-body h4,
+body.dark-mode .plant-countries-head h3 {
+    color: #edf3ee;
+}
+
+body.dark-mode .plant-detail-description,
+body.dark-mode .plant-countries-head p,
+body.dark-mode .comment-head span,
+body.dark-mode .comment-card p,
+body.dark-mode .related-plants-head p,
+body.dark-mode .related-plant-body p,
+body.dark-mode .related-plants-empty p,
+body.dark-mode .delete-modal-card p {
+    color: #b2bbb4;
+}
+
+body.dark-mode .plant-detail-main-card {
+    background: linear-gradient(180deg, rgba(24, 29, 25, 0.94), rgba(19, 23, 20, 0.94));
+    border: 1px solid rgba(110, 125, 113, 0.16);
+}
+
+body.dark-mode .detail-block {
+    background: rgba(255, 255, 255, 0.04);
+    border-color: rgba(110, 125, 113, 0.14);
+}
+
+body.dark-mode .detail-chip {
+    background: rgba(93, 163, 105, 0.12);
+    color: #bfe7c6;
+}
+
+body.dark-mode .detail-block-text {
+    color: #edf3ee;
+}
+
+body.dark-mode .plant-countries-card {
+    background: linear-gradient(180deg, rgba(24, 29, 25, 0.94), rgba(19, 23, 20, 0.94));
+    border: 1px solid rgba(110, 125, 113, 0.16);
+}
+
+body.dark-mode .country-tag {
+    color: #edf3ee;
+    background: rgba(255, 255, 255, 0.04);
+    border-color: rgba(110, 125, 113, 0.16);
+}
+
+body.dark-mode .country-tag:hover {
+    background: rgba(93, 163, 105, 0.12);
+}
+
+body.dark-mode .comment-form input,
+body.dark-mode .comment-form textarea,
+body.dark-mode .comment-card,
+body.dark-mode .related-plant-card,
+body.dark-mode .related-plants-empty {
+    background: rgba(255, 255, 255, 0.04);
+    border-color: rgba(110, 125, 113, 0.16);
+}
+
+body.dark-mode .plant-badge {
+    background: rgba(93, 163, 105, 0.10);
+    color: #c7e9cd;
+    border-color: rgba(93, 163, 105, 0.16);
+}
+
+body.dark-mode .edible-badge {
+    background: rgba(120, 184, 104, 0.14);
+    color: #d4f0d8;
+    border-color: rgba(120, 184, 104, 0.18);
+}
+
+body.dark-mode .related-plant-badge,
+body.dark-mode .back-link {
+    background: rgba(255, 255, 255, 0.04);
+    border-color: rgba(110, 125, 113, 0.16);
+    color: #edf3ee;
+}
+
+body.dark-mode .back-link:hover {
+    background: rgba(255, 255, 255, 0.08);
+}
+
+body.dark-mode .plant-detail-actions .planteer-btn,
+body.dark-mode .related-plant-btn {
+    background: rgba(93, 163, 105, 0.10);
+    border-color: rgba(93, 163, 105, 0.22);
+    color: #ccecd1;
+}
+
+body.dark-mode .plant-detail-actions .planteer-btn:hover,
+body.dark-mode .related-plant-btn:hover {
+    background: linear-gradient(135deg, #4f9259, #69b474);
+    color: #fff;
+    border-color: transparent;
+}
+
+body.dark-mode .delete-plant-btn,
+body.dark-mode .confirm-delete-btn {
+    background: rgba(255, 107, 107, 0.08);
+    border-color: rgba(255, 107, 107, 0.18);
+    color: #f2baba;
+}
+
+body.dark-mode .delete-plant-btn:hover,
+body.dark-mode .confirm-delete-btn:hover {
+    background: rgba(255, 107, 107, 0.14);
+    color: #ffd3d3;
+}
+
+body.dark-mode .cancel-delete-btn,
+body.dark-mode .delete-modal-card {
+    background: linear-gradient(180deg, rgba(24, 29, 25, 0.96), rgba(19, 23, 20, 0.96));
+    border-color: rgba(110, 125, 113, 0.16);
+    color: #edf3ee;
+}
+
+/* responsive 991 */
+@media (max-width: 991px) {
+    .plant-detail-page {
+        padding: 130px 0 70px;
+    }
+
+    .plant-detail-grid {
+        grid-template-columns: 1fr;
+        gap: 24px;
+    }
+
+    .plant-detail-image-card {
+        height: 460px;
+        order: -1;
+    }
+
+    .plant-detail-content-card,
+    .comments-section,
+    .related-plants-section {
+        padding: 28px;
+    }
+
+    .plant-detail-actions {
+        justify-content: flex-start;
+    }
+
+    .related-plants-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .delete-modal-card {
+        max-width: 400px;
+    }
+}
+
+/* responsive 767 */
+@media (max-width: 767px) {
+    .plant-detail-page {
+        padding: 115px 0 56px;
+    }
+
+    .plant-detail-topbar {
+        margin-bottom: 14px;
+    }
+
+    .back-link {
+        min-width: 140px;
+        height: 40px;
+        padding: 0 14px;
+        font-size: 0.84rem;
+        border-radius: 10px;
+    }
+
+    .plant-detail-grid {
+        gap: 20px;
+        margin-bottom: 24px;
+    }
+
+    .plant-detail-image-card {
+        height: 380px;
+        border-radius: 24px;
+        order: -1;
+    }
+
+    .plant-detail-content-card,
+    .comments-section,
+    .related-plants-section {
+        padding: 22px;
+        border-radius: 24px;
+    }
+
+    .plant-detail-badges {
+        gap: 8px;
+        margin-bottom: 14px;
+    }
+
+    .plant-detail-title {
+        font-size: 1.8rem;
+        margin-bottom: 10px;
+    }
+
+    .plant-detail-description {
+        font-size: 0.92rem;
+        line-height: 1.8;
+        margin-bottom: 20px;
+    }
+
+    .plant-detail-main-card,
+    .plant-countries-card {
+        padding: 16px;
+        border-radius: 18px;
+    }
+
+    .detail-block {
+        padding: 12px;
+        border-radius: 16px;
+    }
+
+    .detail-block-text {
+        font-size: 0.9rem;
+        line-height: 1.7;
+    }
+
+    .country-tag {
+        font-size: 0.84rem;
+        padding: 9px 12px;
+    }
+
+    .plant-detail-actions {
+        gap: 12px;
+        justify-content: center;
+        flex-wrap: wrap;
+    }
+
+    .plant-detail-actions .planteer-btn,
+    .delete-plant-btn {
+        width: 150px;
+        min-width: 150px;
+        height: 46px;
+        font-size: 0.88rem;
+        border-radius: 12px;
+    }
+
+    .comments-section h3 {
+        font-size: 1.25rem;
+        margin-bottom: 16px;
+    }
+
+    .comment-form {
+        gap: 12px;
+        margin-bottom: 22px;
+    }
+
+    .comment-form input,
+    .comment-form textarea {
+        padding: 12px 14px;
+        font-size: 0.9rem;
+        border-radius: 12px;
+    }
+
+    .comment-form textarea {
+        min-height: 110px;
+    }
+
+    .add-comment-btn {
+        height: 48px;
+        border-radius: 12px;
+        font-size: 0.9rem;
+    }
+
+    .comment-card {
+        padding: 16px;
+        border-radius: 16px;
+    }
+
+    .comment-head {
+        gap: 8px;
+    }
+
+    .comment-head span {
+        font-size: 0.8rem;
+    }
+
+    .delete-modal {
+        padding: 18px;
+    }
+
+    .delete-modal-card {
+        max-width: 360px;
+        padding: 28px 22px 22px;
+        border-radius: 22px;
+    }
+
+    .delete-modal-icon {
+        width: 64px;
+        height: 64px;
+        margin: 0 auto 16px;
+        font-size: 1.4rem;
+    }
+
+    .delete-modal-card h3 {
+        font-size: 1.3rem;
+        margin-bottom: 8px;
+    }
+
+    .delete-modal-card p {
+        font-size: 0.9rem;
+        line-height: 1.6;
+    }
+
+    .delete-modal-actions {
+        gap: 10px;
+        margin-top: 22px;
+    }
+
+    .cancel-delete-btn,
+    .confirm-delete-btn {
+        height: 48px;
+        border-radius: 14px;
+        font-size: 0.9rem;
+    }
+}
+
+/* responsive 480 */
+@media (max-width: 480px) {
+    .plant-detail-page {
+        padding: 105px 0 46px;
+    }
+
+    .plant-detail-topbar {
+        margin-bottom: 12px;
+    }
+
+    .back-link {
+        min-width: 120px;
+        width: auto;
+        height: 38px;
+        padding: 0 12px;
+        font-size: 0.8rem;
+        border-radius: 10px;
+    }
+
+    .plant-detail-grid {
+        gap: 18px;
+        margin-bottom: 22px;
+    }
+
+    .plant-detail-image-card {
+        height: 300px;
+        border-radius: 22px;
+        order: -1;
+    }
+
+    .plant-detail-content-card,
+    .comments-section,
+    .related-plants-section {
+        padding: 18px;
+        border-radius: 22px;
+    }
+
+    .plant-badge {
+        padding: 7px 10px;
+        font-size: 0.72rem;
+    }
+
+    .plant-detail-title {
+        font-size: 1.55rem;
+        margin-bottom: 8px;
+    }
+
+    .plant-detail-description {
+        font-size: 0.88rem;
+        line-height: 1.7;
+        margin-bottom: 18px;
+    }
+
+    .plant-detail-main-card,
+    .plant-countries-card {
+        padding: 14px;
+        border-radius: 16px;
+    }
+
+    .detail-block {
+        padding: 12px;
+        border-radius: 14px;
+        gap: 7px;
+    }
+
+    .detail-chip {
+        padding: 6px 10px;
+        font-size: 0.72rem;
+    }
+
+    .detail-block-text {
+        font-size: 0.86rem;
+        line-height: 1.65;
+    }
+
+    .country-tag {
+        font-size: 0.82rem;
+        padding: 8px 11px;
+    }
+
+    .country-tag img {
+        width: 20px;
+        height: 20px;
+    }
+
+    .plant-detail-actions {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 10px;
+        width: 100%;
+        align-items: stretch;
+    }
+
+    .plant-detail-actions .planteer-btn,
+    .delete-plant-btn {
+        appearance: none;
+        -webkit-appearance: none;
+        border: none;
+        outline: none;
+        width: 100%;
+        min-width: 0;
+        max-width: none;
+        height: 44px;
+        min-height: 44px;
+        padding: 0 10px;
+        margin: 0;
+        box-sizing: border-box;
+        border-radius: 10px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        line-height: 1;
+        font-size: 0.82rem;
+        font-weight: 700;
+        white-space: nowrap;
+    }
+
+    .comments-section h3 {
+        font-size: 1.15rem;
+        margin-bottom: 14px;
+    }
+
+    .comment-form {
+        gap: 10px;
+        margin-bottom: 20px;
+    }
+
+    .comment-form input,
+    .comment-form textarea {
+        padding: 12px 13px;
+        font-size: 0.88rem;
+        border-radius: 12px;
+    }
+
+    .comment-form textarea {
+        min-height: 100px;
+    }
+
+    .add-comment-btn {
+        width: 100%;
+        height: 44px;
+        border-radius: 12px;
+        font-size: 0.88rem;
+    }
+
+    .comments-list {
+        gap: 12px;
+    }
+
+    .comment-card {
+        padding: 14px;
+        border-radius: 14px;
+    }
+
+    .comment-head {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 4px;
+        margin-bottom: 8px;
+    }
+
+    html[dir="rtl"] .comment-head {
+        align-items: flex-end;
+    }
+
+    .comment-head strong {
+        font-size: 0.9rem;
+    }
+
+    .comment-head span {
+        font-size: 0.78rem;
+    }
+
+    .comment-card p {
+        font-size: 0.86rem;
+        line-height: 1.6;
+    }
+
+    .related-plants-section {
+        padding: 18px;
+        border-radius: 22px;
+    }
+
+    .related-plants-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .related-plant-image {
+        height: 170px;
+    }
+
+    .related-plants-head h3 {
+        font-size: 1.15rem;
+    }
+
+    .related-plants-head p {
+        font-size: 0.86rem;
+    }
+
+    .related-plants-empty {
+        padding: 32px 16px;
+        border-radius: 18px;
+    }
+
+    .related-plants-empty h4 {
+        font-size: 0.98rem;
+    }
+
+    .related-plants-empty p {
+        font-size: 0.85rem;
+    }
+
+    .delete-modal {
+        padding: 16px;
+    }
+
+    .delete-modal-card {
+        width: 100%;
+        max-width: 320px;
+        padding: 24px 18px 20px;
+        border-radius: 20px;
+    }
+
+    .delete-modal-icon {
+        width: 58px;
+        height: 58px;
+        margin: 0 auto 14px;
+        font-size: 1.25rem;
+    }
+
+    .delete-modal-card h3 {
+        font-size: 1.2rem;
+        margin-bottom: 8px;
+    }
+
+    .delete-modal-card p {
+        font-size: 0.88rem;
+        line-height: 1.6;
+    }
+
+    .delete-modal-actions {
+        grid-template-columns: 1fr;
+        gap: 10px;
+        margin-top: 22px;
+    }
+
+    .cancel-delete-btn,
+    .confirm-delete-btn {
+        width: 100%;
+        height: 44px;
+        border-radius: 12px;
+        font-size: 0.88rem;
+    }
+}

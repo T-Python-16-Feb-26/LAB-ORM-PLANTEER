@@ -1,0 +1,94 @@
+{% extends 'core/base.html' %}
+{% load static %}
+{% load i18n %}
+
+{% block title %}
+    {% trans "Contact Messages" %}
+{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/contact_messages.css' %}">
+{% endblock %}
+
+{% block content %}
+<section class="messages-page">
+    <div class="container">
+
+        <div class="messages-header reveal-up">
+            <div>
+                <span class="messages-kicker">
+                    {% trans "Dashboard" %}
+                </span>
+
+                <h1>{% trans "Contact Messages" %}</h1>
+
+                <p>
+                    {% trans "Review all messages sent by users through the contact page" %}
+                </p>
+            </div>
+
+            <div class="messages-count">
+                {{ messages.count }}
+            </div>
+        </div>
+
+        {% if messages %}
+            <div class="messages-grid">
+
+                {% for message in messages %}
+                <div class="message-card reveal-up">
+
+                    <div class="message-top">
+                        <div class="message-avatar">
+                            {{ message.first_name|slice:":1" }}{{ message.last_name|slice:":1" }}
+                        </div>
+
+                        <div class="message-user">
+                            <h3>
+                                {{ message.first_name }} {{ message.last_name }}
+                            </h3>
+
+                            <p>{{ message.email }}</p>
+                        </div>
+
+                        <div class="message-date">
+                            {{ message.created_at|date:"d M Y" }}
+                        </div>
+                    </div>
+
+                    <div class="message-body">
+                        <h4>{% trans "Message" %}</h4>
+                        <p>{{ message.message }}</p>
+                    </div>
+
+                    <div class="message-actions">
+                        <a href="mailto:{{ message.email }}" class="reply-btn">
+                            <i class="fa-solid fa-paper-plane"></i>
+                            <span>{% trans "Reply" %}</span>
+                        </a>
+                    </div>
+
+                </div>
+                {% endfor %}
+
+            </div>
+
+        {% else %}
+            <div class="empty-state reveal-up">
+                <div class="empty-icon">
+                    <i class="fa-regular fa-envelope-open"></i>
+                </div>
+
+                <h2>{% trans "No messages yet" %}</h2>
+
+                <p>
+                    {% trans "When users send a message from the contact page, it will appear here" %}
+                </p>
+            </div>
+        {% endif %}
+
+    </div>
+</section>
+
+<script src="{% static 'js/contact_messages.js' %}"></script>
+{% endblock %}

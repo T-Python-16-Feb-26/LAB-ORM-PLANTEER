@@ -1,0 +1,1253 @@
+:root {
+    --section-space: 96px;
+    --section-space-tablet: 72px;
+    --section-space-mobile: 56px;
+
+    --hero-min-height: 100svh;
+    --hero-overlay-dark: rgba(0, 0, 0, 0.54);
+    --hero-overlay-soft: rgba(0, 0, 0, 0.16);
+
+    --radius-xl: 34px;
+    --radius-lg: 28px;
+    --radius-md: 22px;
+    --radius-sm: 18px;
+
+    --transition-base: 0.35s ease;
+    --transition-slow: 0.8s ease;
+}
+
+.home-section {
+    position: relative;
+    padding-block: var(--section-space);
+}
+
+.section-head {
+    max-width: 760px;
+    margin-bottom: 34px;
+}
+
+.section-kicker {
+    display: inline-block;
+    margin-bottom: 10px;
+    color: var(--primary);
+    font-size: 0.78rem;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+}
+
+.section-title {
+    margin: 0;
+    font-size: clamp(1.8rem, 3vw, 2.9rem);
+    line-height: 1.08;
+    letter-spacing: -0.03em;
+    font-weight: 800;
+    color: var(--text);
+}
+
+.section-text {
+    margin-top: 14px;
+    max-width: 640px;
+    font-size: 0.95rem;
+    line-height: 1.9;
+    color: var(--muted);
+}
+
+.center-head {
+    text-align: center;
+    margin-inline: auto;
+}
+
+.center-head .section-text {
+    margin-inline: auto;
+}
+
+.soft-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 28px;
+    box-shadow: var(--shadow);
+}
+
+.about-link-card,
+.service-link-card,
+.plant-day-link,
+.explore-card {
+    display: block;
+    color: inherit;
+    text-decoration: none;
+}
+
+.about-link-card:hover,
+.service-link-card:hover,
+.plant-day-link:hover,
+.explore-card:hover {
+    color: inherit;
+}
+
+.planteer-btn,
+.planteer-btn-outline {
+    min-height: 52px;
+    padding: 0 24px;
+    border-radius: 16px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    transition: var(--transition-base);
+}
+
+.planteer-btn {
+    background: var(--primary);
+    color: #fff;
+    border: none;
+}
+
+.planteer-btn:hover {
+    transform: translateY(-3px);
+    background: #254c2f;
+    color: #fff;
+}
+
+.planteer-btn-outline {
+    background: transparent;
+    color: var(--text);
+    border: 1px solid var(--border);
+}
+
+.planteer-btn-outline:hover {
+    transform: translateY(-3px);
+    color: var(--primary);
+    border-color: rgba(47, 93, 58, 0.18);
+}
+
+/* HERO */
+
+.hero-section {
+    position: relative;
+    min-height: var(--hero-min-height);
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+    padding: 138px 0 88px;
+}
+
+.hero-media {
+    position: absolute;
+    inset: 0;
+}
+
+.hero-media img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center center;
+    display: block;
+    animation: heroZoom 14s ease-in-out infinite alternate;
+}
+
+.hero-overlay {
+    position: absolute;
+    inset: 0;
+    background:
+        linear-gradient(to top, var(--hero-overlay-dark), var(--hero-overlay-soft)),
+        linear-gradient(to left, rgba(0, 0, 0, 0.34), transparent 55%);
+}
+
+.hero-content {
+    position: relative;
+    z-index: 2;
+    max-width: 720px;
+    color: #fff;
+}
+
+.hero-kicker {
+    display: inline-flex;
+    align-items: center;
+    padding: 9px 15px;
+    border-radius: 999px;
+    margin-bottom: 18px;
+    background: rgba(255, 255, 255, 0.10);
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    backdrop-filter: blur(12px);
+    font-size: 0.75rem;
+    font-weight: 800;
+    letter-spacing: 0.07em;
+    text-transform: uppercase;
+}
+
+.hero-content h1 {
+    margin: 0 0 20px;
+    font-size: clamp(2.5rem, 5vw, 5rem);
+    line-height: 1.03;
+    letter-spacing: -0.04em;
+    font-weight: 800;
+}
+
+.hero-content p {
+    margin: 0 0 28px;
+    max-width: 620px;
+    font-size: 0.98rem;
+    line-height: 1.95;
+    color: rgba(255, 255, 255, 0.90);
+}
+
+.hero-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 14px;
+}
+
+.hero-section .planteer-btn {
+    box-shadow: 0 16px 32px rgba(47, 93, 58, 0.24);
+}
+
+.hero-section .planteer-btn-outline {
+    border-color: rgba(255, 255, 255, 0.24);
+    color: #fff;
+    background: rgba(255, 255, 255, 0.08);
+    backdrop-filter: blur(10px);
+}
+
+.hero-section .planteer-btn-outline:hover {
+    background: rgba(255, 255, 255, 0.16);
+    color: #fff;
+}
+
+/* ABOUT*/
+
+.about-section {
+    position: relative;
+}
+
+.about-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 64px;
+    align-items: center;
+    margin-bottom: 42px;
+}
+
+.about-copy {
+    max-width: 620px;
+}
+
+.about-copy .section-title {
+    margin-bottom: 18px;
+}
+
+.about-copy .section-text {
+    margin-bottom: 18px;
+    max-width: 560px;
+}
+
+.about-copy .planteer-btn {
+    margin-top: 10px;
+}
+
+.about-visual {
+    position: relative;
+}
+
+.about-image-card {
+    position: relative;
+    overflow: hidden;
+    border-radius: var(--radius-xl);
+    background: var(--surface);
+    border: 1px solid var(--border);
+    box-shadow: var(--shadow);
+    transition: transform var(--transition-base), box-shadow var(--transition-base);
+}
+
+.about-image-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 18px 40px rgba(21, 30, 24, 0.08);
+}
+
+.about-image-card img {
+    width: 100%;
+    height: 540px;
+    object-fit: cover;
+    display: block;
+    transition: transform 1s ease;
+}
+
+.about-image-card:hover img {
+    transform: scale(1.06);
+}
+
+.about-image-card::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.42), transparent 45%);
+    z-index: 1;
+}
+
+.about-image-overlay {
+    position: absolute;
+    inset-inline-start: 24px;
+    inset-inline-end: 24px;
+    bottom: 24px;
+    z-index: 2;
+    padding: 18px 20px;
+    border-radius: 20px;
+    background: rgba(255, 255, 255, 0.10);
+    backdrop-filter: blur(14px);
+    border: 1px solid rgba(255, 255, 255, 0.18);
+}
+
+.about-image-overlay span {
+    color: #fff;
+    font-size: 0.92rem;
+    font-weight: 700;
+    line-height: 1.6;
+}
+
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 18px;
+}
+
+.stat-card {
+    padding: 26px 20px;
+    text-align: center;
+    transition: var(--transition-base);
+}
+
+.stat-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 18px 40px rgba(21, 30, 24, 0.08);
+}
+
+.stat-card strong {
+    display: block;
+    margin-bottom: 10px;
+    font-size: 2rem;
+    line-height: 1;
+    color: var(--primary);
+    font-weight: 800;
+}
+
+.stat-card span {
+    display: block;
+    font-size: 0.92rem;
+    line-height: 1.7;
+    color: var(--muted);
+    font-weight: 600;
+}
+
+/* PLANT OF THE DAY */
+
+.plant-day-section {
+    position: relative;
+}
+
+.plant-day-wrapper {
+    display: grid;
+    grid-template-columns: 0.95fr 1.05fr;
+    gap: 34px;
+    align-items: center;
+    padding: 28px;
+    border-radius: 34px;
+    background: linear-gradient(135deg, var(--surface), var(--surface-2));
+    border: 1px solid var(--border);
+    box-shadow: var(--shadow);
+    transition: var(--transition-base);
+}
+
+.plant-day-link:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 18px 40px rgba(21, 30, 24, 0.08);
+}
+
+.plant-day-image {
+    overflow: hidden;
+    border-radius: 28px;
+    min-height: 100%;
+}
+
+.plant-day-image img {
+    width: 100%;
+    height: 100%;
+    min-height: 460px;
+    object-fit: cover;
+    transition: transform 1s ease;
+}
+
+.plant-day-link:hover .plant-day-image img {
+    transform: scale(1.05);
+}
+
+.plant-day-content {
+    max-width: 620px;
+}
+
+.plant-day-content .section-title {
+    margin-bottom: 12px;
+}
+
+.plant-day-name {
+    margin: 0 0 14px;
+    font-size: 1.35rem;
+    line-height: 1.3;
+    font-weight: 800;
+    color: var(--text);
+}
+
+.plant-day-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin: 20px 0 24px;
+}
+
+.plant-day-meta span {
+    padding: 10px 14px;
+    border-radius: 999px;
+    background: rgba(47, 93, 58, 0.08);
+    color: var(--text);
+    font-size: 0.84rem;
+    font-weight: 700;
+}
+
+/* SERVICES */
+.services-section {
+    position: relative;
+    overflow: hidden;
+}
+
+.services-section::before {
+    content: "";
+    position: absolute;
+    width: 520px;
+    height: 520px;
+    background: radial-gradient(circle, rgba(47, 93, 58, 0.10), transparent 70%);
+    top: -180px;
+    inset-inline-end: -140px;
+    pointer-events: none;
+}
+
+.services-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 26px;
+    position: relative;
+    z-index: 2;
+}
+
+.service-feature-card {
+    position: relative;
+    overflow: hidden;
+    min-height: 300px;
+    padding: 34px 28px;
+    border-radius: 32px;
+    background: linear-gradient(135deg, var(--surface), var(--surface-2));
+    border: 1px solid rgba(47, 93, 58, 0.10);
+    box-shadow:
+        0 16px 34px rgba(19, 27, 21, 0.06),
+        0 1px 0 rgba(255,255,255,0.7) inset;
+    transition:
+        transform 0.45s ease,
+        box-shadow 0.45s ease,
+        border-color 0.45s ease;
+}
+
+.service-feature-card::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+        135deg,
+        rgba(47, 93, 58, 0.12),
+        transparent 45%
+    );
+    opacity: 0;
+    transition: opacity 0.4s ease;
+}
+
+.service-feature-card:hover {
+    transform: translateY(-14px);
+    border-color: rgba(47, 93, 58, 0.22);
+    box-shadow:
+        0 28px 50px rgba(20, 30, 24, 0.12),
+        0 0 0 1px rgba(47, 93, 58, 0.06);
+}
+
+.service-feature-card:hover::before {
+    opacity: 1;
+}
+
+.service-icon {
+    width: 66px;
+    height: 66px;
+    border-radius: 22px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 28px;
+    background: linear-gradient(135deg, #2f5d3a, #4d8a5a);
+    color: #fff;
+    font-size: 1.4rem;
+    box-shadow: 0 14px 28px rgba(47, 93, 58, 0.22);
+    transition: transform 0.45s ease;
+}
+
+.service-feature-card:hover .service-icon {
+    transform: rotate(-8deg) scale(1.08);
+}
+
+.service-number {
+    position: absolute;
+    top: 26px;
+    inset-inline-end: 24px;
+    font-size: 3.2rem;
+    font-weight: 800;
+    color: rgba(47, 93, 58, 0.08);
+    line-height: 1;
+    transition: transform 0.4s ease, color 0.4s ease;
+}
+
+.service-feature-card:hover .service-number {
+    transform: translateY(-4px);
+    color: rgba(47, 93, 58, 0.14);
+}
+
+.service-feature-card h3 {
+    margin: 0 0 14px;
+    font-size: 1.18rem;
+    font-weight: 800;
+    line-height: 1.45;
+    color: var(--text);
+}
+
+.service-feature-card p {
+    margin: 0;
+    font-size: 0.93rem;
+    line-height: 1.9;
+    color: var(--muted);
+    max-width: 95%;
+}
+
+.service-arrow {
+    position: absolute;
+    bottom: 26px;
+    inset-inline-end: 24px;
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(47, 93, 58, 0.08);
+    color: var(--primary);
+    font-size: 1rem;
+    transition: all 0.35s ease;
+}
+
+.service-feature-card:hover .service-arrow {
+    background: var(--primary);
+    color: #fff;
+    transform: translateX(-6px);
+}
+
+html[dir="rtl"] .service-feature-card:hover .service-arrow {
+    transform: translateX(6px);
+}
+
+/* EXPLORE*/
+
+.explore-section {
+    position: relative;
+}
+
+.explore-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+}
+
+.explore-card {
+    position: relative;
+    height: 420px;
+    overflow: hidden;
+    border-radius: 30px;
+    box-shadow: var(--shadow);
+    transition: transform var(--transition-base), box-shadow var(--transition-base);
+}
+
+.explore-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 18px 40px rgba(21, 30, 24, 0.08);
+}
+
+.explore-card img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform var(--transition-slow);
+}
+
+.explore-card:hover img {
+    transform: scale(1.08);
+}
+
+.explore-overlay {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: end;
+    padding: 24px;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.56), transparent 52%);
+}
+
+.explore-overlay h3 {
+    margin: 0;
+    color: #fff;
+    font-size: 1.3rem;
+    font-weight: 800;
+    line-height: 1.3;
+}
+.explore-head {
+    max-width: 100% !important;
+    width: 100% !important;
+    margin: 0 0 34px 0 !important;
+
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    gap: 32px !important;
+}
+
+.explore-head-text {
+    flex: 1 1 auto;
+    max-width: 720px;
+}
+
+
+.explore-more-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    min-width: 220px;
+    padding: 15px 24px;
+    border-radius: 999px;
+    background: linear-gradient(135deg, #1f9d74, #49c7a7);
+    color: #fff;
+    font-size: 0.94rem;
+    font-weight: 700;
+    text-decoration: none;
+    box-shadow: 0 16px 30px rgba(31, 157, 116, 0.22);
+    transition: all 0.35s ease;
+    word-wrap: nowrap;
+    flex: 0 0 auto;
+}
+
+.explore-more-btn:hover {
+    transform: translateY(-4px);
+    color: #fff;
+    gap: 18px;
+    box-shadow: 0 22px 40px rgba(31, 157, 116, 0.30);
+}
+
+/* LANGUAGE  */
+html[dir="ltr"] .hero-content,
+html[dir="ltr"] .about-copy,
+html[dir="ltr"] .plant-day-content,
+html[dir="ltr"] .section-head,
+html[dir="ltr"] .service-card,
+html[dir="ltr"] .stat-card,
+html[dir="ltr"] .explore-overlay {
+    text-align: left;
+}
+
+html[dir="ltr"] .hero-actions,
+html[dir="ltr"] .about-copy .planteer-btn,
+html[dir="ltr"] .plant-day-meta {
+    justify-content: flex-start;
+}
+
+html[dir="ltr"] .section-head,
+html[dir="ltr"] .about-copy,
+html[dir="ltr"] .plant-day-content {
+    margin-left: 0;
+    margin-right: auto;
+}
+
+/* Arabic */
+html[dir="rtl"] .hero-content,
+html[dir="rtl"] .about-copy,
+html[dir="rtl"] .plant-day-content,
+html[dir="rtl"] .section-head,
+html[dir="rtl"] .service-card,
+html[dir="rtl"] .stat-card,
+html[dir="rtl"] .explore-overlay {
+    text-align: right;
+}
+
+html[dir="rtl"] .hero-actions,
+html[dir="rtl"] .plant-day-meta {
+    justify-content: flex-end;
+}
+
+html[dir="rtl"] .section-head,
+html[dir="rtl"] .about-copy,
+html[dir="rtl"] .plant-day-content {
+    margin-right: 0;
+    margin-left: auto;
+}
+html[dir="rtl"] .about-grid,
+html[dir="rtl"] .plant-day-wrapper {
+    direction: rtl;
+}
+
+html[dir="ltr"] .about-grid,
+html[dir="ltr"] .plant-day-wrapper {
+    direction: ltr;
+}
+html[dir="rtl"] .hero-actions,
+html[dir="rtl"] .cta-actions {
+    flex-direction: row-reverse;
+}
+
+html[dir="ltr"] .hero-actions,
+html[dir="ltr"] .cta-actions {
+    flex-direction: row;
+}
+
+html[dir="rtl"] .stat-card {
+    text-align: right;
+}
+
+html[dir="ltr"] .stat-card {
+    text-align: left;
+}
+html[dir="rtl"] .service-card {
+    text-align: right;
+}
+
+html[dir="ltr"] .service-card {
+    text-align: left;
+}
+html[dir="rtl"] .explore-overlay {
+    justify-content: flex-end;
+    text-align: right;
+}
+
+html[dir="ltr"] .explore-overlay {
+    justify-content: flex-start;
+    text-align: left;
+}
+
+@keyframes heroZoom {
+    from {
+        transform: scale(1.03);
+    }
+    to {
+        transform: scale(1.09);
+    }
+}
+
+/* RESPONSIVE */
+@media (max-width: 991px) {
+    .home-section {
+        padding-block: var(--section-space-tablet);
+    }
+
+    .section-head {
+        max-width: 100%;
+        margin-bottom: 28px;
+    }
+
+    .section-title {
+        font-size: clamp(1.7rem, 3.4vw, 2.5rem);
+    }
+
+    .section-text {
+        max-width: 100%;
+        font-size: 0.94rem;
+        line-height: 1.85;
+    }
+
+    .hero-section {
+        min-height: auto;
+        padding: 128px 0 74px;
+    }
+
+    .hero-content {
+        max-width: 100%;
+        text-align: center !important;
+        margin-inline: auto;
+    }
+
+    .hero-content h1 {
+        font-size: clamp(2.3rem, 5vw, 4rem);
+    }
+
+    .hero-content p {
+        margin-inline: auto;
+        max-width: 720px;
+    }
+
+    .hero-actions {
+        justify-content: center !important;
+    }
+
+    html[dir="rtl"] .hero-actions {
+        justify-content: center !important;
+    }
+    .about-grid {
+        grid-template-columns: 1fr;
+        gap: 32px;
+        margin-bottom: 34px;
+    }
+
+    .about-copy,
+    .about-visual {
+        max-width: 100%;
+    }
+
+    .about-copy .section-text {
+        max-width: 100%;
+    }
+
+    .about-image-card img {
+        height: 460px;
+    }
+    .stats-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 16px;
+    }
+
+    .stat-card {
+        padding: 24px 18px;
+    }
+
+    .plant-day-wrapper {
+        grid-template-columns: 1fr;
+        gap: 28px;
+        padding: 26px;
+    }
+
+    .plant-day-content {
+        max-width: 100%;
+    }
+
+    .plant-day-image img {
+        min-height: 400px;
+    }
+
+    .services-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 20px;
+    }
+
+    .service-card,
+    .service-feature-card {
+        padding: 26px 22px;
+    }
+
+    .service-feature-card {
+        min-height: 270px;
+    }
+
+    .service-icon {
+        width: 62px;
+        height: 62px;
+        border-radius: 20px;
+        margin-bottom: 22px;
+        font-size: 1.3rem;
+    }
+
+    .service-number {
+        font-size: 2.8rem;
+        top: 22px;
+        inset-inline-end: 20px;
+    }
+
+    .service-arrow {
+        width: 46px;
+        height: 46px;
+        bottom: 20px;
+        inset-inline-end: 20px;
+    }
+
+
+    .explore-head {
+        gap: 22px !important;
+    }
+
+    .explore-more-btn {
+        min-width: 190px;
+        padding: 14px 20px;
+    }
+
+    .explore-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 20px;
+    }
+
+    .explore-card {
+        height: 360px;
+    }
+}
+
+@media (max-width: 767px) {
+    .home-section {
+        padding-block: var(--section-space-mobile);
+    }
+
+    .section-kicker {
+        font-size: 0.74rem;
+        margin-bottom: 8px;
+    }
+
+    .section-title {
+        font-size: clamp(1.55rem, 6vw, 2.1rem);
+        line-height: 1.15;
+    }
+
+    .section-text {
+        font-size: 0.91rem;
+        line-height: 1.8;
+    }
+    .hero-section {
+        padding: 116px 0 60px;
+    }
+
+    .hero-content h1 {
+        font-size: 2.2rem;
+        line-height: 1.08;
+    }
+
+    .hero-content p {
+        font-size: 0.92rem;
+        line-height: 1.85;
+    }
+
+    .hero-actions {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .hero-actions .planteer-btn,
+    .hero-actions .planteer-btn-outline {
+        width: 100%;
+    }
+    .about-grid {
+        gap: 24px;
+        margin-bottom: 28px;
+    }
+
+    .about-image-card img {
+        height: 360px;
+    }
+
+    .about-image-overlay {
+        inset-inline-start: 16px;
+        inset-inline-end: 16px;
+        bottom: 16px;
+        padding: 14px 16px;
+        border-radius: 18px;
+    }
+    .stats-grid {
+        grid-template-columns: 1fr;
+        gap: 14px;
+    }
+
+    .stat-card {
+        padding: 22px 18px;
+    }
+
+    .stat-card strong {
+        font-size: 1.8rem;
+    }
+    .plant-day-wrapper {
+        padding: 22px;
+        gap: 22px;
+        border-radius: 28px;
+    }
+
+    .plant-day-image img {
+        min-height: 320px;
+    }
+
+    .plant-day-name {
+        font-size: 1.2rem;
+    }
+
+    .plant-day-meta {
+        gap: 10px;
+    }
+
+    .plant-day-meta span {
+        width: 100%;
+        text-align: center;
+    }
+
+    .plant-day-content .planteer-btn {
+        width: 100%;
+    }
+    .services-grid {
+        grid-template-columns: 1fr;
+        gap: 18px;
+    }
+
+    .service-card,
+    .service-feature-card {
+        padding: 24px 20px;
+        border-radius: 24px;
+    }
+
+    .service-feature-card {
+        min-height: auto;
+        padding: 24px 20px 82px;
+    }
+
+    .service-card h3,
+    .service-feature-card h3 {
+        font-size: 1.02rem;
+        line-height: 1.45;
+    }
+
+    .service-card p,
+    .service-feature-card p {
+        font-size: 0.89rem;
+        line-height: 1.8;
+        max-width: 100%;
+    }
+
+    .service-icon {
+        width: 58px;
+        height: 58px;
+        border-radius: 18px;
+        margin-bottom: 18px;
+        font-size: 1.15rem;
+    }
+
+    .service-number {
+        font-size: 2.4rem;
+        top: 18px;
+        inset-inline-end: 18px;
+    }
+
+    .service-arrow {
+        width: 42px;
+        height: 42px;
+        bottom: 18px;
+        inset-inline-end: 18px;
+        font-size: 0.92rem;
+    }
+    .explore-head {
+        flex-direction: column !important;
+        align-items: stretch !important;
+        gap: 16px !important;
+    }
+
+    .explore-head-text {
+        max-width: 100%;
+    }
+
+    html[dir="ltr"] .explore-head-text,
+    html[dir="rtl"] .explore-head-text {
+        text-align: center !important;
+    }
+
+    html[dir="ltr"] .explore-more-btn,
+    html[dir="rtl"] .explore-more-btn {
+        margin: 0 auto !important;
+    }
+
+    .explore-grid {
+        grid-template-columns: 1fr;
+        gap: 18px;
+    }
+
+    .explore-card {
+        height: 320px;
+    }
+
+    .explore-overlay {
+        padding: 20px;
+    }
+
+    .explore-overlay h3 {
+        font-size: 1.15rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .home-section {
+        padding-block: 52px;
+    }
+
+    .section-head {
+        margin-bottom: 22px;
+    }
+
+    .section-title {
+        font-size: 1.45rem;
+        line-height: 1.18;
+    }
+
+    .section-text {
+        font-size: 0.87rem;
+        line-height: 1.75;
+    }
+
+    .hero-section {
+        padding: 108px 0 52px;
+    }
+
+    .hero-kicker {
+        padding: 8px 13px;
+        font-size: 0.68rem;
+    }
+
+    .hero-content h1 {
+        font-size: 1.9rem;
+    }
+
+    .hero-content p {
+        font-size: 0.88rem;
+        margin-bottom: 22px;
+    }
+
+    .planteer-btn,
+    .planteer-btn-outline {
+        min-height: 48px;
+        padding: 0 18px;
+        border-radius: 14px;
+        font-size: 0.92rem;
+    }
+
+    .about-image-card {
+        border-radius: 24px;
+    }
+
+    .about-image-card img {
+        height: 290px;
+    }
+
+    .about-image-overlay {
+        inset-inline-start: 12px;
+        inset-inline-end: 12px;
+        bottom: 12px;
+        padding: 12px 14px;
+        border-radius: 16px;
+    }
+
+    .about-image-overlay span {
+        font-size: 0.84rem;
+    }
+
+    .stat-card {
+        padding: 20px 16px;
+        border-radius: 22px;
+    }
+
+    .stat-card strong {
+        font-size: 1.65rem;
+    }
+
+    .stat-card span {
+        font-size: 0.86rem;
+    }
+    .plant-day-wrapper {
+        padding: 18px;
+        border-radius: 24px;
+    }
+
+    .plant-day-image {
+        border-radius: 22px;
+    }
+
+    .plant-day-image img {
+        min-height: 250px;
+    }
+
+    .plant-day-name {
+        font-size: 1.08rem;
+        margin-bottom: 10px;
+    }
+
+    .plant-day-meta span {
+        font-size: 0.8rem;
+        padding: 9px 12px;
+    }
+    .services-section {
+        padding-top: 52px;
+    }
+
+    .services-grid {
+        gap: 16px;
+        }
+
+    .service-card,
+    .service-feature-card {
+        border-radius: 22px;
+    }
+
+    .service-feature-card {
+        min-height: auto;
+        padding: 22px 18px 76px;
+    }
+
+    .service-icon {
+        width: 54px;
+        height: 54px;
+        border-radius: 16px;
+        margin-bottom: 16px;
+        font-size: 1.05rem;
+    }
+
+    .service-number {
+        top: 16px;
+        inset-inline-end: 16px;
+        font-size: 2.15rem;
+    }
+
+    .service-feature-card h3,
+    .service-card h3 {
+        font-size: 0.98rem;
+        margin-bottom: 8px;
+    }
+
+    .service-feature-card p,
+    .service-card p {
+        font-size: 0.85rem;
+        line-height: 1.75;
+    }
+
+    .service-arrow {
+        width: 40px;
+        height: 40px;
+        bottom: 16px;
+        inset-inline-end: 16px;
+        font-size: 0.88rem;
+    }
+
+
+    .explore-more-btn {
+        width: 100%;
+        min-width: 0;
+        padding: 13px 18px;
+        font-size: 0.9rem;
+        justify-content: center;
+    }
+
+    .explore-card {
+        height: 280px;
+        border-radius: 24px;
+    }
+
+    .explore-overlay {
+        padding: 18px;
+    }
+
+    .explore-overlay h3 {
+        font-size: 1.05rem;
+    }
+}

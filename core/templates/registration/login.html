@@ -1,0 +1,56 @@
+{% extends 'core/base.html' %}
+{% load i18n %}
+{% load static %}
+
+{% block title %}{% trans "Login" %} | Planteer{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/auth.css' %}">
+{% endblock %}
+
+{% block content %}
+<section class="auth-page">
+    <div class="auth-card">
+
+        <div class="auth-icon">
+            <i class="bi bi-person-circle"></i>
+        </div>
+
+        <h1>{% trans "Welcome Back" %}</h1>
+        <p>{% trans "Login to continue exploring Planteer" %}</p>
+
+        <form method="POST" class="auth-form">
+            {% csrf_token %}
+
+            {% if form.non_field_errors %}
+                <div class="auth-error">
+                    {{ form.non_field_errors }}
+                </div>
+            {% endif %}
+            
+            <div class="auth-field">
+                <label>{% trans "Email" %}</label>
+                {{ form.username }}
+                {{ form.username.errors }}
+            </div>
+
+
+            <div class="auth-field">
+                <label>{% trans "Password" %}</label>
+                {{ form.password }}
+                {{ form.password.errors }}
+            </div>
+
+            <button type="submit" class="auth-btn">
+                {% trans "Login" %}
+            </button>
+        </form>
+
+        <div class="auth-switch">
+            {% trans "Don't have an account?" %}
+            <a href="{% url 'core:register' %}">{% trans "Create Account" %}</a>
+        </div>
+
+    </div>
+</section>
+{% endblock %}

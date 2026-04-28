@@ -1,0 +1,194 @@
+{% extends 'core/base.html' %}
+{% load static %}
+{% load i18n %}
+
+{% block title %}{% trans "All Plants" %} | Planteer{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/view_plants.css' %}">
+{% endblock %}
+
+{% block content %}
+<section class="all-plants-page">
+    <div class="container">
+
+<section class="all-plants-hero">
+
+            <div class="all-plants-hero-content">
+                <h1>استكشف جميع النباتات</h1>
+                <p>
+                    تصفح النباتات المختلفة وقم بتخصيص نتائجك لاكتشاف الأنسب لك.
+                </p>
+            </div>
+            <div class="hero-image">
+                <img src="{% static 'images/wallpaper.png' %}" alt="plants">
+            </div>
+        </section>
+
+        <section class="all-plants-layout">
+            <aside class="plants-filters-sidebar">
+                <div class="filters-card">
+                    <div class="filters-head">
+                        <h3>{% trans "Filter Options" %}</h3>
+                        <p>{% trans "Refine your plant search" %}</p>
+                    </div>
+
+                    <form method="GET" class="filters-form">
+                        <div class="filter-group">
+                            <label for="search">{% trans "Search" %}</label>
+                            <input
+                                type="text"
+                                id="search"
+                                name="search"
+                                value="{{ search_query }}"
+                                placeholder="{% trans 'Search by plant name' %}"
+                            >
+                        </div>
+
+                        <div class="filter-group">
+                            <label for="category">{% trans "Category" %}</label>
+                            <select name="category" id="category">
+                                <option value="">{% trans "All Categories" %}</option>
+                                {% for value, label in categories %}
+                                    <option value="{{ value }}" {% if selected_category == value %}selected{% endif %}>
+                                        {{ label }}
+                                    </option>
+                                {% endfor %}
+                            </select>
+                        </div>
+
+                        <div class="filter-group">
+                            <label for="country">{% trans "Country" %}</label>
+                            <select name="country" id="country">
+                                <option value="">{% trans "All Countries" %}</option>
+                                {% for country in countries %}
+                                    <option value="{{ country.id }}" {% if selected_country == country.id|stringformat:"s" %}selected{% endif %}>
+                                        {{ country.name }}
+                                    </option>
+                                {% endfor %}
+                            </select>
+                        </div>
+
+                        <div class="filter-group">
+                            <label for="is_edible">{% trans "Edibility" %}</label>
+                            <select name="is_edible" id="is_edible">
+                                <option value="">{% trans "All" %}</option>
+                                <option value="true" {% if selected_is_edible == "true" %}selected{% endif %}>
+                                    {% trans "Edible" %}
+                                </option>
+                                <option value="false" {% if selected_is_edible == "false" %}selected{% endif %}>
+                                    {% trans "Non-Edible" %}
+                                </option>
+                            </select>
+                        </div>
+
+                        <div class="filters-actions">
+                            <button type="submit" class="filter-submit-btn">
+                                {% trans "Search" %}
+                            </button><a href="{% url 'plants:view_plants' %}" class="filter-reset-btn">
+                                {% trans "Clear All" %}
+                            </a>
+                        </div>
+                    </form>
+                </div>
+            </aside>
+
+            <div class="plants-results-area">
+                <div class="results-topbar">
+                    <div class="results-info">
+                        <h2>{% trans "Available Plants" %}</h2>
+                        <p>{{ page_obj.paginator.count }} {% trans "results" %}</p>
+                    </div>
+
+                    {% if user.is_staff %}
+                        <a href="{% url 'plants:plant_create' %}" class="add-plant-btn">
+                            {% trans "Add New Plant" %}
+                        </a>
+                    {% endif %}
+                </div>
+
+                <div class="plants-grid large-grid">
+                    {% for plant in page_obj %}
+                        <article class="plant-card fancy-plant-card">
+                            <div class="plant-card-top-image">
+                                {% if plant.image %}
+                                    <img src="{{ plant.image.url }}" alt="{{ plant.name }}">
+                                {% else %}
+                                    <img src="{% static 'images/default-plant.jpg' %}" alt="{{ plant.name }}">
+                                {% endif %}
+                            </div>
+
+                            <div class="plant-card-body">
+                                <div class="plant-badges">
+                                    <span class="plant-badge">{{ plant.get_category_display }}</span>
+
+                                    {% if plant.is_edible %}
+                                        <span class="plant-badge edible-badge">
+                                            {% trans "Edible" %}
+                                        </span>
+                                    {% endif %}
+                                </div>
+
+                                <h3 class="plant-name">{{ plant.name }}</h3>
+
+                                <p class="plant-about">
+                                    {{ plant.about|truncatewords:18 }}
+                                </p>
+
+                                <div class="plant-meta">
+                                    {% if plant.light_requirement %}
+                                        <span>{% trans "Light" %}: {{ plant.light_requirement }}</span>
+                                    {% endif %}
+
+                                    {% if plant.watering %}
+                                        <span>{% trans "Water" %}: {{ plant.watering }}</span>
+                                    {% endif %}
+                                </div>
+
+                                <div class="plant-actions">
+                                    <a href="{% url 'plants:plant_detail' plant.id %}" class="planteer-btn-outline">
+                                        {% trans "View Details" %}
+                                    </a>
+                                </div>
+                            </div>
+                        </article>
+                    {% empty %}
+                        <div class="plants-empty">
+                            <h3>{% trans "No plants found" %}</h3>
+                            <p>{% trans "Try changing the filters or adding new plants." %}</p>
+                        </div>
+                    {% endfor %}
+                </div>
+
+                {% if page_obj.paginator.num_pages > 1 %}
+                    <div class="pagination-wrap">
+                        <div class="pagination">
+                            {% if page_obj.has_previous %}
+                                <a href="?page={{ page_obj.previous_page_number }}&search={{ search_query }}&category={{ selected_category }}&country={{ selected_country }}&is_edible={{ selected_is_edible }}" class="page-btn">
+                                    ‹
+                                </a>{% endif %}
+
+                            {% for num in page_obj.paginator.page_range %}
+                                {% if num == page_obj.number %}
+                                    <span class="page-btn active">{{ num }}</span>
+                                {% else %}
+                                    <a href="?page={{ num }}&search={{ search_query }}&category={{ selected_category }}&country={{ selected_country }}&is_edible={{ selected_is_edible }}" class="page-btn">
+                                        {{ num }}
+                                    </a>
+                                {% endif %}
+                            {% endfor %}
+
+                            {% if page_obj.has_next %}
+                                <a href="?page={{ page_obj.next_page_number }}&search={{ search_query }}&category={{ selected_category }}&country={{ selected_country }}&is_edible={{ selected_is_edible }}" class="page-btn">
+                                    ›
+                                </a>
+                            {% endif %}
+                        </div>
+                    </div>
+                {% endif %}
+            </div>
+        </section>
+
+    </div>
+</section>
+{% endblock %}
