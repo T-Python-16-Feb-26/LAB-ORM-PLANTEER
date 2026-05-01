@@ -1,0 +1,153 @@
+{% extends 'main/base.html' %}
+
+{% block title %}{{ plant.name }} | Planteer{% endblock %}
+
+{% block content %}
+<section class="container section-space">
+    <div class="detail-layout">
+        <div class="detail-image">
+            <img src="{{ plant.image.url }}" alt="{{ plant.name }}">
+        </div>
+
+        <div class="detail-info">
+            <span class="mini-tag">{{ plant.category }}</span>
+            <div class="d-flex align-items-center justify-content-between">
+
+                <h1>{{ plant.name }}</h1>
+
+                {% if request.user.is_authenticated %}
+                <a href="{% url 'plants:bookmark' plant.id %}" class="bookmark-btn">
+
+                    {% if is_bookmarked %}
+                    <i class="bi bi-bookmark-fill"></i>
+                    {% else %}
+                    <i class="bi bi-bookmark"></i>
+                    {% endif %}
+
+                </a>
+                {% endif %}
+
+            </div>
+            <h4>Native Countries:</h4>
+            <div class="country-list">
+                {% for country in plant.countries.all %}
+                <a href="{% url 'plants:country_plants' country.id %}" class="country-link">
+                    {% if country.flag %}
+                    <img src="{{ country.flag.url }}" alt="{{ country.name }}">
+                    {% endif %}
+                    <span>{{ country.name }}</span>
+                </a>
+                {% endfor %}
+            </div>
+
+
+            <div class="detail-meta">
+                <p><strong>Category:</strong> {{ plant.category }}</p>
+                <p><strong>Is Edible:</strong> {{ plant.is_edible|yesno:"Yes,No" }}</p>
+            </div>
+
+            <div class="detail-text-block">
+                <h3>About</h3>
+                <p>{{ plant.about }}</p>
+            </div>
+
+            <div class="detail-text-block">
+                <h3>Used For</h3>
+                <p>{{ plant.used_for }}</p>
+            </div>
+
+            <div class="action-row">
+                {% if request.user.is_staff %}
+                <a href="{% url 'plants:update_plant' plant.id %}" class="secondary-btn">Update</a>
+                <a href="{% url 'plants:delete_plant' plant.id %}" class="danger-btn">Delete</a>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="container section-space">
+    <div class="review-layout">
+
+        <div class="review-form-box">
+            {% if request.user.is_authenticated %}
+            <span class="mini-tag">Add Comment</span>
+            <h2>Write a Comment</h2>
+            <form method="POST" action="{% url 'plants:add_comment_view' plant.id %}" class="site-form">
+                {% csrf_token %}
+                <p><textarea name="comment" placeholder="Write your comment..." required></textarea></p>
+                <button type="submit" class="primary-btn">Submit</button>
+            </form>
+            {% else %}
+            <div class="login-alert">
+                <p>Only registered users can add reviews</p>
+            </div>
+            {% endif %}
+        </div>
+
+        <div class="review-comments-box">
+            <span class="mini-tag">Comments</span>
+            <h2>All Comments</h2>
+            <div class="message-grid">
+                {% for comment in comments %}
+                <div class="message-card comment-card-with-avatar">
+
+                    <div class="comment-header">
+                        <a href="{% url 'accounts:user_profile_view' comment.user.username %}" class="comment-avatar-link">
+                            <img src="{{ comment.user.profile.avatar.url }}" alt="{{ comment.user.username }}" class="comment-avatar">
+                        </a>
+
+                        <div>
+                            <a href="{% url 'accounts:user_profile_view' comment.user.username %}" class="comment-user">
+                                {% if comment.user.first_name or comment.user.last_name %}
+                                {{ comment.user.first_name }} {{ comment.user.last_name }}
+                                {% else %}
+                                {{ comment.user.username }}
+                                {% endif %}
+                            </a>
+                        </div>
+                    </div>
+
+                    <p class="comment-text">{{ comment.comment }}</p>
+
+                    <p class="comment-date">
+                        {{ comment.created_at|date:"M. d, Y, h:i a" }}
+                    </p>
+
+                </div>
+                {% empty %}
+                <p>No reviews yet.</p>
+                {% endfor %}
+            </div>
+        </div>
+
+    </div>
+</section>
+
+<section class="container section-space related-wrapper">
+    <div class="section-header">
+        <div>
+            <span class="mini-tag">Related</span>
+            <h2>Related Plants</h2>
+        </div>
+    </div>
+
+    <div class="plant-grid">
+        {% for related in related_plants %}
+        <article class="plant-card">
+            <a href="{% url 'plants:plant_detail' related.id %}" class="plant-card-image">
+                <img src="{{ related.image.url }}" alt="{{ related.name }}">
+            </a>
+            <div class="plant-card-body">
+                <span class="plant-category">{{ related.category }}</span>
+                <h3>{{ related.name }}</h3>
+                <p>{{ related.about|truncatewords:10 }}</p>
+                <a href="{% url 'plants:plant_detail' related.id %}" class="card-link">View Details</a>
+            </div>
+        </article>
+        {% empty %}
+        <p>No related plants found.</p>
+        {% endfor %}
+    </div>
+</section>
+{% endblock %}
