@@ -1,0 +1,64 @@
+{% extends 'main/base.html' %}
+{% load static %}
+{% block title %}Update Plant Page{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <h1 class="mb-4">Update {{plant.name}}</h1>
+
+    <form method="post" action="{% url 'plant:update_plant_view' plant.id %}" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="mb-3">
+            <label>Name</label>
+            {{ form.name }}
+        </div>
+
+        <div class="mb-3">
+            <label>About</label>
+            {{ form.about }}
+        </div>
+
+        <div class="mb-3">
+            <label>Used for</label>
+            {{ form.used_for }}
+        </div>
+
+        <div class="mb-3">
+            <label>Category</label>
+            {{ form.category }}
+        </div>
+
+        <div class="mb-3">
+            <label>Is Edible</label>
+            {{ form.is_edible }}
+        </div>
+
+        <div class="mb-3">
+            <label>Image</label>
+            {{ form.image }}
+        </div>
+
+        <div class="mb-3">
+            <label>Countries:</label>
+        
+            <div class="countries-container">
+                {% for country in form.fields.countries.queryset %}
+                <div class="country-item">
+        
+                    <input type="checkbox" name="countries" value="{{ country.id }}" class="form-check-input"
+                        id="country_{{ country.id }}">
+        
+                    <label class="form-check-label" for="country_{{ country.id }}">
+                        <img src="{{ country.flag.url }}" width="25" height="15" style="object-fit: cover;">
+                        {{ country.name }}
+                    </label>
+        
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Update Plant</button>
+    </form>
+</div>
+{% endblock %}

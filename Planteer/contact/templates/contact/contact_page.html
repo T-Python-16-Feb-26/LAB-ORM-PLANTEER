@@ -1,0 +1,14 @@
+{% extends 'main/base.html' %}
+{% load static %}
+{% block title %} Contact Us{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <h1 class="mb-4">Contact Us</h1>
+    <form method="post" action="{% url 'contact:contact_view' %}" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="btn btn-primary" >Send Message</button>
+    </form>
+</div>
+{% endblock %}

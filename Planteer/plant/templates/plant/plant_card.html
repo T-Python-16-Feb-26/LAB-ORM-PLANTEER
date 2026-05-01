@@ -1,0 +1,21 @@
+<div class="row row-cols-1 row-cols-md-3 g-4 mt-5">
+    {% for plant in plants %}
+    <div class="col">
+        <div class="card h-100">
+            <img src="{{ plant.image.url }}" class="card-img-top" alt="...">
+            <div class="card-body text-start">
+                <a href="{% url 'plant:detail_plant_view' plant.id %}">
+                    <h5 class="card-title">{{ plant.name }}</h5>
+                </a>
+                <p class="card-text">{{ plant.about|truncatechars:100 }}</p>
+                <p class="card-text">{{ plant.get_category_display }}</p>
+                <p class="card-text"> Is Edible: {% if plant.is_edible %}
+                    Yes
+                    {% else %}
+                    No
+                    {% endif %}</p>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>

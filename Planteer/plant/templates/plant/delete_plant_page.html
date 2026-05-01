@@ -1,0 +1,33 @@
+{% extends 'main/base.html' %}
+{% load static %}
+{% block title %}Delete Plant{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <h2>Delete Plant</h2>
+    <p>Are you sure you want to delete {{ plant.name }}?</p>
+    <form method="post">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-danger">Yes, Delete</button>
+        <a href="{% url 'plant:detail_plant_view' plant.id %}" class="btn btn-secondary">Cancel</a>
+    </form>
+</div>
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">Delete Plant</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                Are you sure you want to delete {{ plant.name }} ?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <a href="{% url 'plant:delete_plant_view' plant.id %}" class="btn btn-danger">Delete</a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,79 @@
+{% extends 'main/base.html'%}
+
+
+{% block title %} profile for {{user.username}} {% endblock %}
+
+{% block content %}
+
+
+<div class="row">
+
+    <div class="col-2">
+
+        <img src="{{user.profile.avatar.url}}" class="w-100 rounded-circle" />
+        <h5>@{{user.username}}</h5>
+        <a href="{{user.profile.twitch_link}}" target="_blank"><i class="bi bi-twitch"></i></a>
+        <!-- {% if request.user == user %}
+        <a href="{% url 'accounts:update_user_profile' %}"><i class="bi bi-pencil-square"></i></a>
+        {% endif %} -->
+    </div>
+
+    <!-- PROFILE -->
+    <div class="col">
+        
+        <div class="d-flex flex-column gap-3">
+            <p>{{user.profile.about}}</p>
+
+
+            <hr />
+
+            <h3>{{user.first_name}} Comments</h3>
+
+            {% for comment in user.comments_set.all %}
+            <div class="d-flex flex-column p-3 shadow">
+                <div class="d-flex justify-content-between align-items-center">
+                    <h4>{{comment.user.first_name}} {{comment.user.last_name}}</h4>
+                    
+                </div>
+
+                <p>{{review.comment}}</p>
+                <a href="{% url 'games:game_detail_view' review.game.id %}">
+                    <h5>On Game: {{review.game.title }}</h5>
+                </a>
+                <p class="text-muted">{{review.created_at}}</p>
+            </div>
+            {% endfor %}
+
+
+            {% if request.user == user %}
+
+            <h3>Bookmarks</h3>
+
+            <div class="row row-cols-3 gap-4">
+
+                {% for bookmark in request.user.bookmark_set.all %}
+
+                <div class="col d-flex flex-column gap-2 align-items-center p-4 shadow">
+                    <img src="{{bookmark.game.poster.url}}" class="w-100" />
+                    <a href="{% url 'games:game_detail_view' bookmark.game.id %}">
+                        <h3>{{bookmark.game.title }}</h3>
+                    </a>
+                </div>
+
+                {% endfor %}
+
+            </div>
+
+            {% endif %}
+
+        </div>
+
+    </div>
+
+</div>
+
+
+
+
+
+{% endblock %}
