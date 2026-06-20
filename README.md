@@ -1,42 +1,62 @@
 # Planteer
 
-Planteer is a Django web application for managing plants and collecting visitor contact messages.
+Planteer aims to be a minimal, easy-to-run reference implementation for a plant catalogue site with user profiles, image uploads and simple moderation features. It is built with Django and uses SQLite for development by default.
 
-## Features
+## Highlights
 
-- Home page with latest plants
-- Account system (sign up, sign in, logout)
-- User profile page with avatar, bio, X link, and user comment history
-- Plant listing with filtering by category, country, and edible status
-- Plant search by keyword (name, about, used_for)
+- Public listing of plants with optional grid/list views
 - Plant detail page with related plants
-- Plant CRUD (staff-only for add, update, delete)
-- Comment system per plant (authenticated users only)
-- Comment deletion for comment authors and permitted users
-- Automatic profanity filtering for comment text
-- Contact form and contact message listing
-- Image upload support for plants and country flags
-- Bootstrap alert messages for user feedback
+- Search and filter plants by category, country, and edible status
+- Image upload for plants and country flags
+- Staff-only CRUD for adding/updating/deleting plants
+- Per-plant comment system (authenticated users)
+- User accounts with profile (avatar, bio, social media link)
+- Contact form and contact message listing for admins
+- Profanity filtering for comments (better-profanity)
 
-## Tech Stack
+## Screenshots
 
-- Python 3
-- Django 6.0.3
-- SQLite (default database)
-- Pillow 12.2.0 (image handling)
-- better-profanity 0.7.0
-- Bootstrap 5.3.3 (CDN)
+![home page](./assets/images/home.png)
 
-## Installation and Setup
+![plants page](./assets/images/plants.png)
 
-### 1. Clone the repository
+## Tech stack
+
+- Python 3.11+ (tested with Python 3.x)
+- Django 6.x
+- SQLite (development)
+- Pillow (image handling)
+- better-profanity (comment filtering)
+- Bootstrap 5 (front-end, via CDN)
+
+## Project structure
+
+- Planteer/ - Django project configuration (settings, urls, wsgi/asgi)
+- accounts/ - custom user/profile views, templates
+- main/ - homepage, contact form, site-wide templates
+- plants/ - plant models, views, templates, media handling
+- media/ - uploaded files (images, flags)
+- static/ - CSS and client assets
+- requirements.txt - Python dependencies
+
+## Requirements
+
+- Python 3.11+ (or recent 3.x)
+- pip
+- Recommended: a virtual environment (venv, virtualenv)
+
+## Quick start
+
+Follow these steps to get the project running locally for development.
+
+1. Clone the repository
 
 ```bash
 git clone https://github.com/FadhelAlmalki/planteer.git
 cd planteer
 ```
 
-### 2. Create and activate a virtual environment
+2. Create & activate a virtual environment
 
 Windows (PowerShell):
 
@@ -45,129 +65,36 @@ python -m venv venv
 .\venv\Scripts\Activate.ps1
 ```
 
-Windows (Git Bash):
-
-```bash
-python -m venv venv
-source venv/Scripts/activate
-```
-
-macOS/Linux:
+macOS / Linux:
 
 ```bash
 python3 -m venv venv
 source venv/bin/activate
 ```
 
-### 3. Install dependencies
+3. Install dependencies
 
 ```bash
 pip install -r requirements.txt
 ```
 
-### 4. Move to Django project directory
+4. Change into the Django project directory and apply migrations
 
 ```bash
 cd Planteer
-```
-
-### 5. Apply migrations
-
-```bash
 python manage.py migrate
 ```
 
-### 6. Run the development server
-
-```bash
-python manage.py runserver
-```
-
-Open in browser: http://127.0.0.1:8000/
-
-### Optional: create admin user
+5. (Optional) Create a superuser
 
 ```bash
 python manage.py createsuperuser
 ```
 
-Admin URL: http://127.0.0.1:8000/admin/
+6. Run the local dev server
 
-## Routes
+```bash
+python manage.py runserver
+```
 
-### Core
-
-- `/` - Home page
-- `/admin/` - Django admin
-
-### Main app
-
-- `/contact/` - Contact form
-- `/contact/messages/` - Contact messages list
-
-### Plants app
-
-- `/plants/all/` - List all plants
-- `/plants/new/` - Add a new plant (staff only)
-- `/plants/search/` - Search plants
-- `/plants/<plant_id>/detail/` - Plant details
-- `/plants/<plant_id>/update/` - Update plant (staff only)
-- `/plants/<plant_id>/delete/` - Delete plant (staff only)
-- `/plants/comments/add/<plant_id>/` - Add comment to plant
-- `/plants/comments/<comment_id>/delete/` - Delete a comment
-- `/plants/country/<country_id>/` - Plants by country
-
-### Accounts app
-
-- `/accounts/signup/` - Create account
-- `/accounts/signin/` - Sign in
-- `/accounts/logout/` - Log out
-- `/accounts/profile/<user_name>/` - Public user profile page
-
-## Data Models
-
-### Plant
-
-- `name` (CharField)
-- `about` (TextField)
-- `used_for` (TextField)
-- `image` (ImageField, uploaded to `images/`)
-- `category` (choices: `flower`, `tree`, `herb`)
-- `is_edible` (BooleanField)
-- `created_at` (DateTimeField)
-- `countries` (ManyToManyField -> Country)
-
-### Country
-
-- `name` (CharField)
-- `flag` (ImageField, uploaded to `flags/`)
-
-### Comment
-
-- `plant` (ForeignKey -> Plant)
-- `user` (ForeignKey -> Django User)
-- `text` (TextField)
-- `created_at` (DateTimeField)
-
-### Profile
-
-- `user` (OneToOneField -> Django User)
-- `about` (TextField, optional)
-- `avatar` (ImageField, uploaded to `images/avatars/`)
-- `x_link` (URLField, optional)
-
-### Contact
-
-- `first_name` (CharField)
-- `last_name` (CharField)
-- `email` (EmailField)
-- `message` (TextField)
-- `created_at` (DateTimeField)
-
-## Static and Media
-
-- Static URL: `static/`
-- Media URL: `media/`
-- Media files are served in development mode via project URL configuration.
-- Uploaded plant images are stored under `Planteer/media/images/`.
-- Uploaded flag images are stored under `Planteer/media/flags/`.
+Open http://127.0.0.1:8000/ in your browser.
