@@ -1,0 +1,103 @@
+{% extends 'main/base.html' %}
+{% load static %}
+
+{% block title %}Sign Up - Planteer{% endblock %}
+
+{% block content %}
+<section class="row justify-content-center">
+	<div class="col-12 col-md-8 col-lg-6">
+		<div class="card shadow-sm border-0">
+			<div class="card-body p-4 p-md-5">
+				<h1 class="h3 mb-4 text-center">Sign Up</h1>
+
+				<form method="post" action="{% url 'accounts:sign_up' %}" method="POST" enctype="multipart/form-data">
+					{% csrf_token %}
+
+					<div class="mb-3">
+						<label for="email" class="form-label">Email Address</label>
+						<input
+							type="email"
+							class="form-control"
+							id="email"
+							name="email"
+							placeholder="name@example.com"
+							required
+						>
+					</div>
+
+					<div class="mb-3">
+						<label for="username" class="form-label">Username</label>
+						<input
+							type="text"
+							class="form-control"
+							id="username"
+							name="username"
+							placeholder="Choose a username"
+							required
+						>
+					</div>
+
+					<div class="mb-3 mt-3">
+						<label for="password" class="form-label">Password</label>
+						<input
+							type="password"
+							class="form-control"
+							id="password"
+							name="password"
+							placeholder="Enter your password"
+							required
+						>
+					</div>
+
+					<div class="row g-3">
+						<div class="col-12 col-md-6">
+							<label for="first_name" class="form-label">First Name</label>
+							<input
+								type="text"
+								class="form-control"
+								id="first_name"
+								name="first_name"
+								placeholder="First name"
+								required
+							>
+						</div>
+
+						<div class="col-12 col-md-6">
+							<label for="last_name" class="form-label">Last Name</label>
+							<input
+								type="text"
+								class="form-control"
+								id="last_name"
+								name="last_name"
+								placeholder="Last name"
+								required
+							>
+						</div>
+					</div>
+
+					<textarea class="form-control mt-3" id="about" name="about" placeholder="Tell us about yourself..."></textarea>
+					
+					<div class="mb-3 mt-3">
+						<label for="url" class="form-label">X Link</label>
+						<input
+							type="url"
+							class="form-control"
+							id="url"
+							name="x_link"
+							placeholder="https://x.com/username"
+						>
+					</div>
+
+					<h5>Choose Avatar:</h5>
+					<input type="file" name="avatar" accept="images/*" class="form-control" />
+
+					<div class="d-grid mt-4">
+						<button type="submit" class="btn btn-success btn-lg">Sign Up</button>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+</section>
+
+{% endblock %}

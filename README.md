@@ -1,33 +1,100 @@
-# LAB-ORM-PLANTEER
+# Planteer
 
+Planteer aims to be a minimal, easy-to-run reference implementation for a plant catalogue site with user profiles, image uploads and simple moderation features. It is built with Django and uses SQLite for development by default.
 
-## Using what you learned, Create a new website called "Planteer" , this website has the following pages/paths:
-- Home page `/`
-- All Plants page : `plants/all/`
-- Plant Detail Page : `plants/<plant_id>/detail/`
-- Add new plant page : `plants/new/`
-- Update plant page : `plants/<plant_id>/update/`,
-- Delete Plant : `plants/<plant_id>/delete/`
-- Search Page : `plants/search/`
-- (Bonus) Contact Us page : `contact/`
-- (Bonus) Contact Us Messages page : `contact/messages/`
+## Highlights
 
+- Public listing of plants with optional grid/list views
+- Plant detail page with related plants
+- Search and filter plants by category, country, and edible status
+- Image upload for plants and country flags
+- Staff-only CRUD for adding/updating/deleting plants
+- Per-plant comment system (authenticated users)
+- User accounts with profile (avatar, bio, social media link)
+- Contact form and contact message listing for admins
+- Profanity filtering for comments (better-profanity)
 
-### Notes:
-- Use templates & template inheritance.
-- The website must be responsive (looks good on big and small screens)
-- In all plants page, user can filter by `category` and `is_edible`.
-- For the images, backgrounds, fonts you can use whatever you like. As for the content like categories,  make sure you add real plants with real plants images.
-- Use at least 2 apps, one main and one for the plants.
-- In Plant detail page , Add related plants (based on the same category, use filter !)
-- Do frontend and backend validation. 
-  
-## wireframe for the main pages
-<img width="1771" style="width:100%" alt="Screenshot 2024-03-19 at 2 27 18 PM" src="assets/main-wireframe.png">
+## Screenshots
 
-## Contact pages wireframe:
-<img width="1015" style="width:100%" alt="Screenshot 2024-03-19 at 3 22 17 PM" src="assets/contact-wireframe.png">
+![home page](./assets/images/home.png)
 
+![plants page](./assets/images/plants.png)
 
-## UML for the model `Plant` &  `Contact` Model 
-<img width="618" style="width:100%; height:auto;" alt="Screenshot 2024-03-19 at 3 16 01 PM" src="assets/uml.png">
+## Tech stack
+
+- Python 3.11+ (tested with Python 3.x)
+- Django 6.x
+- SQLite (development)
+- Pillow (image handling)
+- better-profanity (comment filtering)
+- Bootstrap 5 (front-end, via CDN)
+
+## Project structure
+
+- Planteer/ - Django project configuration (settings, urls, wsgi/asgi)
+- accounts/ - custom user/profile views, templates
+- main/ - homepage, contact form, site-wide templates
+- plants/ - plant models, views, templates, media handling
+- media/ - uploaded files (images, flags)
+- static/ - CSS and client assets
+- requirements.txt - Python dependencies
+
+## Requirements
+
+- Python 3.11+ (or recent 3.x)
+- pip
+- Recommended: a virtual environment (venv, virtualenv)
+
+## Quick start
+
+Follow these steps to get the project running locally for development.
+
+1. Clone the repository
+
+```bash
+git clone https://github.com/FadhelAlmalki/planteer.git
+cd planteer
+```
+
+2. Create & activate a virtual environment
+
+Windows (PowerShell):
+
+```powershell
+python -m venv venv
+.\venv\Scripts\Activate.ps1
+```
+
+macOS / Linux:
+
+```bash
+python3 -m venv venv
+source venv/bin/activate
+```
+
+3. Install dependencies
+
+```bash
+pip install -r requirements.txt
+```
+
+4. Change into the Django project directory and apply migrations
+
+```bash
+cd Planteer
+python manage.py migrate
+```
+
+5. (Optional) Create a superuser
+
+```bash
+python manage.py createsuperuser
+```
+
+6. Run the local dev server
+
+```bash
+python manage.py runserver
+```
+
+Open http://127.0.0.1:8000/ in your browser.

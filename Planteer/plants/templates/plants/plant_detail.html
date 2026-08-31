@@ -1,0 +1,147 @@
+{% extends 'main/base.html' %}
+{% load static %}
+
+{% block title %}{{ plant.name }} - Planteer{% endblock %}
+
+{% block content %}
+<section class="py-2">
+    <div class="row g-4 g-lg-5 align-items-start">
+        <div class="col-12 col-lg-6">
+            <div class="card border-0 shadow-sm overflow-hidden">
+                {% if plant.image %}
+                <img src="{{ plant.image.url }}" alt="{{ plant.name }}" class="img-fluid" style="height: 100%; min-height: 360px; object-fit: cover;">
+                {% else %}
+                <div class="bg-secondary-subtle d-flex align-items-center justify-content-center" style="min-height: 360px;">
+                    <span class="text-secondary">No image available</span>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+
+        <div class="col-12 col-lg-6">
+            <h1 class="h2 mb-2">{{ plant.name }}</h1>
+            <p class="text-muted mb-3">{{ plant.get_category_display }}</p>
+
+            <p class="mb-3">{{ plant.about }}</p>
+
+            <p class="mb-3">
+                <span class="fw-semibold">Is Edible:</span>
+                {% if plant.is_edible %}
+                <span class="badge text-bg-success">Yes</span>
+                {% else %}
+                <span class="badge text-bg-secondary">No</span>
+                {% endif %}
+            </p>
+
+            <p class="mb-3"><span class="fw-semibold">Used For:</span><br>{{ plant.used_for }}</p>
+            <div class="d-flex gap-2 mb-3 align-items-center flex-wrap">
+                <span class="fw-semibold">Countries of Origin:</span>
+                {% for country in plant.countries.all %}
+                <a href="{% url 'plants:plants_by_country_view' country.id %}" class="badge text-bg-light border text-dark d-flex align-items-center gap-2 text-decoration-none country-origin-link">
+                    {% if country.flag %}
+                    <img src="{{ country.flag.url }}" alt="{{ country.name }}" style="height: 20px; width: auto; object-fit: contain;">
+                    {% endif %}
+                    {{ country.name }}
+                </a>
+                {% empty %}
+                <span class="text-muted">No countries of origin specified.</span>
+                {% endfor %}
+            </div>
+
+            {% if request.user.is_staff and perms.plants.change_plant %}
+            <div class="d-flex flex-wrap gap-2">
+                <a href="{% url 'plants:update_plant_view' plant.id %}" class="btn btn-outline-dark">Update</a>
+                <form method="post" action="{% url 'plants:delete_plant_view' plant.id %}" class="d-inline" onsubmit="return confirm('Delete this plant?');">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-danger">Delete</button>
+                </form>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+
+    <hr class="my-4">
+    <h3>Comments ({{ comments.count }})</h3>
+
+    <div class="d-flex flex-column gap-3">
+        {% for comment in comments %}
+            <div class="position-relative d-flex flex-column p-3 shadow pe-5">
+                {% if user.is_authenticated %}
+                {% if user == comment.user or perms.plants.delete_comment %}
+                <form method="post" action="{% url 'plants:delete_comment_view' comment.id %}" class="position-absolute top-0 end-0 mt-2 me-2" onsubmit="return confirm('Delete this comment?');">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-sm btn-outline-danger">Delete</button>
+                </form>
+                {% endif %}
+                {% endif %}
+                <a href="{% url 'accounts:user_profile_view' comment.user.username %}" class="text-dark text-decoration-none fw-semibold"><h4>{{ comment.user.first_name }} {{ comment.user.last_name }}</h4></a>
+                <p>{{ comment.text }}</p>
+                <p class="text-muted mb-0">{{comment.created_at}}</p>
+                
+            </div>
+            
+        {% empty %}
+            <div class="card border-0 shadow-sm">
+                <div class="card-body text-center py-4">
+                    <p class="text-muted mb-0">No comments yet. Be the first to comment!</p>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+
+    {% if user.is_authenticated %}
+    <h3 class="mt-5">Add Comment</h3>
+    <form class="d-flex flex-column gap-2" action="{% url 'plants:add_comment_view' plant.id %}" method="post">
+        {% csrf_token %}
+        <textarea name="text" class="form-control" rows="3" placeholder="Your comment" required></textarea>
+        <input type="submit" class="btn btn-primary" value="Add Comment">
+    </form>
+    {% else %}
+    <div class="card border-0 shadow-sm mt-4">
+        <div class="card-body text-center py-4">
+            <p class="text-muted mb-0">Please <a href="{% url 'accounts:sign_in' %}">Sign In</a> to add a comment.</p>
+        </div>
+    </div>
+    {% endif %}
+
+    <div class="mt-5">
+        <div class="d-flex justify-content-between align-items-center mb-3">
+            <h2 class="h4 mb-0">Related Plants</h2>
+            <a href="{% url 'plants:all_plant_view' %}" class="btn btn-sm btn-outline-dark">View All</a>
+        </div>
+
+        {% if related_plants %}
+        <div class="row g-4">
+            {% for related_plant in related_plants %}
+            <div class="col-12 col-md-6 col-lg-4">
+                <div class="card h-100 border-0 shadow-sm">
+                    {% if related_plant.image %}
+                    <img src="{{ related_plant.image.url }}" class="card-img-top" alt="{{ related_plant.name }}" style="height: 200px; object-fit: cover;">
+                    {% else %}
+                    <div class="bg-secondary-subtle d-flex align-items-center justify-content-center" style="height: 200px;">
+                        <span class="text-secondary small">No image</span>
+                    </div>
+                    {% endif %}
+
+                    <div class="card-body d-flex flex-column">
+                        <h3 class="h6 card-title mb-1">{{ related_plant.name }}</h3>
+                        <p class="card-text text-muted mb-2">{{ related_plant.about|truncatewords:12 }}</p>
+                        <div class="mt-auto d-flex justify-content-between align-items-center">
+                            <span class="badge rounded-pill text-bg-light border text-dark">{{ related_plant.get_category_display }}</span>
+                            <a href="{% url 'plants:plant_detail_view' related_plant.id %}" class="btn btn-sm btn-dark">View</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        {% else %}
+        <div class="card border-0 shadow-sm">
+            <div class="card-body text-center py-4">
+                <p class="text-muted mb-0">No related plants found in this category yet.</p>
+            </div>
+        </div>
+        {% endif %}
+    </div>
+</section>
+{% endblock %}

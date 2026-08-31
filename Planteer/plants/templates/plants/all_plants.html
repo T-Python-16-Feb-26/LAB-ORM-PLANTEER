@@ -1,0 +1,19 @@
+{% extends 'main/base.html' %}
+{% load static %}
+
+{% block title %}All Plant - Planteer{% endblock %}
+
+{% block content %}
+<section class="py-2">
+	<div class="d-flex flex-wrap justify-content-between align-items-center gap-2 mb-4">
+		<h1 class="h2 mb-0">All Plants</h1>
+		<span class="badge text-bg-secondary">{{ plants|length }} plant{{ plants|length|pluralize }}</span>
+	</div>
+
+	{% include 'plants/all_plants_filter.html' %}
+
+    {% include 'plants/plants_grid.html' %}
+
+</section>
+
+{% endblock %}

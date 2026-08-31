@@ -1,0 +1,52 @@
+{% extends 'main/base.html' %}
+
+{% block title %} profile for {{ user.username }}{% endblock %}
+
+{% block content %}
+
+<div class="row">
+
+    <div class="col-2">
+
+        <img src="{{user.profile.avatar.url}}" class="w-100 rounded-circle" />
+        <h5>@{{ user.username }}</h5>
+
+    </div>
+
+    <div class="col">
+
+        <div class="d-flex flex-column gap-3">
+            <p>{{user.profile.about}}</p>
+            <a href="{{user.profile.x_link}}" target="_blank" class="bi bi-twitter-x text-decoration-none"></a>
+
+            <hr />
+
+            <h3>{{user.first_name}} Comments</h3>
+
+            {% for comment in user.comment_set.all %}
+            <div class="d-flex flex-column p-3 shadow">
+                <h4>{{ comment.user.first_name }} {{ comment.user.last_name }}</h4>
+                <p>{{ comment.text }}</p>
+                <a href="{% url 'plants:plant_detail_view' comment.plant.id %}" target="_blank" class="text-decoration-none"><h5>On Plant: {{ comment.plant.name }}</h5></a>
+                <p class="text-muted">{{comment.created_at}}</p>
+            </div>
+            {% empty %}
+            <div class="card border-0 shadow-sm">
+                <div class="card-body text-center py-4">
+                    <p class="text-muted mb-0">No comments yet. Be the first to comment!</p>
+                </div>
+            </div>
+            {% endfor %}
+
+        </div>
+    </div>
+
+
+
+
+
+
+</div>
+
+    
+{% endblock %}
